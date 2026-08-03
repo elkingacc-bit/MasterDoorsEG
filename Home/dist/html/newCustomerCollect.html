@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
- <center>
-  <div class="table-responsive-lg">
-   <table class="table table-sm table-borderless">
-    <thead class="text-center">
-     <th>Choose Customer</th>
-     <th></th>
-    </thead>
-    <tbody>
-     <td>
-      <input type="text" id="choosecustomersInvoice" name="choosecustomersInvoice" class="form-control" autocomplete="off" list="customerInvoice">
-      <datalist id="customerInvoice"></datalist> 
-    </td>
-    <td><button class="btn btn-info" id="customerAccount">Submit</button></td>
-    </tbody>
-   </table>
+<style>
+ #customerChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <center id="customerChooserForm">
+  <div class="row justify-content-center">
+   <div class="form-group col-md-6">
+    <label for="choosecustomersInvoice">Choose Customer</label>
+    <input type="text" id="choosecustomersInvoice" name="choosecustomersInvoice" class="form-control" autocomplete="off" list="customerInvoice">
+    <datalist id="customerInvoice"></datalist>
+   </div>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-info w-100" id="customerAccount">Submit</button>
+   </div>
   </div>
  </center>
  <script type="text/javascript">
@@ -22,20 +20,20 @@
    $("#customerInvoice").load("dist/php/allCustomerDDList.php");
    $("#customerAccount").click(function(){
     var data = {};
-    $("#customerInvoice option").each(function(i,el) {  
+    $("#customerInvoice option").each(function(i,el) {
      data[$(el).data("value")] = $(el).val();
     });
     console.log(data, $("#customerInvoice option").val());
     var suplierCode = $("#choosecustomersInvoice").val();
     var invCustomer = $('#customerInvoice [value="' + suplierCode + '"]').data('value');
-    var suplierChosenValideate = $('#customerInvoice [value="' + suplierCode + '"]');  
+    var suplierChosenValideate = $('#customerInvoice [value="' + suplierCode + '"]');
     if(suplierChosenValideate.length <= 0){
      alert('Please Choose Customer name from the list');
      $("#choosecustomersInvoice").css("border-color","red");
      setTimeout(function(){
-      $("#choosecustomersInvoice").css("border-color","#EBEBEB");               
-      $("#choosecustomersInvoice").val(''); 
-      $("#choosecustomersInvoice").focus();             
+      $("#choosecustomersInvoice").css("border-color","#EBEBEB");
+      $("#choosecustomersInvoice").val('');
+      $("#choosecustomersInvoice").focus();
      }, 1500);
     }
     else{
@@ -49,6 +47,6 @@
      });
     }
    });
-  }); 
+  });
  </script>
 </html>

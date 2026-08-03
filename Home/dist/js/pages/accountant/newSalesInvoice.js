@@ -11,7 +11,7 @@ $(document).ready(function(){
   var jopRef = $('#customersPoList [value="' + suplierCode + '"]').data('value');
   var suplierChosenValideate = $('#customersPoList [value="' + suplierCode + '"]');  
   if(suplierChosenValideate.length <= 0){
-   alert('Please Choose Customer name form the list');
+   alert('Please Choose Customer name from the list');
    $("#chooseCustomersPoList").css("border-color","red");
    setTimeout(function(){
     $("#chooseCustomersPoList").css("border-color","#EBEBEB");               

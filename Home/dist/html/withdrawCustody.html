@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html>
- <div class="card w-100">
+<style>
+ #withdrawCustodyForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #withdrawCustodyForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #withdrawCustodyForm .amountPreview{font-size:.85rem;color:#6c757d;margin-top:.25rem;}
+ #withdrawCustodyForm .invalid-feedback{display:none;}
+ #withdrawCustodyForm .is-invalid ~ .invalid-feedback,
+ #withdrawCustodyForm .invalid-feedback.show{display:block;}
+ #saveWithdrawCustody, #saveCashBackCustody{transition: transform .1s ease-in-out;}
+ #saveWithdrawCustody:active, #saveCashBackCustody:active{transform: scale(0.97);}
+</style>
+ <div class="card w-100" id="withdrawCustodyForm">
   <div class="card-body">
    <center>
-    <div class="table-responsive-lg">
-     <table class="table table-sm w-75 table-borderless">
-      <thead class="text-center">
-       <th>Choose Open Projects</th>
-       <th>Recipient</th>
-      </thead>
-      <tbody>
-       <td><select class="form-control" id="projectsCustodyList"></select></td>
-       <td><select class="form-control" id="withdrawCustodyRecipient"></select></td>
-      </tbody>
-     </table>
+    <div class="row">
+     <div class="form-group col-md-6">
+      <label for="projectsCustodyList">Choose Open Projects</label>
+      <select class="form-control" id="projectsCustodyList"></select>
+     </div>
+     <div class="form-group col-md-6">
+      <label for="withdrawCustodyRecipient">Recipient</label>
+      <select class="form-control" id="withdrawCustodyRecipient"></select>
+     </div>
+    </div>
+    <hr>
+    <div id="custodyData">
+     <div class="row">
+      <div class="form-group col-md-3">
+       <label for="withdrawCustodyDate">Date</label>
+       <input type="date" id="withdrawCustodyDate" class="form-control">
+       <div class="invalid-feedback">Date is required</div>
+      </div>
+      <div class="form-group col-md-3">
+       <label for="withdrawCustodyAmount">Amount</label>
+       <input type="number" class="form-control" id="withdrawCustodyAmount">
+       <div class="amountPreview"></div>
+       <div class="invalid-feedback">Amount is required</div>
+      </div>
+      <div class="form-group col-md-6">
+       <label for="withdrawCustodyDiscrebtion">Description</label>
+       <textarea class="form-control" id="withdrawCustodyDiscrebtion"></textarea>
+       <div class="invalid-feedback">Description is required</div>
+      </div>
+     </div>
      <hr>
-     <div id="custodyData">
-      <table class="table table-sm w-75 table-borderless">
-       <thead class="text-center">
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Description</th>
-       </thead>
-       <tbody>
-        <td><input type="date" id="withdrawCustodyDate" class="form-control"></td>
-        <td><input type="number" class="form-control" id="withdrawCustodyAmount"></td>
-        <td><textarea class="form-control" id="withdrawCustodyDiscrebtion"></textarea></td>    
-       </tbody>
-      </table>
-      <hr>
-      <button class="btn btn-success w-25" id="saveWithdrawCustody">Save</button>
-      <button class="btn btn-info w-25" id="saveCashBackCustody">Cash Back</button>
-      <div class="modal fade" id="custodyModalCashBack" aria-hidden="true" aria-labelledby="custodyModalData" tabindex="-1">
-       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-xl">
-        <div class="modal-content">
-         <div class="modal-header">
-          <h5 class="modal-title" id="custodyModalData">Cashback Custody</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">close</button>
-         </div>
-         <div class="modal-body dataCashBack"></div>
-         <div class="modal-footer msg"></div>
+     <button class="btn btn-success w-25" id="saveWithdrawCustody">Save</button>
+     <button class="btn btn-info w-25" id="saveCashBackCustody">Cash Back</button>
+     <div class="modal fade" id="custodyModalCashBack" aria-hidden="true" aria-labelledby="custodyModalData" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-xl">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h5 class="modal-title" id="custodyModalData">Cashback Custody</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">close</button>
         </div>
+        <div class="modal-body dataCashBack"></div>
+        <div class="modal-footer msg"></div>
        </div>
       </div>
      </div>

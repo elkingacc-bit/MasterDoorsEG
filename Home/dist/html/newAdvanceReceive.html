@@ -1,48 +1,67 @@
 <!DOCTYPE html>
 <html>
+<style>
+ #advanceReceiveForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #advanceReceiveForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #advanceReceiveForm .invalid-feedback{display:none;}
+ #advanceReceiveForm .is-invalid ~ .invalid-feedback,
+ #advanceReceiveForm .invalid-feedback.show{display:block;}
+ #saveAdvance{transition: transform .1s ease-in-out;}
+ #saveAdvance:active{transform: scale(0.97);}
+</style>
+ <div id="advanceReceiveForm">
  <div class="btn-group" role="group">
   <button class="btn btn-primary" id="advanceEmployees">Employee</button>
   <button class="btn btn-info" id="advanceWorkers">Staff</button>
  </div>
  <hr>
  <center>
-  <div class="table-responsive-lg">
-   <div class="employeesAdvance">
-    <h3><p>Add Advance For Employee</p></h3>
-    <br>
-    <table class="table table-sm w-100 table-borderless">
-     <thead>
-      <th>Name</th>
-      <th>Installment Value</th>
-      <th>Date</th>
-     </thead>
-     <tbody>
-      <td><select id="employee" class="form-control"></select></td>
-      <td><input type="number" id="monthInstallment" placeholder="Month Installment" class="form-control"></td>
-      <td><input type="date" id="employeeDate" class="form-control"></td>
-     </tbody>
-    </table>	
+  <div class="employeesAdvance">
+   <h3><p>Add Advance For Employee</p></h3>
+   <br>
+   <div class="row">
+    <div class="form-group col-md-4">
+     <label for="employee">Name</label>
+     <select id="employee" class="form-control"></select>
+     <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="form-group col-md-4">
+     <label for="monthInstallment">Installment Value</label>
+     <input type="number" id="monthInstallment" placeholder="Month Installment" class="form-control">
+     <div class="invalid-feedback">Installment value is required</div>
+    </div>
+    <div class="form-group col-md-4">
+     <label for="employeeDate">Date</label>
+     <input type="date" id="employeeDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
+    </div>
    </div>
-   <div class="workersAdvance"> 
-    <h3><p>Add Advance For Staff</p></h3>
-    <br>
-    <table class="table table-sm w-100 table-borderless">
-     <thead>
-      <th>Name</th>
-      <th>Installment Value</th>
-      <th>Date</th>
-     </thead>
-     <tbody>
-      <td><select id="workers" class="form-control"></select></td>
-      <td><input type="number" id="weekInstallment" placeholder="Week Installment" class="form-control"></td>
-      <td><input type="date" id="workersDate" class="form-control"></td>
-     </tbody>
-    </table>
+  </div>
+  <div class="workersAdvance">
+   <h3><p>Add Advance For Staff</p></h3>
+   <br>
+   <div class="row">
+    <div class="form-group col-md-4">
+     <label for="workers">Name</label>
+     <select id="workers" class="form-control"></select>
+     <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="form-group col-md-4">
+     <label for="weekInstallment">Installment Value</label>
+     <input type="number" id="weekInstallment" placeholder="Week Installment" class="form-control">
+     <div class="invalid-feedback">Installment value is required</div>
+    </div>
+    <div class="form-group col-md-4">
+     <label for="workersDate">Date</label>
+     <input type="date" id="workersDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
+    </div>
    </div>
   </div>
   <input value="0" id="advanceType">
   <button class="btn btn-success" id="saveAdvance">Save</button>
   <div class="msg"></div>
  </center>
+ </div>
  <script src="dist/js/pages/accountant/addNewAdvance.js"></script>
 </html>

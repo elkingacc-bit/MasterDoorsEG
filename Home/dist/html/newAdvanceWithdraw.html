@@ -1,52 +1,80 @@
 <!DOCTYPE html>
 <html>
+<style>
+ #advanceWithdrawForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #advanceWithdrawForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #advanceWithdrawForm .amountPreview{font-size:.85rem;color:#6c757d;margin-top:.25rem;}
+ #advanceWithdrawForm .invalid-feedback{display:none;}
+ #advanceWithdrawForm .is-invalid ~ .invalid-feedback,
+ #advanceWithdrawForm .invalid-feedback.show{display:block;}
+ #saveAdvance{transition: transform .1s ease-in-out;}
+ #saveAdvance:active{transform: scale(0.97);}
+</style>
+ <div id="advanceWithdrawForm">
  <div class="btn-group" role="group">
   <button class="btn btn-primary" id="advanceEmployees">Employee</button>
   <button class="btn btn-info" id="advanceWorkers">Staff</button>
  </div>
  <hr>
  <center>
-  <div class="table-responsive-lg">
  	 <div class="employeesAdvance">
  	  <h3><p>Add Advance For Employee</p></h3>
-    <br>
-    <table class="table table-sm w-100 table-borderless">
-     <thead>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Installment</th>
-      <th>Date</th>
-     </thead>
-     <tbody>
-      <td><select id="employee" class="form-control"></select></td>
-      <td><input type="number" id="employeeAmount" placeholder="Amounts" class="form-control"></td>
-      <td><input type="number" id="monthInstallment" placeholder="Month Installment" class="form-control"></td>
-      <td><input type="date" id="employeeDate" class="form-control"></td>
-     </tbody>
-    </table>	
+   <br>
+   <div class="row">
+    <div class="form-group col-md-3">
+     <label for="employee">Name</label>
+     <select id="employee" class="form-control"></select>
+     <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="employeeAmount">Amount</label>
+     <input type="number" id="employeeAmount" placeholder="Amounts" class="form-control">
+     <div class="amountPreview"></div>
+     <div class="invalid-feedback">Amount is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="monthInstallment">Installment</label>
+     <input type="number" id="monthInstallment" placeholder="Month Installment" class="form-control">
+     <div class="invalid-feedback">Installment is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="employeeDate">Date</label>
+     <input type="date" id="employeeDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
+    </div>
+   </div>
  	 </div>
-   <div class="workersAdvance"> 
-    <h3><p>Add Advance For Staff</p></h3>
-    <br>
-    <table class="table table-sm w-100 table-borderless">
-     <thead>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Installment</th>
-      <th>Date</th>
-     </thead>
-     <tbody>
-      <td><select id="workers" class="form-control"></select></td>
-      <td><input type="number" id="workersAmount" placeholder="Amounts" class="form-control"></td>
-      <td><input type="number" id="weekInstallment" placeholder="Week Installment" class="form-control"></td>
-      <td><input type="date" id="workersDate" class="form-control"></td>
-     </tbody>
-    </table>
+  <div class="workersAdvance">
+   <h3><p>Add Advance For Staff</p></h3>
+   <br>
+   <div class="row">
+    <div class="form-group col-md-3">
+     <label for="workers">Name</label>
+     <select id="workers" class="form-control"></select>
+     <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="workersAmount">Amount</label>
+     <input type="number" id="workersAmount" placeholder="Amounts" class="form-control">
+     <div class="amountPreview"></div>
+     <div class="invalid-feedback">Amount is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="weekInstallment">Installment</label>
+     <input type="number" id="weekInstallment" placeholder="Week Installment" class="form-control">
+     <div class="invalid-feedback">Installment is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="workersDate">Date</label>
+     <input type="date" id="workersDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
+    </div>
    </div>
   </div>
   <input value="0" id="advanceType">
   <button class="btn btn-success" id="saveAdvance">Save</button>
-  <script src="dist/js/pages/accountant/addNewAdvanceReturn.js"></script>
   <div class="msg"></div>
  </center>
+ </div>
+ <script src="dist/js/pages/accountant/addNewAdvanceReturn.js"></script>
 </html>

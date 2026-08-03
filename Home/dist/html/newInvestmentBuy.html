@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
- <div class="table-responsive-lg">
+<style>
+ #investmentBuyForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #investmentBuyForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #investmentBuyForm .amountPreview{font-size:.85rem;color:#6c757d;margin-top:.25rem;}
+ #investmentBuyForm .invalid-feedback{display:none;}
+ #investmentBuyForm .is-invalid ~ .invalid-feedback,
+ #investmentBuyForm .invalid-feedback.show{display:block;}
+ #saveInvestment{transition: transform .1s ease-in-out;}
+ #saveInvestment:active{transform: scale(0.97);}
+</style>
+ <div class="table-responsive-lg" id="investmentBuyForm">
   <h3><p>Buy New Investment </p></h3>
   <center>
    <br>
-   <table class="table table-sm w-100 table-borderless">
-    <thead>
-     <th>Date</th>
-     <th>Amount</th>
-     <th>Quantity</th>
-     <th>investmentGroup</th>
-     <th>Description</th>
-     <th></th>
-    </thead>
-    <tbody>
-     <td class="col-2"><input type="date" id="investmentDate" class="form-control"></td>
-     <td class="col-2"><input type="number" id="investmentAmount" class="form-control"></td>
-     <td class="col-1"><input type="number" id="investmentQun" class="form-control"></td>
-     <td class="col-2"><select id="investmentGroup" class="form-control">
+   <div class="row">
+    <div class="form-group col-md-2">
+     <label for="investmentDate">Date</label>
+     <input type="date" id="investmentDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
+    </div>
+    <div class="form-group col-md-2">
+     <label for="investmentAmount">Amount</label>
+     <input type="number" id="investmentAmount" class="form-control">
+     <div class="amountPreview"></div>
+     <div class="invalid-feedback">Amount is required</div>
+    </div>
+    <div class="form-group col-md-1">
+     <label for="investmentQun">Quantity</label>
+     <input type="number" id="investmentQun" class="form-control">
+     <div class="invalid-feedback">Quantity is required</div>
+    </div>
+    <div class="form-group col-md-2">
+     <label for="investmentGroup">Category</label>
+     <select id="investmentGroup" class="form-control">
       <option value="">Choose</option>
       <option value="10">أراضى</option>
       <option value="11">عقارات</option>
@@ -25,11 +41,18 @@
       <option value="13">ذهب</option>
       <option value="14">عملات</option>
       <option value="15">سيارات</option>
-     </select></td>
-     <td class="col-4"><input type="text" class="form-control" id="investmentDescription"></td>
-     <td class="col-1"><button class="btn btn-success" id="saveInvestment">Save</button></td>
-    </tbody>
-   </table>	
+     </select>
+     <div class="invalid-feedback">Category is required</div>
+    </div>
+    <div class="form-group col-md-4">
+     <label for="investmentDescription">Description</label>
+     <input type="text" class="form-control" id="investmentDescription">
+     <div class="invalid-feedback">Description is required</div>
+    </div>
+    <div class="form-group col-md-1 d-flex align-items-end">
+     <button class="btn btn-success w-100" id="saveInvestment">Save</button>
+    </div>
+   </div>
    <div class="msg"></div>
   </center>
  </div>
