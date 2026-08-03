@@ -61,43 +61,6 @@
 
 
 
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     // Get Collect Data
-     $sqlStatment="SELECT `transactionNumber`, `transactionsDate`, `debtor`, `creditor`, `description` FROM `financialTransactions` WHERE `transactionCode` = $tCode";
-     $queryStatment=mysqli_query($link,$sqlStatment);    
-     while($statment=mysqli_fetch_assoc($queryStatment)){
-      // Gat Cash Data
-      $entryDate=$statment['transactionsDate'];
-      $entryNum=$statment['transactionNumber'];
-      $sqlStatment2="SELECT `transactionCode` FROM `financialTransactions` 
-      WHERE `transactionNumber`= $entryNum AND `transactionsDate` = '$entryDate' AND `transactionCode` != $tCode";
-      $queryStatment2=mysqli_query($link,$sqlStatment2);    
-      $statment2=mysqli_fetch_assoc($queryStatment2);
-      $cashType=$statment2['transactionCode'];
-     
-      // Get Casher
-      $sqlFirstLevelData="SELECT `accountName` FROM `accountantcode` WHERE `accountCode` = $cashType";
-      $queryFirstLevelData=mysqli_query($link,$sqlFirstLevelData)or die("ERROR LOA_S:01");
-      $firstLevel=mysqli_fetch_assoc($queryFirstLevelData);
-      
-      $casher=$firstLevel['accountName'];
-  */    
 
    ?>
   </tbody>

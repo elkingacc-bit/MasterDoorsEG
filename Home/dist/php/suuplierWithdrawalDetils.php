@@ -1,7 +1,7 @@
 <div class="table-responsive-lg text-center">
  <table class='table table-sm table-bordered table-striped'>
   <thead class='bg-info'>
-   <th>Date2</th>
+   <th>Date</th>
    <th>Amount</th>
    <th>Description</th>
    <th>From</th>

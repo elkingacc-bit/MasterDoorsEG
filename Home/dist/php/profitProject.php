@@ -85,7 +85,7 @@
       <td>$poSN </td>
       <td></td>
       <td>".number_format(($itemsData['purValue']), 2)."</td> 
-      <td>Manufactur</td>
+      <td>Manufacture</td>
       <td>Purchases</td>
      </tr>";      
     }

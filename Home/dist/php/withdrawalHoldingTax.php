@@ -57,7 +57,7 @@
    ";
   }
   else{
-   echo "Can`t Make HoldingTax For Invoice Not Include VAT";
+   echo "Can't Make HoldingTax For Invoice Not Include VAT";
   }
  }
 ?>

@@ -55,7 +55,7 @@
     <th>Valid</th>
     <th>pay</th>
     <th>Remaining</th>
-    <th>Discription</th>
+    <th>Description</th>
    </thead>
    <tbody>
     <?php

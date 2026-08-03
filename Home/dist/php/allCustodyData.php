@@ -9,7 +9,7 @@
    <th class="col-1">Date</th>
    <th class="col-2">Withdrawal</th>
    <th class="col-2">Cashback</th>
-   <th class="col-4">Discription</th>
+   <th class="col-4">Description</th>
   </thead>
   <tbody>
    <?php

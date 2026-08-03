@@ -43,7 +43,7 @@
     <th>Date</th>
     <th>Treasury</th>
     <th>Amount</th>
-    <th>Discrebtion</th>
+    <th>Description</th>
    </thead>
    <tbody>
     <td><input type="date" class="form-control" id="paymentDate"></td>
@@ -108,10 +108,10 @@
     alert ("Do'not Leave Amount Blank.");
    }  
    else if(discrebtion == ''){
-    alert ("Do'not Leave Discription Blank.");
+    alert ("Do'not Leave Description Blank.");
    }
    else if(cash == ''){
-    alert ("Do'not Leave Trasuty Blank.");
+    alert ("Do'not Leave Treasury Blank.");
    }
   /* else if(Number(amount) > Number(dueAmount)){
     alert ("Amount Over Than Statement");
