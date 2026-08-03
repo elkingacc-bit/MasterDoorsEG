@@ -7,7 +7,7 @@
    <th> Supplier </th>
    <th class="col-2">Amount</th>
    <th class="col-2">Paid</th>
-   <th class="col-2">Remining</th>
+   <th class="col-2">Remaining</th>
    <th class="col-1">Type</th>
    <th class="col-1">Action</th>
   </thead>
@@ -17,28 +17,19 @@
     include_once("connection.php");
     $stutsNum=$_POST['repType'];
     if($stutsNum == 1){
-     $sqlPurOffer="SELECT `purchasesorderid`,`supplierid`,`purchasesOrderNum`, `jobref`,`VAT`,`totalAmout`, `poId`,`purchasesOrderRef` FROM `purchasesorder`
-     WHERE `purchasesOrderNum` NOT IN (SELECT `supplierOrderNum` FROM `supplierInvoice`)";
+     // account/customer name resolved via JOIN instead of 2 extra queries per row
+     $sqlPurOffer="SELECT po.`purchasesorderid`,po.`supplierid`,po.`purchasesOrderNum`, po.`jobref`,po.`VAT`,po.`totalAmout`, po.`poId`,po.`purchasesOrderRef`,
+     j.`projectName`, ac.`codename` as cName
+     FROM `purchasesorder` po
+     LEFT JOIN `job` j ON j.`jobId` = po.`jobref`
+     LEFT JOIN `allcode` ac ON ac.`code` = j.`customer`
+     WHERE po.`purchasesOrderNum` NOT IN (SELECT `supplierOrderNum` FROM `supplierInvoice`)";
      $queryPurOffer=mysqli_query($link,$sqlPurOffer)or die("ERROR_SNSC : 01");
      if(mysqli_num_rows($queryPurOffer) > 0 ){
       while($manufacturInv=mysqli_fetch_assoc($queryPurOffer)){
        $orderId=$manufacturInv['purchasesorderid'];
-       $jopId=$manufacturInv['jobref'];
-$sqlProjectName="SELECT `projectName`, `customer` FROM `job` WHERE `jobId` = $jopId";
-$queryProjectName=mysqli_query($link,$sqlProjectName)or die("ERROR_SNSC : 01");
-if($projectData=mysqli_fetch_assoc($queryProjectName)){
-
-$projectName=$projectData['projectName'];
-$projectCustomer=$projectData['customer'];
-}
-$sqlCustomerName="SELECT `codename` FROM `allcode` WHERE `code` = $projectCustomer";
-$queryCustomerName=mysqli_query($link,$sqlCustomerName)or die("ERROR_SNSC : 01");
-if($customerData=mysqli_fetch_assoc($queryCustomerName)){
-    $cName=$customerData['codename'];
-}
-else{
-    $cName="";
-}
+       $projectName=$manufacturInv['projectName'];
+       $cName=$manufacturInv['cName'] ?? "";
 
        echo"<tr>
         <td>$manufacturInv[purchasesOrderNum] </td>
@@ -59,32 +50,24 @@ else{
      }
     }
     if($stutsNum == 5){
-     // Paid Invoice  
-     $sqlSupplierStockInv="SELECT `suppliersInvoiceId`,`suppliersInvoiceNumber`,`supplierOrderNum`,`suppliersInvoiceDate`,`supplierCode`,
-     `suppliersInvoiceType`,`suppliersInvoiceSupTotal`,`suppliersInvoiceDiscount`,`suppliersInvoiceVat`,`suppliersInvoiceTotal`,`paidAmount`,`paidType`,
-     `paiedStuts` FROM `supplierInvoice` 
-     WHERE `suppliersInvoiceTotal` != `paidAmount`";
+     // Paid Invoice - project name and supplier name resolved via JOIN instead of
+     // up to 2 extra queries per row
+     $sqlSupplierStockInv="SELECT si.`suppliersInvoiceId`,si.`suppliersInvoiceNumber`,si.`supplierOrderNum`,si.`suppliersInvoiceDate`,si.`supplierCode`,
+     si.`suppliersInvoiceType`,si.`suppliersInvoiceSupTotal`,si.`suppliersInvoiceDiscount`,si.`suppliersInvoiceVat`,si.`suppliersInvoiceTotal`,si.`paidAmount`,si.`paidType`,
+     si.`paiedStuts`, j.`projectName`, sup.`suppliername`
+     FROM `supplierInvoice` si
+     LEFT JOIN `purchasesorder` po ON po.`purchasesOrderNum` = si.`supplierOrderNum`
+     LEFT JOIN `job` j ON j.`jobId` = po.`jobref`
+     LEFT JOIN `allsuppliers` sup ON sup.`suppliercode` = si.`supplierCode`
+     WHERE si.`suppliersInvoiceTotal` != si.`paidAmount`";
      $querySupplierStockInv=mysqli_query($link,$sqlSupplierStockInv)or die("ERROR_SNSC : 01");
      if(mysqli_num_rows($querySupplierStockInv) > 0 ){
       while($supplierStockInv=mysqli_fetch_assoc($querySupplierStockInv)){
        $invoiceType=$supplierStockInv['paiedStuts'];
        $invId=$supplierStockInv['suppliersInvoiceId'];
-
-$soNum=$supplierStockInv['supplierOrderNum'];
-$sqlPurOffer="SELECT `jobref` FROM `purchasesorder` WHERE `purchasesOrderNum` = '$soNum'";
-$queryPurOffer=mysqli_query($link,$sqlPurOffer)or die("ERROR_SNSC : 01");
-$manufacturInv=mysqli_fetch_assoc($queryPurOffer);
-
+       $projectName=$supplierStockInv['projectName'];
 
        if($invoiceType == 1){
-
-$jopId2= $manufacturInv['jobref'];
-$sqlProjectName2="SELECT `projectName` FROM `job` WHERE `jobId` = $jopId2";
-$queryProjectName2=mysqli_query($link,$sqlProjectName2)or die("ERROR_SNSC : 01");
-$projectData2=mysqli_fetch_assoc($queryProjectName2);
-$projectName=$projectData2['projectName'];
-
-
         $typeName = "Manufactur";
         $button="<button class='btn btn-link PaiedsuppliersInvoiceData' value='$invId' data-toggle='tooltip' data-placement='left' title='Paid'>
          <i class='far fa-money-bill-alt nav-icon'  aria-hidden='true' style='font-size:20px;color:#0275d8'></i>
@@ -104,14 +87,11 @@ $projectName=$projectData2['projectName'];
        $invAmount=$supplierStockInv['suppliersInvoiceTotal'];
        $invPaid=$supplierStockInv['paidAmount'];
        $valid=($invAmount - $invPaid);
-       $sqlStockSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $supplierStockInv[supplierCode];";
-       $queryStockSupplierData=mysqli_query($link,$sqlStockSupplier)or die("ERROR_SNSC : 01");
-       $supplierStockData=mysqli_fetch_assoc($queryStockSupplierData);
        echo"<tr>
         <td> $button2 </td>
         <td>$supplierStockInv[suppliersInvoiceDate]</td>
         <td>$jop</td>
-        <td>$supplierStockData[suppliername]</td>
+        <td>$supplierStockInv[suppliername]</td>
         <td>".number_format(($invAmount), 2)."</td> 
         <td><button class='btn btn-link showPaied' value='$invId'>".number_format(($invPaid), 2)."</button></td> 
         <td>".number_format(($valid), 2)."</td>
@@ -125,127 +105,6 @@ $projectName=$projectData2['projectName'];
 
 
 
-    //Old
-/*
-    $sqlSupplierInoiceData="SELECT `OIId`,`ItemRowId`,`qty`,`price`,`status`,`SOIdRef`,`soType`,`OIRef` FROM `supporderitems` 
-    WHERE `status` = $stutsNum GROUP BY `SOIdRef`";
-    $querySupplierInoiceData=mysqli_query($link,$sqlSupplierInoiceData)or die("ERROR_SNSC : 02");
-    while($supplierInoiceGetData=mysqli_fetch_assoc($querySupplierInoiceData))
-    {
-     $orderId=$supplierInoiceGetData['SOIdRef'];
-     $sqlSupplierOrder="SELECT `SOId`,`SuppCode`,`OrderNumber`,`date`,`deliveryDate`,`totalAmout`,`custPOId`, `SORef` FROM `supplierorder` WHERE  `SOId` = $orderId";
-     $querySupplierOrderData=mysqli_query($link,$sqlSupplierOrder)or die("ERROR_SNSC : 01");
-     $supplierOrderData=mysqli_fetch_assoc($querySupplierOrderData);
-     $poId2=$supplierOrderData['custPOId'];  
-     $sqlPurOffer2="SELECT `purchasesOrderNum` FROM `purchasesorder` WHERE `poId` = $poId2 ";
-     $queryPurOffer2=mysqli_query($link,$sqlPurOffer2)or die("ERROR_SNSC : 01");
-     if(mysqli_num_rows($queryPurOffer2) > 0)
-     {
-      $purOfferData2=mysqli_fetch_assoc($queryPurOffer2);
-      $newPoNum=$purOfferData2['purchasesOrderNum'];
-     }
-     else
-     {
-      $newPoNum=$supplierOrderData['OrderNumber'];
-     }
-     $supplierCode=$supplierOrderData['SuppCode'];
-     $poNum=$supplierOrderData['OrderNumber'];
-     $poId=$supplierOrderData['custPOId'];
-     $sqlSupplierInv="SELECT `suppliersInvoiceId`,`suppliersInvoiceTotal`, `paidAmount` FROM `supplierInvoice` WHERE `supplierOrderNum` = '$newPoNum'";
-     $querySupplierInv=mysqli_query($link,$sqlSupplierInv)or die("ERROR_SNSC : 01");
-     if(mysqli_num_rows($querySupplierInv)>0)
-     {
-      $supplierInv=mysqli_fetch_assoc($querySupplierInv);
-      $invId=$supplierInv['suppliersInvoiceId'];
-      $totalInv=$supplierInv['suppliersInvoiceTotal'];
-      $totalPaid=$supplierInv['paidAmount'];
-      $btn2="<button class='btn btn-link showPaied' value='$invId'>".number_format(($totalPaid), 2)."</button>";
-     }
-     else
-     {
-      $totalInv=0;
-      $totalPaid=0;
-      $btn2=number_format(($totalPaid), 2);
-     }
-     $remining=($totalInv - $totalPaid);
-     $sqlSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $supplierCode";
-     $querySupplierData=mysqli_query($link,$sqlSupplier)or die("ERROR_SNSC : 01");
-     $supplierData=mysqli_fetch_assoc($querySupplierData);
-     $sqlPurOffer="SELECT `supplierid`,`purchasesOrderNum`, `jobref`,`VAT`,`totalAmout`, `poId`,`purchasesOrderRef` FROM `purchasesorder` WHERE `poId` = $poId ";
-     $queryPurOffer=mysqli_query($link,$sqlPurOffer)or die("ERROR_SNSC : 01");
-     if(mysqli_num_rows($queryPurOffer) > 0 )
-     {
-      if($supplierInoiceGetData['status'] == 1 )
-      {
-       $stuts = "Wating Manufactur Invoice";
-       $button="<button class='btn btn-link suppliersInvoiceData' value='$orderId' data-toggle='tooltip' data-placement='left' title='Add'>
-       <i class='fas fa-file-invoice nav-icon'  aria-hidden='true' style='font-size:20px;color:#0275d8'></i>
-       </button>";
-      }
-      else if($supplierInoiceGetData['status'] == 5 )
-      {
-       $stuts = "Manufactur";
-       $button="<button class='btn btn-link PaiedsuppliersInvoiceData' value='$orderId' data-toggle='tooltip' data-placement='left' title='Paid'>
-        <i class='far fa-money-bill-alt nav-icon'  aria-hidden='true' style='font-size:20px;color:#0275d8'></i>
-       </button>";
-      }
-      else if($supplierInoiceGetData['status'] == 6 )
-      {
-       $stuts = "Closed";
-       $button="";
-      } 
-     }
-     else
-     {
-      $stuts = "No Manufactur Offer";
-      $button="<button class='btn btn-link manufacturOffer' value='$poId2' data-toggle='tooltip' data-placement='left' title='Add Offer'>
-       <i class='fas fa-file-invoice nav-icon'  aria-hidden='true' style='font-size:20px;color:#0275d8'></i>
-       </button>";
-     }
-     echo"<tr>
-      <td><button class='btn btn-link showItems' value='$orderId'>$poNum</button></td>
-      <td>$supplierOrderData[date]</td>
-      <td>$supplierOrderData[deliveryDate]</td>
-      <td>$supplierData[suppliername]</td>
-      <td>".number_format(($totalInv), 2)."</td>
-      <td>$btn2</td> 
-      <td>".number_format(($remining), 2)."</td>
-      <td>$stuts</td>
-      <td>$button</td>
-     </tr>";
-    }
-    $sqlSupplierStockInv="SELECT `suppliersInvoiceId`,`suppliersInvoiceNumber`,`supplierOrderNum`,`suppliersInvoiceDate`,`supplierCode`,`suppliersInvoiceType`,
-     `suppliersInvoiceSupTotal`,`suppliersInvoiceDiscount`,`suppliersInvoiceVat`,`suppliersInvoiceTotal`,`paidAmount`,`paidType`,`paiedStuts` 
-    FROM `supplierInvoice` 
-    WHERE `suppliersInvoiceTotal` != `paidAmount` AND `paiedStuts` = 3";
-    $querySupplierStockInv=mysqli_query($link,$sqlSupplierStockInv)or die("ERROR_SNSC : 01");
-    if(mysqli_num_rows($querySupplierStockInv)>0)
-    {
-     while($supplierStockInv=mysqli_fetch_assoc($querySupplierStockInv))
-     {
-      $invId=$supplierStockInv['suppliersInvoiceId'];
-      $invAmount=$supplierStockInv['suppliersInvoiceTotal'];
-      $invPaid=$supplierStockInv['paidAmount'];
-      $valid=($invAmount - $invPaid);
-      $sqlStockSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $supplierStockInv[supplierCode];";
-      $queryStockSupplierData=mysqli_query($link,$sqlStockSupplier)or die("ERROR_SNSC : 01");
-      $supplierStockData=mysqli_fetch_assoc($queryStockSupplierData);
-      echo"<tr>
-       <td><button class='btn btn-link showStockItems' value='$invId'>$supplierStockInv[suppliersInvoiceNumber]</button></td>
-       <td>$supplierStockInv[suppliersInvoiceDate]</td>
-       <td>$supplierStockInv[suppliersInvoiceDate]</td>
-       <td>$supplierStockData[suppliername]</td>
-       <td>".number_format(($invAmount), 2)."</td> 
-       <td><button class='btn btn-link showPaied' value='$invId'>".number_format(($invPaid), 2)."</button></td> 
-       <td>".number_format(($valid), 2)."</td>
-       <td>Supplier Invoice</td>
-       <td><button class='btn btn-link PaiedsuppliersStockInvoiceData' value='$invId' data-toggle='tooltip' data-placement='left' title='Paid'>
-        <i class='far fa-money-bill-alt nav-icon'  aria-hidden='true' style='font-size:20px;color:#0275d8'></i>
-       </button></td>
-      </tr>";
-     }
-    }
-    */
    ?>
   </tbody>
  </table>
@@ -340,7 +199,7 @@ $(".showStockItems").click(function(){
    success: function(getSuuplierData){
     $(".supplierInvoiceData").html('');
     $("#supplierModalData").html('');
-    $("#supplierModalData").html('Recived Invoice From Supplier Order');
+    $("#supplierModalData").html('Received Invoice From Supplier Order');
     $(".supplierInvoiceData").html(getSuuplierData);
     $("#supplierModal").modal('show');  
    }

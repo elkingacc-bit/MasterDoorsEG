@@ -165,22 +165,6 @@ $netInstallment = 0;
    <th></th>
    </tfoot>
   </table>
-  <!--  
-  <table>
-   <thead>
-    <th>Buy</th>
-    <th>installmen</th>
-    <th>Sale</th>
-    <th>Profit</th>
-   </thead>
-   <tbody>
-    <td><?php //echo $totalBuy; ?></td>
-    <td><?php //echo $netInstallment; ?></td>
-    <td><?php //echo $totalSale; ?></td>
-    <td><?php // echo $totalProfit; ?></td>
-   </tbody>
-  </table>
- -->
 
  </div>
 <script type="text/javascript">

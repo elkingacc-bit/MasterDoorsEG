@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html>
- <div class="card w-100">
+<style>
+ #newCashReceiveForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #newCashReceiveForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #newCashReceiveForm .amountPreview{font-size: .85rem; color:#6c757d; margin-top:.25rem;}
+ #newCashReceiveForm .invalid-feedback{display:none;}
+ #newCashReceiveForm .is-invalid ~ .invalid-feedback,
+ #newCashReceiveForm .invalid-feedback.show{display:block;}
+ #saverRceivedCash{transition: transform .1s ease-in-out;}
+ #saverRceivedCash:active{transform: scale(0.97);}
+</style>
+ <div class="card w-100" id="newCashReceiveForm">
   <div class="card-body">
-    <details>
-  <summary> Notes </summary>
-  <ul>
-   <li>فى حاله استلام من البنك الى الخزينه يتم الصرف من الخزينه تلفائيا</li>
-   <li>فى حاله استلام من الخزينه الى البنك يتم الصرف من البنك تلقائيا</li> 
-   <li>فى حاله استلام من بنك الى بنك يتم الصرف من البنك الاخر تلقائيا</li>
-  </ul>
-  </details>
+   <details>
+    <summary> Notes </summary>
+    <ul>
+     <li>فى حاله استلام من البنك الى الخزينه يتم الصرف من الخزينه تلفائيا</li>
+     <li>فى حاله استلام من الخزينه الى البنك يتم الصرف من البنك تلقائيا</li>
+     <li>فى حاله استلام من بنك الى بنك يتم الصرف من البنك الاخر تلقائيا</li>
+    </ul>
+   </details>
 
-   <center>
-    <div class="table-responsive-lg">
-     <table class="table table-sm w-75 table-borderless">
-      <thead class="text-center">
-       <th>Date</th>
-       <th>Treasury</th>
-       <th>Account</th>
-       <th>Amount</th>
-       <th>Description</th>        
-      </thead>
-      <tbody>
-       <td><input type="date" id="receDate" class="form-control"></td>
-       <td><select class="form-control" id="trasuty"></select></td>
-       <td><select class="form-control" id="accountName"></select></td>    
-       <td><input type="number" id="receivAmount" class="form-control"></td>
-       <td><input type="text" id="receivDescription" class="form-control"></td>    
-      </tbody>
-     </table>
-     <table class="table table-sm w-75 table-borderless bankData" style="display: none;">
-      <thead class="text-center">
-       <th class="col-2">Maturity Date</th>
-       <th class="col-3">Cheque Number</th>
-      </thead>
-      <tbody>
-       <td><input type="date" id="dueDate" class="form-control"></td>
-       <td><input type="number" id="cheaquNumber" class="form-control"></td>
-      </tbody>
-     </table>
-     <button class="btn btn-success w-25" id="saverRceivedCash">Save</button>
+   <div class="row">
+    <div class="form-group col-md-2">
+     <label for="receDate">Date</label>
+     <input type="date" id="receDate" class="form-control">
+     <div class="invalid-feedback">Date is required</div>
     </div>
-   </center>
+    <div class="form-group col-md-2">
+     <label for="trasuty">Treasury</label>
+     <select class="form-control" id="trasuty"></select>
+     <div class="invalid-feedback">Treasury is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="accountName">Account</label>
+     <select class="form-control" id="accountName"></select>
+     <div class="invalid-feedback">Account is required</div>
+    </div>
+    <div class="form-group col-md-2">
+     <label for="receivAmount">Amount</label>
+     <input type="number" id="receivAmount" class="form-control">
+     <div class="amountPreview"></div>
+     <div class="invalid-feedback">Amount is required</div>
+    </div>
+    <div class="form-group col-md-3">
+     <label for="receivDescription">Description</label>
+     <input type="text" id="receivDescription" class="form-control">
+     <div class="invalid-feedback">Description is required</div>
+    </div>
+   </div>
+
+   <div class="row bankData" style="display: none;">
+    <div class="form-group col-md-3">
+     <label for="dueDate">Maturity Date</label>
+     <input type="date" id="dueDate" class="form-control">
+    </div>
+    <div class="form-group col-md-3">
+     <label for="cheaquNumber">Cheque Number</label>
+     <input type="number" id="cheaquNumber" class="form-control">
+    </div>
+   </div>
+
+   <button class="btn btn-success" id="saverRceivedCash">Save</button>
   </div>
   <div class="card-footer text-muted">
    <div class="alert msg" role="alert"></div>

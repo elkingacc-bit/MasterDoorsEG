@@ -9,13 +9,16 @@
    <th class="col-1">Date</th>
    <th class="col-2">Withdrawal</th>
    <th class="col-2">Cashback</th>
-   <th class="col-4">Discription</th>
+   <th class="col-4">Description</th>
   </thead>
   <tbody>
    <?php
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $sqlAllCustodyData="SELECT `custodyTransactionDate`, `poNum`, `discription`, `empCode`, `amount`, `cashBack`, `closedDate` FROM `custody` ORDER BY `empCode`";
+    $sqlAllCustodyData="SELECT c.`custodyTransactionDate`, c.`poNum`, c.`discription`, c.`empCode`, c.`amount`, c.`cashBack`, c.`closedDate`, u.`fullname`
+     FROM `custody` c
+     LEFT JOIN `users` u ON u.`userid` = c.`empCode`
+     ORDER BY c.`empCode`";
     $queryAllCustodyData=mysqli_query($link,$sqlAllCustodyData)or die("ERROR_SNSC : 02");
     $snCustdy=0;
     $balance=0;
@@ -30,13 +33,9 @@
       if($allCustodytDataResult['amount'] > 0){$tr="<tr class='bg-info'>";}
       else if($allCustodytDataResult['closedDate'] == $allCustodytDataResult['custodyTransactionDate']){$tr="<tr class='bg-success'>";}
       else{$tr="<tr>";}
-      $empCustdy=$allCustodytDataResult['empCode'];
-      $sqlCustodyEmpName="SELECT `fullname` FROM `users` WHERE `userid` = $empCustdy";
-      $queryEmpNameData=mysqli_query($link,$sqlCustodyEmpName)or die("ERROR_SNSC : 01");      
-      $custdyEmpName=mysqli_fetch_assoc($queryEmpNameData);
       echo"$tr
        <td>$snCustdy</td>
-       <td>$custdyEmpName[fullname]</td>
+       <td>$allCustodytDataResult[fullname]</td>
        <td>$allCustodytDataResult[custodyTransactionDate]</td>
        <td>".number_format(($allCustodytDataResult['amount']), 2)."</td>
        <td>".number_format(($allCustodytDataResult['cashBack']), 2)."</td>

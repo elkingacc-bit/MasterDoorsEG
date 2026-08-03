@@ -33,68 +33,6 @@
      $totalCollect = $dwonpaymentData['collectAmount'];       
      // Valide
      $totalValid=($totalAmount - $totalCollect);
-     /*
-      Old
-      // Varibales
-      $jopCount=0;
-      $totalPoPrice = 0;
-      $totalAmount=0;
-      $totalCollect=0;
-      $totalValid=0;
-      $dwonpaymen = 0;
-      $extract = 0;
-      $collect = 0; 
-      //Get Jop Data
-      $sqlSalesInoice="SELECT `jobId`,`projectName`,`offerValue`,`invoice` FROM `job` WHERE  `customer` = $customerId AND `offerStatus` = 'Won' ORDER BY `startDate` ASC";
-      $querySalesInoice=mysqli_query($link,$sqlSalesInoice)or die("ERROR_SNSC : 02");
-      if(mysqli_num_rows($querySalesInoice) > 0){
-       WHILE($salesInoiceData=mysqli_fetch_assoc($querySalesInoice)){
-        $jopCount++;
-        $jopId=$salesInoiceData['jobId'];
-        //Get Po Data
-        $sqlCustomerPo="SELECT `poVal`, `POVat` FROM `customerpo` WHERE `jobidref` = $jopId AND `custCode` = $customerId";
-        $quaryCustomerPo=mysqli_query($link,$sqlCustomerPo)or die("ERROR_SNSC : 02");
-        if(mysqli_num_rows($quaryCustomerPo) > 0){
-         $resultCustomerPo=mysqli_fetch_assoc($quaryCustomerPo);
-         $totalPoPrice = ($resultCustomerPo['poVal'] + $resultCustomerPo['POVat']);
-        }
-        $totalAmount += $totalPoPrice;
-        // Get Dwonpayment Paied Data
-        $sqlDwonpayment="SELECT `cash_transaction_id`,`income`,`ftId` FROM `cash_transaction` 
-        WHERE `account` = $customerId AND `invNumber` = '$jopId' AND `description` LIKE 'Collect Dwonpaymen%'";
-        $quaryDwonpayment=mysqli_query($link,$sqlDwonpayment)or die("ERROR_SNSC : 02");
-        if(mysqli_num_rows($quaryDwonpayment) > 0){
-         $dwonpaymentData=mysqli_fetch_assoc($quaryDwonpayment);
-         $dwonpaymen = $dwonpaymentData['income'];       
-        }
-        // Extract
-        $sqlExtract="SELECT sum(`salesInvoiceSupTotal`) as collectExtract FROM `salesInvoiceDraft` WHERE `customerCode` = $customerId AND `jopRef` = '$jopId'";
-        $quaryExtract=mysqli_query($link,$sqlExtract)or die("ERROR_SNSC : 02");
-        if(mysqli_num_rows($quaryExtract) > 0){
-         $resultExtract=mysqli_fetch_assoc($quaryExtract);
-         $extract = $resultExtract['collectExtract'];       
-        }
-        $sqlCollect="SELECT `salesInvoiceId`,`invoiceCollectAmount` FROM `salesInvoice` WHERE `customerCode` = $customerId AND `jopRef` = '$jopId'";
-        $quaryCollect=mysqli_query($link,$sqlCollect)or die("ERROR_SNSC : 02");
-        if(mysqli_num_rows($quaryCollect) > 0){
-         $resultCollect=mysqli_fetch_assoc($quaryCollect);
-         $invoiceId=$resultCollect['salesInvoiceId'];
-         $collect = $resultCollect['invoiceCollectAmount'];
-        }
-        // Not Have Invoice
-        if($salesInoiceData['invoice'] == 'No'){
-         $tCollect=($dwonpaymen + $extract);
-        }
-        // Have Invoice
-        else if($salesInoiceData['invoice'] == 'Yes'){
-         $tCollect=($collect);
-        }
-        $valid=($totalPoPrice - $tCollect);
-        $totalCollect+=$tCollect;
-        $totalValid+=$valid;
-       }
-         }
-     */
      echo"
       <td>$resCustName[customername]</td>
       <td>$jopCount</td>
@@ -114,7 +52,7 @@
      <th>Date</th>
      <th>Treasury</th>
      <th>Amount</th>
-     <th>Discrebtion</th>
+     <th>Description</th>
     </thead>
     <tbody>
      <td><input type="date" class="form-control" id="paymentDate"></td>
@@ -178,10 +116,10 @@
     alert ("Do'not Leave Amount Blank.");
    }  
    else if(discrebtion == ''){
-    alert ("Do'not Leave Discription Blank.");
+    alert ("Do'not Leave Description Blank.");
    }
    else if(cash == ''){
-    alert ("Do'not Leave Trasuty Blank.");
+    alert ("Do'not Leave Treasury Blank.");
    }
    else if(Number(amount) > Number(dueAmount)){
     alert ("Amount Over Than Statement");

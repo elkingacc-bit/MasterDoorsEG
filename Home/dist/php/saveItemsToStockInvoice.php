@@ -18,12 +18,6 @@
   $queryAllItemCode=mysqli_query($link,$getAllItemCode)or die("ERROR :01-AIC_AIDL_S");
   $resAllItemCode=mysqli_fetch_assoc($queryAllItemCode);
   $itemRowId2=$resAllItemCode['itemsid'];
-/*
-  // Add Supplier Order 
-  $sqlAddSupplierInvoice="INSERT INTO `supporderitems`(`ItemRowId`, `qty`, `price`, `status`, `SOIdRef`, `soType`, `OIRef`, `receivedQTY`, `receiveddate`) VALUES
-  ('$itemRowId2','$itemQun','$itemUnitPrice',5,0,'Stock',$itemRowId2,$itemQun,'$invDate')";
-  mysqli_query($link,$sqlAddSupplierInvoice);
-*/
 
   include_once("aduLog.php");
  }
