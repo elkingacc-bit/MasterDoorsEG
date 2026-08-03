@@ -38,13 +38,13 @@
   $colCreditor9=mysqli_real_escape_string($link, $_POST['c9']);
   $Description10=mysqli_real_escape_string($link, $_POST['c10']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-  `description`,`transactionCode`,`entryRef`)
-  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";
+  `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef','Settlement',0)";
   if(mysqli_query($link,$sqlTransactionDebtor))
   {
    $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-   `description`,`transactionCode`,`entryRef`) VALUES 
-   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef')";
+   `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef','Settlement',0)";
    if(mysqli_query($link,$sqlTransactionCreditor))
    {
     $result = 1;
@@ -69,18 +69,18 @@
   $colCreditor14=mysqli_real_escape_string($link, $_POST['c14']);
   $colDescription15=mysqli_real_escape_string($link, $_POST['c15']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-  `description`,`transactionCode`,`entryRef`)
-  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";
+  `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef','Settlement',0)";
   if(mysqli_query($link,$sqlTransactionDebtor))
   {
    $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-   `description`,`transactionCode`,`entryRef`) VALUES 
-   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef')";
+   `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef','Settlement',0)";
    if(mysqli_query($link,$sqlTransactionCreditor))
    {
     $sqlTransaction3="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,`description`,
-    `transactionCode`,`entryRef`) VALUES 
-    ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate11','$colDebtor13','$colCreditor14','$colDescription15','$colaccountName12','$financialRef')";
+    `transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+    ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate11','$colDebtor13','$colCreditor14','$colDescription15','$colaccountName12','$financialRef','Settlement',0)";
     if(mysqli_query($link,$sqlTransaction3))
     {
      $result = 1;
@@ -111,23 +111,23 @@
   $colCreditor19=mysqli_real_escape_string($link, $_POST['c19']);
   $colDescription20=mysqli_real_escape_string($link, $_POST['c20']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-  `description`,`transactionCode`,`entryRef`)
-  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";
+  `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef','Settlement',0)";
   if(mysqli_query($link,$sqlTransactionDebtor))
   {
    $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-   `description`,`transactionCode`,`entryRef`) VALUES 
-   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef')";
+   `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+   ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate6','$colDebtor8','$colCreditor9','$Description10','$colaccountName7','$financialRef','Settlement',0)";
    if(mysqli_query($link,$sqlTransactionCreditor))
    {
-    $sqlTransaction3="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,`description`, 
-    `transactionCode`,`entryRef`) VALUES 
-    ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate11','$colDebtor13','$colCreditor14','$colDescription15','$colaccountName12','$financialRef')";
+    $sqlTransaction3="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,`description`,
+    `transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+    ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate11','$colDebtor13','$colCreditor14','$colDescription15','$colaccountName12','$financialRef','Settlement',0)";
     if(mysqli_query($link,$sqlTransaction3))
     {
      $sqlTransaction4="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,`description`,
-     `transactionCode`,`entryRef`) VALUES 
-     ('$transactionsYear','$transactionsMonth','$nextNumber','$col1Date6','$colDebtor18','$colCreditor19','$colDescription20','$colaccountName17','$financialRef')";
+     `transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
+     ('$transactionsYear','$transactionsMonth','$nextNumber','$col1Date6','$colDebtor18','$colCreditor19','$colDescription20','$colaccountName17','$financialRef','Settlement',0)";
      if(mysqli_query($link,$sqlTransaction4))
      {
       $result = 1;

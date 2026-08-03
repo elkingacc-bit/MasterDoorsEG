@@ -1,9 +1,9 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $invId=$_POST['jopId'];
- $dateInvoice=$_POST['fDate'];
+ $invId=(int)$_POST['jopId'];
+ $dateInvoice=mysqli_real_escape_string($link, $_POST['fDate']);
  $vat1Code='21210110000';
  $transactionsYear=date('Y', strtotime($dateInvoice));
  $transactionsMonth=date('m', strtotime($dateInvoice));
@@ -48,13 +48,13 @@
  if(mysqli_query($link,$sqlJopInvoiceRef)){
   // Add VAT Financial Transactions creditor
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-  `description`,`transactionCode`,`entryRef`)
-  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$dateInvoice','0','$validTax','$invoiceNumber Invoice WHT','$customer','$financialRef')";
+  `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$dateInvoice','0','$validTax','$invoiceNumber Invoice WHT','$customer','$financialRef','salesInvoice',$invId)";
   if(mysqli_query($link,$sqlTransactionDebtor)){
    // Add VAT Financial Transactions Debtor
    $sqlTransactionDebtor2="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-   `description`,`transactionCode`,`entryRef`)VALUES
-   ('$transactionsYear','$transactionsMonth','$nextNumber','$dateInvoice','$validTax','0','$invoiceNumber WHT','$vat1Code','$financialRef')";
+   `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)VALUES
+   ('$transactionsYear','$transactionsMonth','$nextNumber','$dateInvoice','$validTax','0','$invoiceNumber WHT','$vat1Code','$financialRef','salesInvoice',$invId)";
    if(mysqli_query($link,$sqlTransactionDebtor2)){
     include_once("aduLog.php");        
     echo "Save Done";      

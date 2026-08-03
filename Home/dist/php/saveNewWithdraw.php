@@ -110,23 +110,35 @@ mysqli_query($link,$sqlUpdateCashTransaction);
 
     #
     $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-    `description`,`transactionCode`,`entryRef`)
-    VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','$amount','0','$discrebtion','$accCode','$financialRef')";
+    `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+    VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','$amount','0','$discrebtion','$accCode','$financialRef','$tableName',$tableRow)";
     #
     if(mysqli_query($link,$sqlTransactionDebtor))
     {
      //
      $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-     `description`,`transactionCode`,`entryRef`)VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','0','$amount','$casher','$cashCode',
-     '$financialRef')";
-     mysqli_query($link,$sqlTransactionCreditor);
-     $result = 1;
+     `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','0','$amount','$casher','$cashCode',
+     '$financialRef','$tableName',$tableRow)";
+     if(mysqli_query($link,$sqlTransactionCreditor))
+     {
+      $result = 1;
+      $action="Withdrawal $amount General Expenses From $casher";
+      include_once("aduLog.php");
+     }
+     else
+     {
+      $result = "ERROR_SNSC : Failed to record creditor transaction";
+     }
     }
-    $result = 1;
+    else
+    {
+     $result = "ERROR_SNSC : Failed to record debtor transaction";
+    }
    }
-   $result = 1;
-    $action="Withdrawal $amount General Expenses From $casher";   
-   include_once("aduLog.php");
+   else
+   {
+    $result = "ERROR_SNSC : Failed to record cash transaction";
+   }
   }
   echo $result;
  }

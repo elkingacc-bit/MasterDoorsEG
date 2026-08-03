@@ -27,13 +27,13 @@
  }
  // Add VAT Financial Transactions creditor
  $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
- `description`,`transactionCode`,`entryRef`)
- VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$collectDate','0','$collectAmount','$collectDisc','$customerId','$financialRef')";
+ `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+ VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$collectDate','0','$collectAmount','$collectDisc','$customerId','$financialRef','CustomerCollect',$customerId)";
  if(mysqli_query($link,$sqlTransactionDebtor)){
   // Add VAT Financial Transactions Debtor
   $sqlTransactionDebtor2="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-  `description`,`transactionCode`,`entryRef`)
-  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$collectDate','$collectAmount','0','$collectDisc','$cashCode','$financialRef')";
+  `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+  VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$collectDate','$collectAmount','0','$collectDisc','$cashCode','$financialRef','CustomerCollect',$customerId)";
   mysqli_query($link,$sqlTransactionDebtor2); 
  }
  //Get Jop Data
