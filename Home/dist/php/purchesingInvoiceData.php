@@ -47,6 +47,9 @@
          <button class='btn btn-link editOfferPrices' value='$orderId' data-toggle='tooltip' data-placement='left' title='Edit Prices'>
           <i class='fas fa-edit nav-icon'  aria-hidden='true' style='font-size:20px;color:#5cb85c'></i>
          </button>
+         <button class='btn btn-link deleteOffer' value='$orderId' data-toggle='tooltip' data-placement='left' title='Delete Offer'>
+          <i class='fas fa-trash-alt nav-icon'  aria-hidden='true' style='font-size:20px;color:#d9534f'></i>
+         </button>
         </td>
        </tr>";
       }
@@ -222,6 +225,26 @@ $(".showStockItems").click(function(){
     $("#supplierModalData").html('Edit Manufactur Offer Prices');
     $(".supplierInvoiceData").html(getEditOfferData);
     $("#supplierModal").modal('show');
+   }
+  });
+  return false;
+ });
+
+ $(".deleteOffer").click(function(){
+  var orderId = $(this).val();
+  var $row = $(this).closest('tr');
+  if(!confirm("Delete this offer? Item prices recorded on it will be reset.")){
+   return false;
+  }
+  $.ajax({
+   url:'dist/php/deletePurchasesOrder.php',
+   type:"POST",
+   data:{orderId:orderId},
+   success: function(deleteOfferResult){
+    if(deleteOfferResult == "Offer Deleted"){
+     $row.fadeOut(200, function(){ $(this).remove(); });
+    }
+    alert(deleteOfferResult);
    }
   });
   return false;
