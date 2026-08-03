@@ -1,29 +1,29 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $recipient=$_SESSION['id'];
+ $recipient=(int)$_SESSION['id'];
  $purCode='312100100000';
  $vat14Code='212100100000';
  $cashCode='116100100000';
- $dateInvoice=$_POST['finvDate'];
+ $dateInvoice=mysqli_real_escape_string($link, $_POST['finvDate']);
  $transactionsYear=date('Y', strtotime($dateInvoice));
  $transactionsMonth=date('m', strtotime($dateInvoice));
- $invoiceNum=$_POST['finvNum'];
- $supplier=$_POST['finvSuplier'];
- $supTotal=$_POST['finvSupTotal'];
- $vatAmount=$_POST['finvVat'];
+ $invoiceNum=mysqli_real_escape_string($link, $_POST['finvNum']);
+ $supplier=(int)$_POST['finvSuplier'];
+ $supTotal=(float)$_POST['finvSupTotal'];
+ $vatAmount=(float)$_POST['finvVat'];
  $action="Add New Stock Suppliers Invoice $invoiceNum";
- $logRef=114;  
+ $logRef=114;
  $financialRef="Withdrawal Stock Suppliers Invoice";
  if($vatAmount > 0){
-  $invType = 'VAT';    
+  $invType = 'VAT';
  }
  else{
-  $invType = 'Not VAT';    
+  $invType = 'Not VAT';
  }
  $invoiceDiscount=0;
- $totalInvoice=$_POST['finvTotal'];
+ $totalInvoice=(float)$_POST['finvTotal'];
  // Cheak Supplier Invoice 
  $sqlSupplierInvoiceCount="SELECT `suppliersInvoiceId` FROM `supplierInvoice` WHERE `suppliersInvoiceNumber` = '$invoiceNum' AND `suppliersInvoiceDate`= '$dateInvoice' 
  AND `supplierCode` = '$supplier'";

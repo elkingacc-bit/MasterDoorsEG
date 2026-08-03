@@ -1,19 +1,19 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
 
  $logRef=111;
  $result = "";
- $transactionsDate=$_POST['fDate'];  
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['fDate']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
- $accCode=$_POST['fCode'];
+ $accCode=(int)$_POST['fCode'];
  $recipientType= substr($accCode,0,5);
- $recipient=$_POST['frecipient'];
- $amount=$_POST['famount'];
- $discrebtion=$_POST['fdiscrebtion'];
- $cashCode=$_POST['typeCash'];
+ $recipient=(int)$_POST['frecipient'];
+ $amount=(float)$_POST['famount'];
+ $discrebtion=mysqli_real_escape_string($link, $_POST['fdiscrebtion']);
+ $cashCode=(int)$_POST['typeCash'];
  $cashType= substr($cashCode,0,5);
 
 
@@ -45,8 +45,8 @@
   if($cashType == 11620)
   {
    // Bank
-   $cheakNum=$_POST['numCheak']; 
-   $dueDate=$_POST['cheakDate'];
+   $cheakNum=(int)$_POST['numCheak'];
+   $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
    $casher="Bank";
    $financialRef="Withdrawal Bank Entry";
    #

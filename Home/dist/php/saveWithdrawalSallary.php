@@ -1,17 +1,17 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $discrebtion='Withdrawal Sallary To Staff';
- $stafeId=$_POST['stafId'];
- $transactionsDate=date("Y-m-d");  
+ $stafeId=(int)$_POST['stafId'];
+ $transactionsDate=date("Y-m-d");
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
  $cashCode='116100100000';
  $accCode='312103100000';
  $logRef=114;
  $action="Withdrawal Sallary To Staff";
- $recipient=$_SESSION['id'];
+ $recipient=(int)$_SESSION['id'];
  $financialRef="Withdrawal Sallary";
  // Get Sales Invoice From Sales Invoice
  $sqlSalesInoice="SELECT `poRowId`,count(`attendDate`) as dayWork,`datePayment`,`paymentRef`, sum(`penalty`) as nag, sum(`Reward`) as plu,`ref` 

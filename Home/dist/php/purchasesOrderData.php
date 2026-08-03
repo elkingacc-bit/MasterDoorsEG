@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $customerPo=$_POST['poId'];
+ $customerPo=(int)$_POST['poId'];
  $supName= "";
  $supCode= 0;
  $sqlSuplierOrder="SELECT `SuppCode` FROM `supplierorder` WHERE `custPOId` = $customerPo";

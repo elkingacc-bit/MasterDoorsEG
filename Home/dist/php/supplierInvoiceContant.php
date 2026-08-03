@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $orderId=$_POST['orderId'];
+ $orderId=(int)$_POST['orderId'];
  $sqlPurOffer="SELECT `supplierid`,`purchasesOrderNum`,`purchasesOrderDate`, `jobref`,`VAT`,`totalAmout`, `poId`,`purchasesOrderRef` 
  FROM `purchasesorder` 
  WHERE `purchasesorderid` = $orderId ";

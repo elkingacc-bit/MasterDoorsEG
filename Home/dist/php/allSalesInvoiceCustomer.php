@@ -14,9 +14,10 @@
   </thead>
   <tbody>
    <?php
+    include_once("authCheck.php");
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $customer=$_POST['customer'];
+    $customer=(int)$_POST['customer'];
     // Get Sales Invoice From Sales Invoice
     $sqlSalesInoice="SELECT `salesInvoiceId`,`salesInvoiceNumber`,`jopRef`,`salesInvoiceDate`,`customerCode`,`salesInvoiceType`,`salesInvoiceSupTotal`,`invoiceDiscount`,
     `salesInvoictVat`,`totalInvoice`,`invoiceCollectAmount` FROM `salesInvoice` WHERE `customerCode` = $customer";

@@ -8,10 +8,10 @@
 </style>
 <div hidden>
  <?php
-  session_start();
+  include_once("authCheck.php");
   date_default_timezone_set("Africa/Cairo");
   include_once("connection.php");
-  $orderId=$_POST['invId'];
+  $orderId=(int)$_POST['invId'];
 
   // Get Supplier Invoice Date
   $sqlSupplierInvoice="SELECT `suppliersInvoiceId`,`suppliersInvoiceNumber`,`suppliersInvoiceDate`,`supplierCode`,`suppliersInvoiceType`,`suppliersInvoiceSupTotal`,

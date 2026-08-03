@@ -9,9 +9,10 @@
    </thead>
    <tbody>
     <?php
+     include_once("authCheck.php");
      date_default_timezone_set("Africa/Cairo");
      include_once("connection.php");
-     $customerId=$_POST['custId'];
+     $customerId=(int)$_POST['custId'];
      //Customer Name
      $sqlGetCustName="SELECT `customername` FROM `customers` WHERE `customercode` = $customerId";
      $queryGetCustName=mysqli_query($link,$sqlGetCustName)or die("ERROR :01-CCN_ACC_S".mysqli_error($link));

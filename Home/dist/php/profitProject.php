@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $jopRowId=$_POST['project'];
+ $jopRowId=(int)$_POST['project'];
  // Get Job Id
  $sqlJop="SELECT `PoNum`,`poVal`,`jobidref` FROM `customerpo` WHERE `poId` = $jopRowId";
  $queryJop=mysqli_query($link,$sqlJop)or die("ERROR_SNSC : 02");

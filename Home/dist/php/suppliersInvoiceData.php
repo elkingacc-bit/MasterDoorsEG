@@ -9,9 +9,10 @@
    </thead>
    <tbody>
     <?php
+     include_once("authCheck.php");
      date_default_timezone_set("Africa/Cairo");
      include_once("connection.php");
-     $supplierId=$_POST['supId'];
+     $supplierId=(int)$_POST['supId'];
      //
      $sqlGetSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $supplierId";
      $queryGetSupplier=mysqli_query($link,$sqlGetSupplier)or die("ERROR :01-AU_AU_S".mysqli_error($link));

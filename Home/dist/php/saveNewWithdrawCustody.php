@@ -1,14 +1,14 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $logRef=112;
  $result = "";
- $transactionsDate=$_POST['fDate'];  
- $projectNum=$_POST['poNumber'];
- $discrebtion=$_POST['fdiscrebtion'];
- $recipient=$_POST['frecipient'];
- $amount=$_POST['famount'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['fDate']);
+ $projectNum=mysqli_real_escape_string($link, $_POST['poNumber']);
+ $discrebtion=mysqli_real_escape_string($link, $_POST['fdiscrebtion']);
+ $recipient=(int)$_POST['frecipient'];
+ $amount=(float)$_POST['famount'];
  $cashCode='116100100000';
  $sqlCustodyEmp="SELECT `fullname` FROM `users` WHERE `userid` = '$recipient' ";
  $queryEmpData=mysqli_query($link,$sqlCustodyEmp)or die("ERROR_SNSC : 01");

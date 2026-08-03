@@ -2,10 +2,11 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $tYear=$_POST['startYear'];
-    $tQuarter=$_POST['startQuarter']; 
+    $tYear=(int)$_POST['startYear'];
+    $tQuarter=(int)$_POST['startQuarter'];
  echo"
   <input value='FinancalTransaction For $tYear/$tQuarter' class='reportTitel' hidden>
   <h3 class='text-center text-body'>FinancalTransaction For $tYear/$tQuarter</h3>

@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $empCode=$_POST['fName'];
+ $empCode=(int)$_POST['fName'];
  $result= "";
  //Cheak Entry
  // `custodyRef` = 1 : Open

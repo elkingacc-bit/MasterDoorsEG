@@ -1,10 +1,10 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $jopId=$_POST['jopRef'];
- $invoiceNumber=$_POST['invNumber'];
- $dateInvoice=$_POST['invDate'];
+ $jopId=(int)$_POST['jopRef'];
+ $invoiceNumber=mysqli_real_escape_string($link, $_POST['invNumber']);
+ $dateInvoice=mysqli_real_escape_string($link, $_POST['invDate']);
  $action="Add New Invoice Number $invoiceNumber";
  $logRef=113;
  $incomCode='410100100000';

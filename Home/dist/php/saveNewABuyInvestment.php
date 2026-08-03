@@ -1,12 +1,12 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $mDate=$_POST['fDate'];
- $amount=$_POST['fAmount'];
- $qun=$_POST['fQun'];
- $group=$_POST['fGroup'];
- $dis=$_POST['fDis'];
+ $mDate=mysqli_real_escape_string($link, $_POST['fDate']);
+ $amount=(float)$_POST['fAmount'];
+ $qun=(float)$_POST['fQun'];
+ $group=(int)$_POST['fGroup'];
+ $dis=mysqli_real_escape_string($link, $_POST['fDis']);
  $logRef=116;
  $action="Buy Invesmint";
  $result = 0;

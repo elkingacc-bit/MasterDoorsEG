@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $invId=$_POST['orderId'];
+ $invId=(int)$_POST['orderId'];
  $sqlSalesTax="SELECT `salesInvoiceNumber`,`jopRef`,`salesInvoiceDate`,`customerCode`,`salesInvoiceType`,`salesInvoiceSupTotal` FROM `salesInvoice` 
  WHERE  `salesInvoiceId` = $invId";
  $querySalesTax=mysqli_query($link,$sqlSalesTax)or die("ERROR_SNSC : 02");

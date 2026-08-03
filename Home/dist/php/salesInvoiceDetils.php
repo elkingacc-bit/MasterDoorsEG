@@ -8,9 +8,10 @@
   </thead>
   <tbody>
    <?php
+    include_once("authCheck.php");
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $jopId=$_POST['jopId'];
+    $jopId=(int)$_POST['jopId'];
     $sqlSalesJop="SELECT `startDate`,`localref`,`customer`,`offerValue`,`jobtype`,`jobreceivables`,`endDate`,`invoice`, `salesman` FROM `job` WHERE `jobId` = $jopId";
     $querySalesJop=mysqli_query($link,$sqlSalesJop)or die("ERROR_SNSC : 02");
     $totalInv=0;

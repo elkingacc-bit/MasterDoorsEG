@@ -2,9 +2,10 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $myBank=$_POST['bank'];
+ $myBank=(int)$_POST['bank'];
  $sqlFirstLevelData="SELECT `accountName` FROM `accountantcode` WHERE `accountCode` = $myBank";
  $queryFirstLevelData=mysqli_query($link,$sqlFirstLevelData)or die("ERROR LOA_S:01");
  $firstLevel=mysqli_fetch_assoc($queryFirstLevelData);

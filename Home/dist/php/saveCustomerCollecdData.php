@@ -1,12 +1,12 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $collectDate=$_POST['pDate'];
- $customerId=$_POST['pSupplier'];
- $collectAmount=$_POST['pAmount'];
- $collectDisc=$_POST['pDiscrebtion'];
- $cashCode=$_POST['typeCash'];
+ $collectDate=mysqli_real_escape_string($link, $_POST['pDate']);
+ $customerId=(int)$_POST['pSupplier'];
+ $collectAmount=(float)$_POST['pAmount'];
+ $collectDisc=mysqli_real_escape_string($link, $_POST['pDiscrebtion']);
+ $cashCode=(int)$_POST['typeCash'];
  $cashType= substr($cashCode,0,5);
  # Financial Transaction
  $transactionsYear=date('Y', strtotime($collectDate));
@@ -130,8 +130,8 @@
     }
     # Bank
     if($cashType == 11620){
-     $cheakNum=$_POST['numCheak']; 
-     $dueDate=$_POST['cheakDate'];
+     $cheakNum=(int)$_POST['numCheak'];
+     $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
      // Add Collect To Bank
      $sqlWithdrawalGeneralCash="INSERT INTO `cash_transaction`(`transactionDate`,`income`,`withdrawal`,`description`,`amountRef`,`statmentRef`,`account`,`poNum`,`empCode`,
      `chequNumber`, `valideDate`) 

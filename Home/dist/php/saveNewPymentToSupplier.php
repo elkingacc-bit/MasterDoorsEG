@@ -1,15 +1,15 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $result = "";
- $supplierId=$_POST['pSupplier'];
- $transactionsDate=$_POST['pDate'];
+ $supplierId=(int)$_POST['pSupplier'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['pDate']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
- $trxAmount=$_POST['pAmount'];
- $trxDisc=$_POST['pDiscrebtion'];
- $cashCode=$_POST['typeCash'];
+ $trxAmount=(float)$_POST['pAmount'];
+ $trxDisc=mysqli_real_escape_string($link, $_POST['pDiscrebtion']);
+ $cashCode=(int)$_POST['typeCash'];
  $financialRef="Withdrawal To Supplier";
  $sqlGetSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $supplierId";
  $queryGetSupplier=mysqli_query($link,$sqlGetSupplier)or die("ERROR :01-AU_AU_S".mysqli_error($link));
@@ -44,8 +44,8 @@
    else{$nextNumber=01;}
    # Bank
    if($cashType == 11620){
-    $CheakNum=$_POST['numCheak'];
-    $dateCheak=$_POST['cheakDate'];
+    $CheakNum=(int)$_POST['numCheak'];
+    $dateCheak=mysqli_real_escape_string($link, $_POST['cheakDate']);
     $sqlWithdrawalGeneralCash="INSERT INTO `cash_transaction`(`transactionDate`,`withdrawal`,`description`,`statmentRef`,`account`,`empCode`,`chequNumber`,`valideDate`)
     VALUES ('$transactionsDate','$trxAmount','$trxDisc','$cashCode','$supplierId','$_SESSION[id]',$CheakNum,'$dateCheak')"; 
    }
@@ -85,8 +85,8 @@
          $payment+=$avilable;
          $invId=$supplierStockInv['suppliersInvoiceId'];
          $totalPaidAmount=($supplierStockInv['paidAmount'] + $trxAmount);
-         //$sqlUpdateSuppInv="UPDATE `supplierInvoice` SET `paidAmount`= '$totalPaidAmount' WHERE `suppliersInvoiceId` = $invId";
-         //mysqli_query($link,$sqlUpdateSuppInv);        
+         $sqlUpdateSuppInv="UPDATE `supplierInvoice` SET `paidAmount`= '$totalPaidAmount' WHERE `suppliersInvoiceId` = $invId";
+         mysqli_query($link,$sqlUpdateSuppInv);
         }
         else{
          $sqlSupplierLastInv="SELECT `suppliersInvoiceId`,`suppliersInvoiceNumber`,`suppliersInvoiceDate`,`suppliersInvoiceTotal`,`paidAmount` FROM `supplierInvoice` 
@@ -101,8 +101,8 @@
        }
 
 
-//$sqlUpdateLastSuppInv="UPDATE `supplierInvoice` SET `paidAmount`= '$totalPaidAmount' WHERE `suppliersInvoiceId` = $lastId";
-//mysqli_query($link,$sqlUpdateLastSuppInv);
+$sqlUpdateLastSuppInv="UPDATE `supplierInvoice` SET `paidAmount`= '$totalPaidAmount' WHERE `suppliersInvoiceId` = $lastId";
+mysqli_query($link,$sqlUpdateLastSuppInv);
 
        echo 1;
        include_once("aduLog.php");

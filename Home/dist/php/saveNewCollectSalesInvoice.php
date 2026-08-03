@@ -1,15 +1,15 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $recipient=$_SESSION['id'];
- $actionType=$_POST['fRef'];
- $dateInvoice=$_POST['fDate'];
+ $recipient=(int)$_SESSION['id'];
+ $actionType=(int)$_POST['fRef'];
+ $dateInvoice=mysqli_real_escape_string($link, $_POST['fDate']);
  $transactionsYear=date('Y', strtotime($dateInvoice));
  $transactionsMonth=date('m', strtotime($dateInvoice));
- $amount=$_POST['fAmount'];
- $invId=$_POST['fInvNum'];
- $customer=$_POST['fCustomer'];
+ $amount=(float)$_POST['fAmount'];
+ $invId=(int)$_POST['fInvNum'];
+ $customer=(int)$_POST['fCustomer'];
  
  $logRef=113;
  $cashType= substr($actionType,0,5);
@@ -28,12 +28,18 @@
  else{
   $nextNumber=01;
  }
- $sqlSalesTax="SELECT `salesInvoiceNumber`,`invoiceCollectAmount`,`jopRef` FROM `salesInvoice` WHERE  `salesInvoiceId` = $invId";
+ $sqlSalesTax="SELECT `salesInvoiceNumber`,`invoiceCollectAmount`,`totalInvoice`,`jopRef` FROM `salesInvoice` WHERE  `salesInvoiceId` = $invId";
  $querySalesTax=mysqli_query($link,$sqlSalesTax)or die("ERROR_SNSC : 02");
  $taxData=mysqli_fetch_assoc($querySalesTax);
  $invoiceNumber=$taxData['salesInvoiceNumber'];
  $newCollectAmount=($taxData['invoiceCollectAmount']+$amount);
  $jopRef=$taxData['jopRef'];
+
+ // Don't allow collecting more than the invoice total
+ if($newCollectAmount > $taxData['totalInvoice']){
+  echo "Amount Over Than Invoice Remaining Balance";
+  exit;
+ }
  // Project Name
  $sqlProjectName="SELECT `projectName` FROM `job` WHERE `jobId` = $jopRef";
  $quaryProjectName=mysqli_query($link,$sqlProjectName)or die("ERROR LOA_S:01");
@@ -44,8 +50,8 @@
  // Collect Type
  if($cashType == 11620){
   // Bank
-  $cheakNum=$_POST['numCheak']; 
-  $dueDate=$_POST['cheakDate'];
+  $cheakNum=(int)$_POST['numCheak'];
+  $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
   $sqlWithdrawalGeneralCash="INSERT INTO `cash_transaction`(`transactionDate`,`income`,`withdrawal`,`description`,`statmentRef`,`account`,`poNum`,`empCode`,`chequNumber`,
   `valideDate`)VALUES ('$dateInvoice','$amount','0','Collect Invoice $invoiceNumber','$cashCode','$customer','$jopRef','$recipient',$cheakNum,'$dueDate')";
  }

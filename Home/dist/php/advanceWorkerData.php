@@ -12,9 +12,10 @@ h1{font-size: 12px;}
   </thead>
   <tbody>
    <?php
+    include_once("authCheck.php");
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $empId=$_POST['empId'];
+    $empId=(int)$_POST['empId'];
     $sqlEmployee="SELECT `staffname` FROM `allstaff` WHERE `id` = $empId";
     $queryEmployee=mysqli_query($link,$sqlEmployee)or die("ERROR LOA_S:01");
     $employeeData=mysqli_fetch_assoc($queryEmployee);

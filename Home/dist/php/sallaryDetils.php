@@ -12,10 +12,10 @@
   </thead>
   <tbody>
    <?php
-    @session_start();  
+    include_once("authCheck.php");
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $stafeId=$_POST['stafId'];
+    $stafeId=(int)$_POST['stafId'];
     $payment=0;
     $installments=0;
      // Get Sales Invoice From Sales Invoice

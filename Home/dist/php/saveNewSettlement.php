@@ -1,9 +1,9 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $rowCount = $_POST['count'];
- $transactionsDate=$_POST['c1'];
+ $rowCount = (int)$_POST['count'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['c1']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
  $logRef=115;
@@ -27,16 +27,16 @@
  }
  if($rowCount == 2)
  {
-  $colDate1=$_POST['c1'];
-  $colaccountName2=$_POST['c2'];
-  $colDebtor3=$_POST['c3'];
-  $colCreditor4=$_POST['c4'];
-  $Description5=$_POST['c5'];
-  $colDate6=$_POST['c6'];
-  $colaccountName7=$_POST['c7'];
-  $colDebtor8=$_POST['c8'];
-  $colCreditor9=$_POST['c9'];
-  $Description10=$_POST['c10'];
+  $colDate1=mysqli_real_escape_string($link, $_POST['c1']);
+  $colaccountName2=mysqli_real_escape_string($link, $_POST['c2']);
+  $colDebtor3=mysqli_real_escape_string($link, $_POST['c3']);
+  $colCreditor4=mysqli_real_escape_string($link, $_POST['c4']);
+  $Description5=mysqli_real_escape_string($link, $_POST['c5']);
+  $colDate6=mysqli_real_escape_string($link, $_POST['c6']);
+  $colaccountName7=mysqli_real_escape_string($link, $_POST['c7']);
+  $colDebtor8=mysqli_real_escape_string($link, $_POST['c8']);
+  $colCreditor9=mysqli_real_escape_string($link, $_POST['c9']);
+  $Description10=mysqli_real_escape_string($link, $_POST['c10']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
   `description`,`transactionCode`,`entryRef`)
   VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";
@@ -53,21 +53,21 @@
  }
  else if($rowCount == 3)
  {
-  $colDate1=$_POST['c1'];
-  $colaccountName2=$_POST['c2'];
-  $colDebtor3=$_POST['c3'];
-  $colCreditor4=$_POST['c4'];
-  $colDescription5=$_POST['c5']; 
-  $colDate6=$_POST['c6'];
-  $colaccountName7=$_POST['c7'];
-  $colDebtor8=$_POST['c8'];
-  $colCreditor9=$_POST['c9'];
-  $colDescription10=$_POST['c10'];
-  $colDate11=$_POST['c11'];
-  $colaccountName12=$_POST['c12'];
-  $colDebtor13=$_POST['c13'];
-  $colCreditor14=$_POST['c14'];
-  $colDescription15=$_POST['c15'];
+  $colDate1=mysqli_real_escape_string($link, $_POST['c1']);
+  $colaccountName2=mysqli_real_escape_string($link, $_POST['c2']);
+  $colDebtor3=mysqli_real_escape_string($link, $_POST['c3']);
+  $colCreditor4=mysqli_real_escape_string($link, $_POST['c4']);
+  $colDescription5=mysqli_real_escape_string($link, $_POST['c5']);
+  $colDate6=mysqli_real_escape_string($link, $_POST['c6']);
+  $colaccountName7=mysqli_real_escape_string($link, $_POST['c7']);
+  $colDebtor8=mysqli_real_escape_string($link, $_POST['c8']);
+  $colCreditor9=mysqli_real_escape_string($link, $_POST['c9']);
+  $colDescription10=mysqli_real_escape_string($link, $_POST['c10']);
+  $colDate11=mysqli_real_escape_string($link, $_POST['c11']);
+  $colaccountName12=mysqli_real_escape_string($link, $_POST['c12']);
+  $colDebtor13=mysqli_real_escape_string($link, $_POST['c13']);
+  $colCreditor14=mysqli_real_escape_string($link, $_POST['c14']);
+  $colDescription15=mysqli_real_escape_string($link, $_POST['c15']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
   `description`,`transactionCode`,`entryRef`)
   VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";
@@ -90,26 +90,26 @@
  }
  else if($rowCount == 4)
  {
-  $colDate1=$_POST['c1'];
-  $colaccountName2=$_POST['c2'];
-  $colDebtor3=$_POST['c3'];
-  $colCreditor4=$_POST['c4'];
-  $colDescription5=$_POST['c5'];
-  $colDate6=$_POST['c6'];
-  $colaccountName7=$_POST['c7'];
-  $colDebtor8=$_POST['c8'];
-  $colCreditor9=$_POST['c9'];
-  $colDescription10=$_POST['c10'];
-  $colDate11=$_POST['c11'];
-  $colaccountName12=$_POST['c12'];
-  $colDebtor13=$_POST['c13'];
-  $colCreditor14=$_POST['c14'];
-  $colDescription15=$_POST['c15'];
-  $col1Date6=$_POST['c16'];
-  $colaccountName17=$_POST['c17'];
-  $colDebtor18=$_POST['c18'];
-  $colCreditor19=$_POST['c19'];
-  $colDescription20=$_POST['c20'];
+  $colDate1=mysqli_real_escape_string($link, $_POST['c1']);
+  $colaccountName2=mysqli_real_escape_string($link, $_POST['c2']);
+  $colDebtor3=mysqli_real_escape_string($link, $_POST['c3']);
+  $colCreditor4=mysqli_real_escape_string($link, $_POST['c4']);
+  $colDescription5=mysqli_real_escape_string($link, $_POST['c5']);
+  $colDate6=mysqli_real_escape_string($link, $_POST['c6']);
+  $colaccountName7=mysqli_real_escape_string($link, $_POST['c7']);
+  $colDebtor8=mysqli_real_escape_string($link, $_POST['c8']);
+  $colCreditor9=mysqli_real_escape_string($link, $_POST['c9']);
+  $colDescription10=mysqli_real_escape_string($link, $_POST['c10']);
+  $colDate11=mysqli_real_escape_string($link, $_POST['c11']);
+  $colaccountName12=mysqli_real_escape_string($link, $_POST['c12']);
+  $colDebtor13=mysqli_real_escape_string($link, $_POST['c13']);
+  $colCreditor14=mysqli_real_escape_string($link, $_POST['c14']);
+  $colDescription15=mysqli_real_escape_string($link, $_POST['c15']);
+  $col1Date6=mysqli_real_escape_string($link, $_POST['c16']);
+  $colaccountName17=mysqli_real_escape_string($link, $_POST['c17']);
+  $colDebtor18=mysqli_real_escape_string($link, $_POST['c18']);
+  $colCreditor19=mysqli_real_escape_string($link, $_POST['c19']);
+  $colDescription20=mysqli_real_escape_string($link, $_POST['c20']);
   $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
   `description`,`transactionCode`,`entryRef`)
   VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$colDate1','$colDebtor3','$colCreditor4','$Description5','$colaccountName2','$financialRef')";

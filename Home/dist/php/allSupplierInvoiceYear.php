@@ -2,9 +2,10 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $sDate=$_POST['startYear'];
+ $sDate=(int)$_POST['startYear'];
  echo"
   <input value='Purchaseing Invoice For $sDate' class='reportTitel' hidden>
   <h3 class='text-center text-body'>Purchaseing Invoice For $sDate</h3>

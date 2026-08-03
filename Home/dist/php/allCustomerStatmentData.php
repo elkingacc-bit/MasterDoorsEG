@@ -3,9 +3,10 @@
 </style>
 <div class="table-responsive-lg">
  <?php
+  include_once("authCheck.php");
   date_default_timezone_set("Africa/Cairo");
   include_once("connection.php");
-  $tCode=$_POST['accCode'];
+  $tCode=(int)$_POST['accCode'];
   $invoices=0;
   $accountBalance=0;
   $sqlGetCustomer="SELECT `customername` FROM `customers` WHERE `customercode` = $tCode";

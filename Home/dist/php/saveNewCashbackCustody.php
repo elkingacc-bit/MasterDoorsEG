@@ -1,23 +1,23 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $action="Add New Withdrawal Custody";
  $logRef=112;
  $financialRef="Custy Cashback";
  $result = "";
- $transactionsDate=$_POST['fDate'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['fDate']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
- $discrebtion=$_POST['fdiscrebtion'];
- $recipient=$_POST['frecipient'];
- $amount=$_POST['famount'];
- $acount=$_POST['fAccount'];
- $cashCode='116100100000'; 
+ $discrebtion=mysqli_real_escape_string($link, $_POST['fdiscrebtion']);
+ $recipient=(int)$_POST['frecipient'];
+ $amount=(float)$_POST['famount'];
+ $acount=mysqli_real_escape_string($link, $_POST['fAccount']);
+ $cashCode='116100100000';
  $sqlCustodyData="SELECT `poNum`, sum(`amount`) as cash,sum(`cashBack`) as comback FROM `custody`  WHERE `empCode` = '$recipient' AND `custodyRef` = 1";
  $queryCustodyData=mysqli_query($link,$sqlCustodyData)or die("ERROR_SNSC : 02");
  $custodyGetData=mysqli_fetch_assoc($queryCustodyData);
- $projectNum=$_POST['poNumber'];
+ $projectNum=mysqli_real_escape_string($link, $_POST['poNumber']);
  $custody=($custodyGetData['cash'] - $custodyGetData['comback']);
  $reminingCustody=($custody-$amount);
  //cashback

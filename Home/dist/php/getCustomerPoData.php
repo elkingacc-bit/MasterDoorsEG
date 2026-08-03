@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $jopId=$_POST['jopId'];
+ $jopId=(int)$_POST['jopId'];
  // Get Project Name
  $sqlProjectName="SELECT `projectName` FROM `job` WHERE `jobId` = $jopId";
  $quaryProjectName=mysqli_query($link,$sqlProjectName)or die("ERROR LOA_S:01");
