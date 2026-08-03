@@ -14,27 +14,33 @@ include_once("connection.php");
  */
 
 /**
- * دالة مساعدة: تجيب اسم العميل + مبلغ التحصيل بأمان (Prepared Statement)
+ * دالة مساعدة: تجيب اسم العميل + مبلغ التحصيل، عن طريق كاش يُبنى
+ * باستعلام واحد فقط (بدل تكرار prepare/execute لكل عميل على حدة)
  */
 function getCustomerName($link, $custCode)
 {
-    $stmt = mysqli_prepare($link, "SELECT `customername` FROM `customers` WHERE `customercode` = ?");
-    mysqli_stmt_bind_param($stmt, "i", $custCode);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($res);
-    mysqli_stmt_close($stmt);
-    return $row['customername'] ?? 'غير معروف';
+    static $map = null;
+    if ($map === null) {
+        $map = [];
+        $res = mysqli_query($link, "SELECT `customercode`, `customername` FROM `customers`") or die("ERROR :01-AU_AU_S" . mysqli_error($link));
+        while ($row = mysqli_fetch_assoc($res)) {
+            $map[(int) $row['customercode']] = $row['customername'];
+        }
+    }
+    return $map[$custCode] ?? 'غير معروف';
 }
 
 function getCollectedAmount($link, $custCode)
 {
-    $stmt = mysqli_prepare($link, "SELECT sum(`creditor`) as amountCollect FROM `financialtransactions` WHERE `transactionCode` = ?");
-    mysqli_stmt_bind_param($stmt, "i", $custCode);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($res);
-    return $row['amountCollect'] ?? 0;
+    static $map = null;
+    if ($map === null) {
+        $map = [];
+        $res = mysqli_query($link, "SELECT `transactionCode`, sum(`creditor`) as amountCollect FROM `financialtransactions` GROUP BY `transactionCode`") or die("ERROR :01-AU_AU_S" . mysqli_error($link));
+        while ($row = mysqli_fetch_assoc($res)) {
+            $map[(int) $row['transactionCode']] = $row['amountCollect'];
+        }
+    }
+    return $map[$custCode] ?? 0;
 }
 
 /**
