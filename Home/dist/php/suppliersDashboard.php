@@ -23,20 +23,32 @@
        $totalManufacturOrder=0;
        $totalManufacturpayment=0;
        $totalManufacturValid=0;
-       $allManufacturOrder=0; 
+       $allManufacturOrder=0;
        $sqlAllManufacturing="SELECT sum(`totalAmout`) AS totalAllInv FROM `purchasesorder`";
        $queryAllStatment=mysqli_query($link,$sqlAllManufacturing);
        $statmentAllManufactur=mysqli_fetch_assoc($queryAllStatment);
        $allManufacturOrder=$statmentAllManufactur['totalAllInv'];
+
+       // Pre-fetch per-supplier aggregates in 2 queries instead of running them
+       // per supplier inside the loop below (was up to 2 extra queries x supplier count)
+       $purchaseOrderTotals=[];
+       $sqlPurchaseOrderTotals="SELECT `supplierid`, sum(`totalAmout`) AS totalInv FROM `purchasesorder` GROUP BY `supplierid`";
+       $queryPurchaseOrderTotals=mysqli_query($link,$sqlPurchaseOrderTotals)or die("ERROR :01-AU_AU_S".mysqli_error($link));
+       while($row=mysqli_fetch_assoc($queryPurchaseOrderTotals)){
+        $purchaseOrderTotals[$row['supplierid']]=$row['totalInv'];
+       }
+       $cashWithdrawalTotals=[];
+       $sqlCashWithdrawalTotals="SELECT `account`, sum(`withdrawal`) AS paymentAmount FROM `cash_transaction` GROUP BY `account`";
+       $queryCashWithdrawalTotals=mysqli_query($link,$sqlCashWithdrawalTotals)or die("ERROR :01-AU_AU_S".mysqli_error($link));
+       while($row=mysqli_fetch_assoc($queryCashWithdrawalTotals)){
+        $cashWithdrawalTotals[$row['account']]=$row['paymentAmount'];
+       }
+
        $sqlGetManufacturing="SELECT `suppliercode`,`suppliername` FROM `allsuppliers`";
        $queryGetManufactur=mysqli_query($link,$sqlGetManufacturing)or die("ERROR :01-AU_AU_S".mysqli_error($link));
        while($resGetManufactur = mysqli_fetch_assoc($queryGetManufactur)){
-        $sqlManufacturing="SELECT sum(`totalAmout`) AS totalInv FROM `purchasesorder` WHERE supplierid = $resGetManufactur[suppliercode]";
-        $queryStatment=mysqli_query($link,$sqlManufacturing);
-        $statmentManufactur=mysqli_fetch_assoc($queryStatment);
-        $sqlManufacturPayment="SELECT sum(`withdrawal`) AS `paymentAmount` FROM `cash_transaction` WHERE `account` = $resGetManufactur[suppliercode] ";
-        $queryManufacturPayment=mysqli_query($link,$sqlManufacturPayment);
-        $Manufacturpayment=mysqli_fetch_assoc($queryManufacturPayment);
+        $statmentManufactur=['totalInv'=>$purchaseOrderTotals[$resGetManufactur['suppliercode']] ?? null];
+        $Manufacturpayment=['paymentAmount'=>$cashWithdrawalTotals[$resGetManufactur['suppliercode']] ?? null];
         $valiedManufacturAmount= ($statmentManufactur['totalInv'] - $Manufacturpayment['paymentAmount']);
         $perSubManufactur=($statmentManufactur['totalInv']/$allManufacturOrder)*100;
         $perManufactur=number_format(($perSubManufactur), 2)." % ";
@@ -117,6 +129,14 @@
      </thead>
      <tbody>
       <?php
+       // Pre-fetch supplier-invoice totals in 1 query instead of per-supplier inside the loop
+       $supplierInvoiceTotals=[];
+       $sqlSupplierInvoiceTotals="SELECT `supplierCode`, sum(`suppliersInvoiceTotal`) AS tAmount FROM `supplierInvoice` GROUP BY `supplierCode`";
+       $querySupplierInvoiceTotals=mysqli_query($link,$sqlSupplierInvoiceTotals)or die("ERROR_SNSC : 01");
+       while($row=mysqli_fetch_assoc($querySupplierInvoiceTotals)){
+        $supplierInvoiceTotals[$row['supplierCode']]=$row['tAmount'];
+       }
+
        $sqlGetSupplier="SELECT `suppliercode`,`suppliername` FROM `allsuppliers`";
        $queryGetSupplier=mysqli_query($link,$sqlGetSupplier)or die("ERROR :01-AU_AU_S".mysqli_error($link));
        $sn2=0;
@@ -124,14 +144,12 @@
        $totalSupplierpayment =0;
        $totalSupplierValid =0;
        while($resGetSupplier = mysqli_fetch_assoc($queryGetSupplier)){
-        $sqlSupplierStockInv="SELECT sum(`suppliersInvoiceTotal`) as tAmount FROM `supplierInvoice` 
-        WHERE `supplierCode` = $resGetSupplier[suppliercode] AND `supplierCode` NOT IN(SELECT supplierid FROM `purchasesorder` WHERE supplierid = $resGetSupplier[suppliercode])";
-        $querySupplierStockInv=mysqli_query($link,$sqlSupplierStockInv)or die("ERROR_SNSC : 01");
-        $supplierStockInv=mysqli_fetch_assoc($querySupplierStockInv);
-        $totalPur= $supplierStockInv['tAmount'];
-        $sqlSupplierPayment="SELECT sum(`withdrawal`) AS `paymentAmount` FROM `cash_transaction` WHERE `account` = $resGetSupplier[suppliercode] ";
-        $querySupplierPayment=mysqli_query($link,$sqlSupplierPayment);
-        $payment=mysqli_fetch_assoc($querySupplierPayment);
+        // Same semantics as the original NOT IN(...) subquery: only count invoices
+        // for suppliers that don't appear at all in purchasesorder.supplierid
+        $totalPur= array_key_exists($resGetSupplier['suppliercode'], $purchaseOrderTotals)
+         ? null
+         : ($supplierInvoiceTotals[$resGetSupplier['suppliercode']] ?? null);
+        $payment=['paymentAmount'=>$cashWithdrawalTotals[$resGetSupplier['suppliercode']] ?? null];
         $valiedAmount= ($totalPur - $payment['paymentAmount']);
         if($valiedAmount < 0 ){
          $receiveSupplierOrder = '';

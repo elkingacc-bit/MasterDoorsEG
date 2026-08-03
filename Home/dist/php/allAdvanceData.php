@@ -13,20 +13,30 @@
    <?php
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
+
+    // Pre-fetch per-employee advance aggregates in 2 queries instead of 2 per employee
+    $advanceLastDates1=[];
+    $sqlAdvanceLastAll1="SELECT `empId`, MAX(`advanceDate`) as lastDate FROM `advance` WHERE `recevedRef` = 1 AND `recived` > 0 GROUP BY `empId`";
+    $queryAdvanceLastAll1=mysqli_query($link,$sqlAdvanceLastAll1);
+    while($row=mysqli_fetch_assoc($queryAdvanceLastAll1)){
+     $advanceLastDates1[$row['empId']]=$row['lastDate'];
+    }
+    $advanceStatments1=[];
+    $sqlAdvanceStatmentAll1="SELECT `empId`, sum(`recived`) as withdrow, sum(`cashback`) as returned FROM `advance` WHERE `recevedRef` = 1 GROUP BY `empId`";
+    $queryAdvanceStatmentAll1=mysqli_query($link,$sqlAdvanceStatmentAll1);
+    while($row=mysqli_fetch_assoc($queryAdvanceStatmentAll1)){
+     $advanceStatments1[$row['empId']]=$row;
+    }
+
     $sqlEmployee="SELECT `userid`,`fullname` FROM `users`";
     $queryEmployee=mysqli_query($link,$sqlEmployee)or die("ERROR LOA_S:01");
     while($employeeData=mysqli_fetch_assoc($queryEmployee)){
      $empId=$employeeData['userid'];
      $empName=$employeeData['fullname'];
      //Last Advance
-     $sqlAdvanceLast="SELECT `advanceDate` FROM `advance` WHERE `recevedRef` = 1 AND `empId` = $empId AND `recived` > 0 ORDER BY `advanceDate` DESC LIMIT 1";  
-     $queryAdvanceLast=mysqli_query($link,$sqlAdvanceLast);
-     if($advanceLast=mysqli_fetch_assoc($queryAdvanceLast)){
-      $lastDate=$advanceLast['advanceDate'];
-     }
-     $sqlAdvanceStatment="SELECT sum(`recived`) as withdrow , sum(`cashback`) as returned FROM `advance` WHERE `recevedRef` = 1 AND `empId` = $empId";  
-     $queryAdvanceStatment=mysqli_query($link,$sqlAdvanceStatment);
-     if($advanceStatment=mysqli_fetch_assoc($queryAdvanceStatment)){
+     $lastDate=$advanceLastDates1[$empId] ?? null;
+     $advanceStatment=$advanceStatments1[$empId] ?? null;
+     if($advanceStatment){
       $advanceBalance=($advanceStatment['withdrow'] - $advanceStatment['returned']);
       if($advanceStatment['withdrow'] > 0 Or $advanceStatment['returned'] > 0){
        echo"<tr>
@@ -55,20 +65,29 @@
   </thead>
   <tbody>
    <?php
+    // Pre-fetch per-staff advance aggregates in 2 queries instead of 2 per staff member
+    $advanceLastDates2=[];
+    $sqlAdvanceLastAll2="SELECT `empId`, MAX(`advanceDate`) as lastDate FROM `advance` WHERE `recevedRef` = 2 AND `recived` > 0 GROUP BY `empId`";
+    $queryAdvanceLastAll2=mysqli_query($link,$sqlAdvanceLastAll2);
+    while($row=mysqli_fetch_assoc($queryAdvanceLastAll2)){
+     $advanceLastDates2[$row['empId']]=$row['lastDate'];
+    }
+    $advanceStatments2=[];
+    $sqlAdvanceStatmentAll2="SELECT `empId`, sum(`recived`) as withdrow, sum(`cashback`) as returned FROM `advance` WHERE `recevedRef` = 2 GROUP BY `empId`";
+    $queryAdvanceStatmentAll2=mysqli_query($link,$sqlAdvanceStatmentAll2);
+    while($row=mysqli_fetch_assoc($queryAdvanceStatmentAll2)){
+     $advanceStatments2[$row['empId']]=$row;
+    }
+
     $sqlWorker="SELECT `id`, `staffname` FROM `allstaff`";
     $queryWorker=mysqli_query($link,$sqlWorker)or die("ERROR LOA_S:01");
     while($workerData=mysqli_fetch_assoc($queryWorker)){
      $workId=$workerData['id'];
      $workName=$workerData['staffname'];
      //Last Advance
-     $sqlAdvanceLastw="SELECT `advanceDate` FROM `advance` WHERE `recevedRef` = 2 AND `empId` = $workId AND `recived` > 0 ORDER BY `advanceDate` DESC LIMIT 1";  
-     $queryAdvanceLastw=mysqli_query($link,$sqlAdvanceLastw);
-     if($advanceLastw=mysqli_fetch_assoc($queryAdvanceLastw)){
-      $lastDatew=$advanceLastw['advanceDate'];
-     }
-     $sqlAdvanceStatmentw="SELECT sum(`recived`) as withdrow , sum(`cashback`) as returned FROM `advance` WHERE `recevedRef` = 2 AND `empId` = $workId";  
-     $queryAdvanceStatmentw=mysqli_query($link,$sqlAdvanceStatmentw);
-     if($advanceStatmentw=mysqli_fetch_assoc($queryAdvanceStatmentw)){
+     $lastDatew=$advanceLastDates2[$workId] ?? null;
+     $advanceStatmentw=$advanceStatments2[$workId] ?? null;
+     if($advanceStatmentw){
       $advanceBalancew=($advanceStatmentw['withdrow'] - $advanceStatmentw['returned']);
       if($advanceStatmentw['withdrow'] > 0 Or $advanceStatmentw['returned'] > 0){
        echo"<tr>
