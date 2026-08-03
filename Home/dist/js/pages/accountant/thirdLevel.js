@@ -6,10 +6,10 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
  $('#saveNewAsset').prop('disabled', true);
  // Loade First Code Data
  $("#level1f").load("dist/php/levelOneAccountantCode.php");
- // Get Second Code Data Mathed With First Code 
+ // Get Second Code Data Mathed With First Code
  $("#level1f").change(function(){
   var level1Name = $('#level1f').val();
-  $.ajax({ 
+  $.ajax({
    url:'dist/php/levelTowAccountantCode.php',
    type:"POST",
    data:{firstCode:level1Name},
@@ -23,7 +23,7 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
  $("#AssetsName").change(function(){
   var level1Code = $('#level1f').val();
   var level2code = $('#level2').val();
-  $.ajax({ 
+  $.ajax({
    url:'dist/php/getLevelThreeNewCode.php',
    type:"POST",
    data:{firstCode:level1Code,secoundCode:level2code},
@@ -31,13 +31,13 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
     if(getLevel3Code == 0){
      $('.msg').removeClass('alert-success');
      $('.msg').addClass('alert-danger');
-     $(".msg").html("You Already Been Registered All Limit For This Level");
-     $(".msg").fadeOut(3000);
+     $(".msg").hide().html("You Already Been Registered All Limit For This Level").fadeIn(150);
+     $(".msg").delay(3000).fadeOut(600);
     }
     else{
-     var Lev3Code = getLevel3Code.replace(/^\s+|\s+$|\s+(?=\s)/g, "");  
+     var Lev3Code = getLevel3Code.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
      $("#level3").val(Lev3Code);
-     $('#saveNewAsset').prop('disabled', false);    
+     $('#saveNewAsset').prop('disabled', false);
     }
    }
   });
@@ -50,52 +50,55 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
   var therdName = $('#AssetsName').val();
   var therdCode = $('#level3').val();
   if(firstCode == ""){
-   $('.msg').removeClass('alert alert-success');
-   $('.msg').addClass('alert alert-danger');
-   $('.msg').html('Dont Skip First Name Empty');
-   $('#level1').focus();
-   $(".msg").fadeOut(3000);
+   $('.msg').removeClass('alert-success');
+   $('.msg').addClass('alert-danger');
+   $('.msg').hide().html('Dont Skip First Name Empty').fadeIn(150);
+   $('#level1f').focus();
+   $(".msg").delay(3000).fadeOut(600);
   }
   else if(secoundCode == ""){
-   $('.msg').removeClass('alert alert-success');
-   $('.msg').addClass('alert alert-danger');
-   $('.msg').html('Dont Skip Secound Name Empty');
-   $('#AssetsLevel2Name').focus();
-   $(".msg").fadeOut(3000);
+   $('.msg').removeClass('alert-success');
+   $('.msg').addClass('alert-danger');
+   $('.msg').hide().html('Dont Skip Secound Name Empty').fadeIn(150);
+   $('#level2').focus();
+   $(".msg").delay(3000).fadeOut(600);
   }
   else if(therdName == ""){
-   $('.msg').removeClass('alert alert-success');
-   $('.msg').addClass('alert alert-danger');
-   $('.msg').html('Dont Skip Third Name Empty');
-   $('#AssetsLevel2Name').focus();
-   $(".msg").fadeOut(3000);
+   $('.msg').removeClass('alert-success');
+   $('.msg').addClass('alert-danger');
+   $('.msg').hide().html('Dont Skip Third Name Empty').fadeIn(150);
+   $('#AssetsName').focus();
+   $(".msg").delay(3000).fadeOut(600);
   }
   else{
-   $.ajax({ 
+   var $btn = $('#saveNewAsset');
+   var originalText = $btn.text();
+   $.ajax({
     url:'dist/php/saveNewThierdlCode.php',
     type:"POST",
     data:{fCode:firstCode,scode:secoundCode,tName:therdName,tcode:therdCode},
     beforeSend:function(){
-     $('#saveNewAsset').prop('disabled', true);
+     $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
     },
     success: function(saveThierdlCodeDone){
-     if(saveThierdlCodeDone == 1){       
+     $btn.prop('disabled', false).text(originalText);
+     if(saveThierdlCodeDone == 1){
       $('.msg').removeClass('alert-danger');
       $('.msg').addClass('alert-success');
-      $(".msg").html("Data Saved");
+      $(".msg").hide().html("Data Saved").fadeIn(150);
       $('#level1f').val("");
       $('#level2').val("");
       $('#AssetsName').val("");
       $('#level3').val("");
       $('#assetRefCode').val("");
-      $(".msg").fadeOut(3000);
+      $(".msg").delay(2000).fadeOut(600);
       $('.card-text').load('dist/html/thierdLevel.html');
      }
      else{
       $('.msg').removeClass('alert-success');
       $('.msg').addClass('alert-danger');
-      $(".msg").html(saveThierdlCodeDone);
-      $(".msg").fadeOut(5000);
+      $(".msg").hide().html(saveThierdlCodeDone).fadeIn(150);
+      $(".msg").delay(5000).fadeOut(600);
      }
     }
    });

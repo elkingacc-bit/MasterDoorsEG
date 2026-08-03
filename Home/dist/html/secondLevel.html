@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
- <center>
-  <div class="table-responsive-lg">
-   <table class="table table-sm w-75 table-borderless">
-    <thead class="text-center">
-     <th>First Level Name</th>
-     <th>Second Level Name</th>
-     <th>Save</th>
-    </thead>
-    <tbody>
-     <td><select class="form-control" id="level1"><option value="">Choose</option></select></td>
-     <td><input type="text" class="form-control" id="AssetsLevel2Name"></td>
-     <td hidden><input class="form-control" id="AssetsLevel2Code"></td>
-     <td><button class="btn btn-success w-100" id="saveLivel2">Save</button></td>
-    </tbody>
-   </table>
+<style>
+ #secondLevelForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #secondLevelForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #saveLivel2{transition: transform .1s ease-in-out;}
+ #saveLivel2:active{transform: scale(0.97);}
+</style>
+ <div id="secondLevelForm">
+  <div class="row">
+   <div class="form-group col-md-4">
+    <label for="level1">First Level Name</label>
+    <select class="form-control" id="level1"><option value="">Choose</option></select>
+   </div>
+   <div class="form-group col-md-4">
+    <label for="AssetsLevel2Name">Second Level Name</label>
+    <input type="text" class="form-control" id="AssetsLevel2Name">
+   </div>
+   <input class="form-control" id="AssetsLevel2Code" hidden>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-success w-100" id="saveLivel2">Save</button>
+   </div>
   </div>
   <div class="oldSecoundtData"></div>
- </center>
+ </div>
  <script src="dist/js/pages/accountant/secondLevel.js"></script>
 </html>
