@@ -23,41 +23,19 @@ date_default_timezone_set("Africa/Cairo");
   </thead>
   <tbody>
    <?php
-    
-    // Get All Financal Transaction
-    $sqlFinancalTransaction="SELECT `transactionNumber`,`transactionsDate`,`debtor`,`creditor`,`description`,`transactionCode` FROM `financialTransactions`";
+    // Get All Financal Transaction, with the account/supplier/customer name resolved
+    // via a single set of LEFT JOINs instead of a per-row lookup query (was 1+3N queries,
+    // now 1 query total regardless of row count)
+    $sqlFinancalTransaction="SELECT ft.`transactionNumber`,ft.`transactionsDate`,ft.`debtor`,ft.`creditor`,ft.`description`,ft.`transactionCode`,
+     COALESCE(ac.`accountName`, sup.`suppliername`, cus.`customername`) as account
+     FROM `financialTransactions` ft
+     LEFT JOIN `accountantcode` ac ON ac.`accountCode` = ft.`transactionCode`
+     LEFT JOIN `allsuppliers` sup ON sup.`suppliercode` = ft.`transactionCode`
+     LEFT JOIN `customers` cus ON cus.`customercode` = ft.`transactionCode`";
     $queryFinancalTransaction=mysqli_query($link,$sqlFinancalTransaction)or die("ERROR_SNSC : 01");
     $sn=0;
     While($financalTransactionData=mysqli_fetch_assoc($queryFinancalTransaction)){
-     $accountCode=$financalTransactionData['transactionCode'];
-     //accountatCode
-     $sqlAccount="SELECT `accountName` FROM `accountantcode` WHERE `accountCode` = $accountCode";
-     $queryAccount=mysqli_query($link,$sqlAccount)or die("ERROR LOA_S:01");
-     $allCodeCount=mysqli_num_rows($queryAccount);
-     if($allCodeCount > 0){
-      $accountData=mysqli_fetch_assoc($queryAccount);
-      $account= $accountData['accountName']; 
-     }
-     else{
-      //supplierCode
-      $sqlGetSupplier="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $accountCode";
-      $queryGetSupplier=mysqli_query($link,$sqlGetSupplier)or die("ERROR :01-AU_AU_S".mysqli_error($link));
-      $supplierCount = mysqli_num_rows($queryGetSupplier);
-      if($supplierCount > 0){
-       $supplierData = mysqli_fetch_assoc($queryGetSupplier);        
-       $account= $supplierData['suppliername'];
-      }
-      else{
-       //customerCode
-       $sqlCheckCustN="SELECT `customername` FROM `customers` WHERE `customercode` = $accountCode";
-       $queryCheckCustN=mysqli_query($link,$sqlCheckCustN)or die("ERROR :01-CCN_ACC_S".mysqli_error($link));
-       $customerCount=mysqli_num_rows($queryCheckCustN);
-       if($customerCount > 0 ){
-        $customerData=mysqli_fetch_assoc($queryCheckCustN);    
-        $account= $customerData['customername'];
-       }
-      }
-     }
+     $account=$financalTransactionData['account'];
      $sn++;
      echo"<tr>
 	  <td>$sn</td>
