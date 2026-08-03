@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
- <center>
-  <div class="table-responsive-lg">
-   <table class="table table-sm w-75 table-borderless text-center">
-    <thead>
-     <th>PO Number</th>
-    </thead>
-    <tbody>
-     <td>
-      <input type="text" id="chooseCustomersPoList" name="chooseCustomersPoList" class="form-control" autocomplete="off" list="customersPoList">
-      <datalist id="customersPoList"></datalist> 
-     </td>
-     <td><button class="btn btn-info" id="invData">Go</button></td>
-    </tbody>
-   </table>    
+<style>
+ #salesInvoiceChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <center id="salesInvoiceChooserForm">
+  <div class="row justify-content-center">
+   <div class="form-group col-md-6">
+    <label for="chooseCustomersPoList">PO Number</label>
+    <input type="text" id="chooseCustomersPoList" name="chooseCustomersPoList" class="form-control" autocomplete="off" list="customersPoList">
+    <datalist id="customersPoList"></datalist>
+   </div>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-info w-100" id="invData">Go</button>
+   </div>
   </div>
  </center>
  <script src="dist/js/pages/accountant/newSalesInvoice.js"></script>

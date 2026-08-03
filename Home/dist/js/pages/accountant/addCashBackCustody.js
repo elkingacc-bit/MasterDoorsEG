@@ -7,9 +7,10 @@ $(document).ready(function(){
     type:"POST",
     data:{frecipient:emp},
     success: function(getWithdrawCustody){
-     $(".custodyData").html("");
      $("#withdrawCustodyRecipient").prop('disabled',true);
-     $(".custodyData").html(getWithdrawCustody);
+     $(".custodyData").fadeOut(150, function(){
+      $(".custodyData").html(getWithdrawCustody).fadeIn(150);
+     });
     }
    });
    return false;

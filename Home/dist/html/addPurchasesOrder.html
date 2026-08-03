@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html>
- <div class="table-responsive-lg supplierOffer">
+<style>
+ #purchaseOrderChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <div class="supplierOffer" id="purchaseOrderChooserForm">
   <center>
-   <table class="table table-sm w-50 table-borderless">
-    <td class="col-2 p-2">Choose Project Name</td>
-    <td class="col-6"><select class="form-control" id="customerPoList"></select></td>
-   </table>
-  </div>
-  <div class="testData"></div>
- </center>
+   <div class="row justify-content-center">
+    <div class="form-group col-md-6">
+     <label for="customerPoList">Choose Project Name</label>
+     <select class="form-control" id="customerPoList"></select>
+    </div>
+   </div>
+  </center>
+ </div>
+ <div class="testData"></div>
 </html>
 <script type="text/javascript">
  $(document).ready(function(){
   $("#customerPoList").load("dist/php/allcustomerpoOffer.php");
   $("#customerPoList").change(function(){
-  $(".supplierOffer").hide();
+  $(".supplierOffer").fadeOut(150);
    var cusPo =$(this).val();
     $.ajax({
     url:'dist/php/purchasesOrderData.php',
     type:"POST",
     data:{poId:cusPo},
     success: function(offerData){
-     $(".testData").html(offerData)    
+     $(".testData").html(offerData)
     }
-   });  
+   });
   });
- }); 
+ });
 </script>

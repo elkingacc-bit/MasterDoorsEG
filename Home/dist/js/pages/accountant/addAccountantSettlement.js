@@ -1,6 +1,24 @@
  $(document).ready(function(){
    $(".entry3").hide();
    $(".entry4").hide();
+
+   function validateField($field){
+    var val = $.trim($field.val());
+    var $group = $field.closest('.form-group');
+    if(val === ''){
+     $field.addClass('is-invalid');
+     $group.find('.invalid-feedback').addClass('show');
+    }
+    else{
+     $field.removeClass('is-invalid');
+     $group.find('.invalid-feedback').removeClass('show');
+    }
+   }
+
+   $(document).on('blur change', '#settlementForm input[type="date"], #settlementForm select, #settlementForm input[type="text"]', function(){
+    validateField($(this));
+   });
+
    $("#settlementAdd").click(function(){
     var dataCount = $("#entryCount").val();
     var trCell11 = $("#receDate1").val();
@@ -13,21 +31,26 @@
     var trCell33 = $("#debtorAmount"+dataCount).val();
     var trCell43 = $("#creditorAmount"+dataCount).val();
     var trCell53 = $("#receivDescription"+dataCount).val();
-    if(trCell11 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell21 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell31 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell41 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell51 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell13 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell23 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell33 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell43 == ""){ alert("Dont Skip Filed Empty");}
-    else if(trCell53 == ""){ alert("Dont Skip Filed Empty");}
+
+    validateField($("#receDate1")); validateField($("#accountName1")); validateField($("#receivDescription1"));
+    validateField($("#receDate"+dataCount)); validateField($("#accountName"+dataCount)); validateField($("#receivDescription"+dataCount));
+
+    if(trCell11 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell21 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell31 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell41 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell51 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell13 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell23 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell33 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell43 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
+    else if(trCell53 == ""){ $(".msgData").text("Dont Skip Filed Empty");}
     else{
+     $(".msgData").text('');
      if(dataCount < 4){
       var nextRow = (Number(dataCount)+1);
       $("#entryCount").val(nextRow);
-      $(".entry"+nextRow).show();
+      $(".entry"+nextRow).slideDown(200);
      }
     }
    });
@@ -72,72 +95,32 @@
     });
     return false;
    });
-   $("#debtorAmount1").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var totalDeb =(Number(dept1));
-    var cre1 = $("#creditorAmount1").val();
-    var totalCre = (Number(cre1));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
+
+   // Live balance check as the user types (instead of only on 'change'),
+   // plus a running balance readout instead of a plain text message
+   function checkBalance(){
+    var dataCount = Number($("#entryCount").val());
+    var totalDeb = 0;
+    var totalCre = 0;
+    for(var i=1; i<=dataCount; i++){
+     totalDeb += Number($("#debtorAmount"+i).val()) || 0;
+     totalCre += Number($("#creditorAmount"+i).val()) || 0;
+    }
+    var diff = totalDeb - totalCre;
+    if(diff === 0){
+     $("#settlementSave").prop('disabled', false);
+     $("#settlementBalance").html('<span class="text-success">Balanced - Debtor '+totalDeb.toFixed(2)+' = Creditor '+totalCre.toFixed(2)+'</span>');
+    }
+    else{
+     $("#settlementSave").prop('disabled', true);
+     $("#settlementBalance").html('<span class="text-danger">Unbalanced - Debtor '+totalDeb.toFixed(2)+' / Creditor '+totalCre.toFixed(2)+' (diff '+diff.toFixed(2)+')</span>');
+    }
+   }
+
+   $(document).on('input change', '[id^="debtorAmount"], [id^="creditorAmount"]', function(){
+    checkBalance();
    });
-   $("#creditorAmount1").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var totalDeb =(Number(dept1));
-    var cre1 = $("#creditorAmount1").val();
-    var totalCre = (Number(cre1));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
-   });
-   $("#debtorAmount2").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var dept2 = $("#debtorAmount2").val();
-    var totalDeb =(Number(dept1)+Number(dept2));
-    var cre1 = $("#creditorAmount1").val();
-    var cre2 = $("#creditorAmount2").val();
-    var totalCre = (Number(cre1)+Number(cre2));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
-   });
-   $("#creditorAmount2").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var dept2 = $("#debtorAmount2").val();
-    var totalDeb =(Number(dept1)+Number(dept2));
-    var cre1 = $("#creditorAmount1").val();
-    var cre2 = $("#creditorAmount2").val();
-    var totalCre = (Number(cre1)+Number(cre2));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
-   });
-   $("#debtorAmount3").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var dept2 = $("#debtorAmount2").val();
-    var dept3 = $("#debtorAmount3").val();
-    var totalDeb =(Number(dept1)+Number(dept2)+Number(dept3));
-    var cre1 = $("#creditorAmount1").val();
-    var cre2 = $("#creditorAmount2").val();
-    var cre3 = $("#creditorAmount3").val();
-    var totalCre = (Number(cre1)+Number(cre2)+Number(cre3));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
-   });
-   $("#creditorAmount3").change(function(){
-    var dept1 = $("#debtorAmount1").val();
-    var dept2 = $("#debtorAmount2").val();
-    var dept3 = $("#debtorAmount3").val();
-    var totalDeb =(Number(dept1)+Number(dept2)+Number(dept3));
-    var cre1 = $("#creditorAmount1").val();
-    var cre2 = $("#creditorAmount2").val();
-    var cre3 = $("#creditorAmount3").val();
-    var totalCre = (Number(cre1)+Number(cre2)+Number(cre3));
-    if( totalDeb == totalCre){$("#settlementSave").prop('disabled', false);}
-    else{$(".msgData").html('Settlement Unbalanced');}
-    return false;
-   });
+
    $("#settlementSave").click(function(){
     var getDataCount = $("#entryCount").val();
     if(getDataCount == 2){
@@ -151,37 +134,40 @@
      var cell32 = $("#debtorAmount2").val();
      var cell42 = $("#creditorAmount2").val();
      var cell52 = $("#receivDescription2").val();
-     if(cell11 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell21 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell31 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell41 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell51 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell12 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell22 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell32 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell42 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell52 == ''){alert('Dont Skip Filed Empty');}
+     if(cell11 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell21 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell31 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell41 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell51 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell12 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell22 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell32 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell42 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell52 == ''){$(".msgData").text('Dont Skip Filed Empty');}
      else{
-      $.ajax({ 
+      var $btn = $('#settlementSave');
+      var originalText = $btn.text();
+      $.ajax({
        url:'dist/php/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52},
        beforeSend:function(){
-        $('#saverRceivedCash').prop('disabled', true);
+        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
        },
        success: function(saveReceivedCashDone){
+        $btn.prop('disabled', false).text(originalText);
         if(saveReceivedCashDone == 1){
-         $('.msg').removeClass('alert alert-danger');
-         $('.msg').addClass('alert alert-success');
-         $('.msg').html("Data Saved");
-         $(".msg").fadeOut(3000);
+         $('.msgData').removeClass('alert-danger');
+         $('.msgData').addClass('alert-success');
+         $('.msgData').hide().html("Data Saved").fadeIn(150);
+         $(".msgData").delay(2000).fadeOut(600);
          $(".data_display").load("dist/html/accountantSettlement.html");
         }
         else{
-         $('.msg').removeClass('alert alert-success');
-         $('.msg').addClass('alert alert-danger');
-         $('.msg').html(saveReceivedCashDone);
-         $(".msg").fadeOut(9000);
+         $('.msgData').removeClass('alert-success');
+         $('.msgData').addClass('alert-danger');
+         $('.msgData').hide().html(saveReceivedCashDone).fadeIn(150);
+         $(".msgData").delay(6000).fadeOut(600);
         }
        }
       });
@@ -203,42 +189,45 @@
      var cell33 = $("#debtorAmount3").val();
      var cell43 = $("#creditorAmount3").val();
      var cell53 = $("#receivDescription3").val();
-     if(cell11 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell21 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell31 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell41 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell51 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell12 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell22 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell32 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell42 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell52 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell13 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell23 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell33 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell43 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell53 == ''){alert('Dont Skip Filed Empty');}
+     if(cell11 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell21 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell31 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell41 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell51 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell12 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell22 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell32 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell42 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell52 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell13 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell23 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell33 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell43 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell53 == ''){$(".msgData").text('Dont Skip Filed Empty');}
      else{
-      $.ajax({ 
+      var $btn = $('#settlementSave');
+      var originalText = $btn.text();
+      $.ajax({
        url:'dist/php/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52,c11:cell13,c12:cell23,c13:cell33,c14:cell43,c15:cell53},
        beforeSend:function(){
-        $('#saverRceivedCash').prop('disabled', true);
+        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
        },
        success: function(saveReceivedCashDone){
+        $btn.prop('disabled', false).text(originalText);
         if(saveReceivedCashDone == 1){
-         $('.msg').removeClass('alert alert-danger');
-         $('.msg').addClass('alert alert-success');
-         $('.msg').html("Data Saved");
-         $(".msg").fadeOut(3000);
+         $('.msgData').removeClass('alert-danger');
+         $('.msgData').addClass('alert-success');
+         $('.msgData').hide().html("Data Saved").fadeIn(150);
+         $(".msgData").delay(2000).fadeOut(600);
          $(".data_display").load("dist/html/accountantSettlement.html");
         }
         else{
-         $('.msg').removeClass('alert alert-success');
-         $('.msg').addClass('alert alert-danger');
-         $('.msg').html(saveReceivedCashDone);
-         $(".msg").fadeOut(9000);
+         $('.msgData').removeClass('alert-success');
+         $('.msgData').addClass('alert-danger');
+         $('.msgData').hide().html(saveReceivedCashDone).fadeIn(150);
+         $(".msgData").delay(6000).fadeOut(600);
         }
        }
       });
@@ -265,47 +254,50 @@
      var cell34 = $("#debtorAmount4").val();
      var cell44 = $("#creditorAmount4").val();
      var cell54 = $("#receivDescription4").val();
-     if(cell11 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell21 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell31 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell41 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell51 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell12 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell22 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell32 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell42 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell52 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell13 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell23 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell33 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell43 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell53 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell14 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell24 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell34 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell44 == ''){alert('Dont Skip Filed Empty');}
-     else if(cell54 == ''){alert('Dont Skip Filed Empty');}
+     if(cell11 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell21 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell31 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell41 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell51 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell12 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell22 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell32 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell42 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell52 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell13 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell23 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell33 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell43 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell53 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell14 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell24 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell34 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell44 == ''){$(".msgData").text('Dont Skip Filed Empty');}
+     else if(cell54 == ''){$(".msgData").text('Dont Skip Filed Empty');}
      else{
-      $.ajax({ 
+      var $btn = $('#settlementSave');
+      var originalText = $btn.text();
+      $.ajax({
        url:'dist/php/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52,c11:cell13,c12:cell23,c13:cell33,c14:cell43,c15:cell53,c16:cell14,c17:cell24,c18:cell34,c19:cell44,c20:cell54},
        beforeSend:function(){
-        $('#saverRceivedCash').prop('disabled', true);
+        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
        },
        success: function(saveReceivedCashDone){
+        $btn.prop('disabled', false).text(originalText);
         if(saveReceivedCashDone == 1){
-         $('.msg').removeClass('alert alert-danger');
-         $('.msg').addClass('alert alert-success');
-         $('.msg').html("Data Saved");
-         $(".msg").fadeOut(3000);
+         $('.msgData').removeClass('alert-danger');
+         $('.msgData').addClass('alert-success');
+         $('.msgData').hide().html("Data Saved").fadeIn(150);
+         $(".msgData").delay(2000).fadeOut(600);
          $(".data_display").load("dist/html/accountantSettlement.html");
         }
         else{
-         $('.msg').removeClass('alert alert-success');
-         $('.msg').addClass('alert alert-danger');
-         $('.msg').html(saveReceivedCashDone);
-         $(".msg").fadeOut(9000);
+         $('.msgData').removeClass('alert-success');
+         $('.msgData').addClass('alert-danger');
+         $('.msgData').hide().html(saveReceivedCashDone).fadeIn(150);
+         $(".msgData").delay(6000).fadeOut(600);
         }
        }
       });

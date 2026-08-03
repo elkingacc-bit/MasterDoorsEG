@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
- <center>
-  <div class="table-responsive-lg">
-   <table class="table table-sm table-borderless">
-    <thead class="text-center">
-     <th>Choose Supplier</th>
-     <th></th>
-    </thead>
-    <tbody>
-     <td>
-      <input type="text" id="chooseSupplierInvoice" name="chooseSupplierInvoice" class="form-control" autocomplete="off" list="supplierInvoice">
-      <datalist id="supplierInvoice"></datalist> 
-    </td>
-    <td><button class="btn btn-info" id="supplierAccount">Submit</button></td>
-    </tbody>
-   </table>
+<style>
+ #supplierChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <center id="supplierChooserForm">
+  <div class="row justify-content-center">
+   <div class="form-group col-md-6">
+    <label for="chooseSupplierInvoice">Choose Supplier</label>
+    <input type="text" id="chooseSupplierInvoice" name="chooseSupplierInvoice" class="form-control" autocomplete="off" list="supplierInvoice">
+    <datalist id="supplierInvoice"></datalist>
+   </div>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-info w-100" id="supplierAccount">Submit</button>
+   </div>
   </div>
  </center>
  <script type="text/javascript">
@@ -22,20 +20,20 @@
    $("#supplierInvoice").load("dist/php/allSuppDDList.php");
    $("#supplierAccount").click(function(){
     var data = {};
-    $("#supplierInvoice option").each(function(i,el) {  
+    $("#supplierInvoice option").each(function(i,el) {
      data[$(el).data("value")] = $(el).val();
     });
     console.log(data, $("#supplierInvoice option").val());
     var suplierCode = $("#chooseSupplierInvoice").val();
     var invSuplier = $('#supplierInvoice [value="' + suplierCode + '"]').data('value');
-    var suplierChosenValideate = $('#supplierInvoice [value="' + suplierCode + '"]');  
+    var suplierChosenValideate = $('#supplierInvoice [value="' + suplierCode + '"]');
     if(suplierChosenValideate.length <= 0){
-     alert('Please Choose Suppliers name form the list');
+     alert('Please Choose Suppliers name from the list');
      $("#chooseSupplierInvoice").css("border-color","red");
      setTimeout(function(){
-      $("#chooseSupplierInvoice").css("border-color","#EBEBEB");               
-      $("#chooseSupplierInvoice").val(''); 
-      $("#chooseSupplierInvoice").focus();             
+      $("#chooseSupplierInvoice").css("border-color","#EBEBEB");
+      $("#chooseSupplierInvoice").val('');
+      $("#chooseSupplierInvoice").focus();
      }, 1500);
     }
     else{
@@ -49,6 +47,6 @@
      });
     }
    });
-  }); 
+  });
  </script>
 </html>

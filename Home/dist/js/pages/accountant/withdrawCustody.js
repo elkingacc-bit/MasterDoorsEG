@@ -1,12 +1,41 @@
 $(document).ready(function(){
  $("#custodyData").hide();
  $("#saveWithdrawCustody").hide();
- $("#saveCashBackCustody").hide();  
+ $("#saveCashBackCustody").hide();
  $("#withdrawCustodyRecipient").load("dist/php/empCode.php");
  $("#projectsCustodyList").load("dist/php/projectsList2.php");
+
+ function validateField($field){
+  var val = $.trim($field.val());
+  var $group = $field.closest('.form-group');
+  if(val === ''){
+   $field.addClass('is-invalid');
+   $group.find('.invalid-feedback').addClass('show');
+  }
+  else{
+   $field.removeClass('is-invalid');
+   $group.find('.invalid-feedback').removeClass('show');
+  }
+ }
+
+ $(document).on('input', '#withdrawCustodyAmount', function(){
+  var val = parseFloat($(this).val());
+  if(!isNaN(val)){
+   $(this).closest('.form-group').find('.amountPreview').text(val.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+  }
+  else{
+   $(this).closest('.form-group').find('.amountPreview').text('');
+  }
+  validateField($(this));
+ });
+
+ $(document).on('blur change', '#withdrawCustodyDate, #withdrawCustodyAmount, #withdrawCustodyDiscrebtion', function(){
+  validateField($(this));
+ });
+
  //--------------------*{}*--------------------\\
  $("#projectsCustodyList").change(function(){
-  $("#withdrawCustodyRecipient").show();
+  $("#withdrawCustodyRecipient").fadeIn(150);
  });
  //--------------------*{}*--------------------\\
  $("#withdrawCustodyRecipient").change(function(){
@@ -19,14 +48,14 @@ $(document).ready(function(){
     $("#projectsCustodyList").prop('disabled',true);
     $("#withdrawCustodyRecipient").prop('disabled',true);
     if(custodyCheack == 3){
-     $("#custodyData").show();
-     $("#saveWithdrawCustody").show();
+     $("#custodyData").slideDown(200);
+     $("#saveWithdrawCustody").fadeIn(200);
     }
     else{
      $("#custodyData").html(custodyCheack);
-     $("#saveCashBackCustody").show();
-     $("#custodyData").show();
-    }  
+     $("#saveCashBackCustody").fadeIn(200);
+     $("#custodyData").slideDown(200);
+    }
    }
   });
  });
@@ -38,33 +67,42 @@ $(document).ready(function(){
   var amount = $("#withdrawCustodyAmount").val();
   var casher= $("#trasuty").val();
   var discrebtion = $("#withdrawCustodyDiscrebtion").val();
+
+  $("#withdrawCustodyDate, #withdrawCustodyAmount, #withdrawCustodyDiscrebtion").each(function(){
+   validateField($(this));
+  });
+
   if( actionDate == ''){
    alert ("Do'not Leave Date Blank.");
   }
   else if(amount == ''){
    alert ("Do'not Leave Amount Blank.");
-  }  
+  }
   else if(discrebtion == ''){
    alert ("Do'not Leave Discrebtion Blank.");
-  }  
+  }
   else{
-   $.ajax({ 
+   var $btn = $('#saveWithdrawCustody');
+   var originalText = $btn.text();
+   $.ajax({
     url:'dist/php/saveNewWithdrawCustody.php',
     type:"POST",
     data:{fDate:actionDate,frecipient:recipient,famount:amount,fdiscrebtion:discrebtion,poNumber:PONum},
     beforeSend:function(){
-     $('#saveWithdrawCustody').prop('disabled', true);
+     $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
     },
     success: function(saveWithdrawOtherTransaction){
+     $btn.prop('disabled', false).text(originalText);
      if(saveWithdrawOtherTransaction == 1){
       alert("Data Saved ");
       $("#withdrawCustodyRecipient").hide();
-      $("#custodyData").hide();
+      $("#custodyData").slideUp(200);
       $("#withdrawCustodyRecipient").load("dist/php/empCode.php");
       $("#projectsCustodyList").load("dist/php/projectsList2.php");
       $("#withdrawCustodyDate").val('');
       $("#withdrawCustodyAmount").val('');
       $("#withdrawCustodyDiscrebtion").val('');
+      $(".amountPreview").text('');
       $('#saveWithdrawCustody').prop('disabled', false);
       $("#projectsCustodyList").prop('disabled', false);
       $("#withdrawCustodyRecipient").prop('disabled', false);
@@ -91,7 +129,7 @@ alert("Balance Not Avaliable");
    data:{frecipient:emp,poNumber:PONum},
    success: function(getWithdrawCustody){
     $(".modal-body").html(getWithdrawCustody);
-    $("#custodyModalCashBack").modal('show');  
+    $("#custodyModalCashBack").modal('show');
    }
   });
   return false;
