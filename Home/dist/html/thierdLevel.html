@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html>
- <center>
-  <div class="table-responsive-lg">
-   <table class="table table-sm w-75 table-borderless">
-    <thead class="text-center">
-     <th>First Level Name</th>
-     <th>Second Level Name</th>
-     <th>Thierd Level Name</th>
-     <th>Save</th>
-    </thead>
-    <tbody>
-     <td>
-      <select class="form-control" id="level1f"></select>
-     </td>
-     <td>
-      <select class="form-control" id="level2"></select>
-     </td>
-     <td>
-      <input type="text" class="form-control" id="AssetsName">
-     </td>
-     <td hidden>
-      <!--Account Level 3 Value   -->
-      <input class="form-control" id="level3">
-     </td>
-     <td>
-      <button class="btn btn-success w-100" id="saveNewAsset">Save</button>
-     </td>
-    </tbody>
-   </table>
-  </div>    
+<style>
+ #thierdLevelForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+ #thierdLevelForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+ #saveNewAsset{transition: transform .1s ease-in-out;}
+ #saveNewAsset:active{transform: scale(0.97);}
+</style>
+ <div id="thierdLevelForm">
+  <div class="row">
+   <div class="form-group col-md-3">
+    <label for="level1f">First Level Name</label>
+    <select class="form-control" id="level1f"></select>
+   </div>
+   <div class="form-group col-md-3">
+    <label for="level2">Second Level Name</label>
+    <select class="form-control" id="level2"></select>
+   </div>
+   <div class="form-group col-md-3">
+    <label for="AssetsName">Thierd Level Name</label>
+    <input type="text" class="form-control" id="AssetsName">
+   </div>
+   <!--Account Level 3 Value   -->
+   <input class="form-control" id="level3" hidden>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-success w-100" id="saveNewAsset">Save</button>
+   </div>
+  </div>
   <div class="oldThirdtData"></div>
- </center>
+ </div>
  <script src="dist/js/pages/accountant/thirdLevel.js"></script>
 </html>
