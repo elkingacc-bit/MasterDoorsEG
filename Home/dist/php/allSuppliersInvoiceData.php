@@ -2,10 +2,11 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $sDate=$_POST['startDate'];
- $eDate=$_POST['endDate'];
+ $sDate=mysqli_real_escape_string($link, $_POST['startDate']);
+ $eDate=mysqli_real_escape_string($link, $_POST['endDate']);
  echo"
   <input value='Purchaseing Invoice From $sDate To $eDate' class='reportTitel' hidden>
   <h3 class='text-center text-body'>Purchaseing Invoice From $sDate To $eDate</h3>

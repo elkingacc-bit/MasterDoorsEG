@@ -2,6 +2,7 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $sn=0;

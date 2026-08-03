@@ -1,19 +1,19 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
 
  $logRef=111;
  $result = "";
- $transactionsDate=$_POST['fDate'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['fDate']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
- $discrebtion=$_POST['fDes'];
- $recipient=$_SESSION['id'];
- $amount=$_POST['fAmount'];
- $accCode=$_POST['fCode'];
+ $discrebtion=mysqli_real_escape_string($link, $_POST['fDes']);
+ $recipient=(int)$_SESSION['id'];
+ $amount=(float)$_POST['fAmount'];
+ $accCode=(int)$_POST['fCode'];
  $recipientType= substr($accCode,0,5);
- $cashCode=$_POST['typeCash'];
+ $cashCode=(int)$_POST['typeCash'];
  $cashType= substr($cashCode,0,5);
 
   
@@ -34,8 +34,8 @@
  }
  if($cashType == 11620){
   // Bank
-  $cheakNum=$_POST['numCheak']; 
-  $dueDate=$_POST['cheakDate'];
+  $cheakNum=(int)$_POST['numCheak'];
+  $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
   $casher="Bank";
   $financialRef="Received Cash In Bank";
   if($recipientType == 11610){
@@ -87,16 +87,23 @@ mysqli_query($link,$sqlUpdateCashTransaction);
    //
    if(mysqli_query($link,$sqlTransactionDebtor)){
     $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-    `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES 
+    `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`) VALUES
     ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','$amount','0','$casher Account','$cashCode','$financialRef','$tableName',$tableRow)";
-    mysqli_query($link,$sqlTransactionCreditor);
-    $result = 1;
+    if(mysqli_query($link,$sqlTransactionCreditor)){
+     $result = 1;
+     $action="Received $amount In $casher";
+     include_once("aduLog.php");
+    }
+    else{
+     $result = "ERROR_SNSC : Failed to record creditor transaction";
+    }
    }
-   $result = 1;
+   else{
+    $result = "ERROR_SNSC : Failed to record debtor transaction";
+   }
   }
-  $result = 1;
-  
- $action="Received $amount In $casher";
-  include_once("aduLog.php");
+  else{
+   $result = "ERROR_SNSC : Failed to record cash transaction";
+  }
  }
  echo $result;

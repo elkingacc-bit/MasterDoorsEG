@@ -1,19 +1,19 @@
 <?php
- @session_start();  
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
 
  $logRef=111;
  $result = "";
- $transactionsDate=$_POST['fDate'];  
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['fDate']);
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
- $accCode=$_POST['fCode'];
+ $accCode=(int)$_POST['fCode'];
  $recipientType= substr($accCode,0,5);
- $recipient=$_POST['frecipient'];
- $amount=$_POST['famount'];
- $discrebtion=$_POST['fdiscrebtion'];
- $cashCode=$_POST['typeCash'];
+ $recipient=(int)$_POST['frecipient'];
+ $amount=(float)$_POST['famount'];
+ $discrebtion=mysqli_real_escape_string($link, $_POST['fdiscrebtion']);
+ $cashCode=(int)$_POST['typeCash'];
  $cashType= substr($cashCode,0,5);
 
 
@@ -45,8 +45,8 @@
   if($cashType == 11620)
   {
    // Bank
-   $cheakNum=$_POST['numCheak']; 
-   $dueDate=$_POST['cheakDate'];
+   $cheakNum=(int)$_POST['numCheak'];
+   $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
    $casher="Bank";
    $financialRef="Withdrawal Bank Entry";
    #
@@ -110,23 +110,35 @@ mysqli_query($link,$sqlUpdateCashTransaction);
 
     #
     $sqlTransactionDebtor="INSERT INTO `financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-    `description`,`transactionCode`,`entryRef`)
-    VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','$amount','0','$discrebtion','$accCode','$financialRef')";
+    `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)
+    VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','$amount','0','$discrebtion','$accCode','$financialRef','$tableName',$tableRow)";
     #
     if(mysqli_query($link,$sqlTransactionDebtor))
     {
      //
      $sqlTransactionCreditor="INSERT INTO`financialTransactions`(`transactionsYear`,`transactionsMonth`,`transactionNumber`,`transactionsDate`,`debtor`,`creditor`,
-     `description`,`transactionCode`,`entryRef`)VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','0','$amount','$casher','$cashCode',
-     '$financialRef')";
-     mysqli_query($link,$sqlTransactionCreditor);
-     $result = 1;
+     `description`,`transactionCode`,`entryRef`, `tableName`,`tableRowId`)VALUES ('$transactionsYear','$transactionsMonth','$nextNumber','$transactionsDate','0','$amount','$casher','$cashCode',
+     '$financialRef','$tableName',$tableRow)";
+     if(mysqli_query($link,$sqlTransactionCreditor))
+     {
+      $result = 1;
+      $action="Withdrawal $amount General Expenses From $casher";
+      include_once("aduLog.php");
+     }
+     else
+     {
+      $result = "ERROR_SNSC : Failed to record creditor transaction";
+     }
     }
-    $result = 1;
+    else
+    {
+     $result = "ERROR_SNSC : Failed to record debtor transaction";
+    }
    }
-   $result = 1;
-    $action="Withdrawal $amount General Expenses From $casher";   
-   include_once("aduLog.php");
+   else
+   {
+    $result = "ERROR_SNSC : Failed to record cash transaction";
+   }
   }
   echo $result;
  }

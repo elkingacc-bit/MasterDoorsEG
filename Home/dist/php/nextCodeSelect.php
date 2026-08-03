@@ -1,7 +1,8 @@
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $lastCode=$_POST['accCode'];
+ $lastCode=(int)$_POST['accCode'];
  $sqlFirstLevelData="SELECT `accountCode`,`accountName` FROM `accountantcode` WHERE `codeLen` = 12 AND `accountCode` != $lastCode";
  $queryFirstLevelData=mysqli_query($link,$sqlFirstLevelData)or die("ERROR LOA_S:01");
  echo "<option value=''>Choose</option>";  

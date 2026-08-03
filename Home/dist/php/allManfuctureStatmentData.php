@@ -2,9 +2,10 @@
  h1{font-size: 12px;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $tCode=$_POST['accCode'];
+ $tCode=(int)$_POST['accCode'];
  $sqlFirstLevelData="SELECT `suppliername` FROM `allsuppliers` WHERE `suppliercode` = $tCode";
  $queryFirstLevelData=mysqli_query($link,$sqlFirstLevelData)or die("ERROR LOA_S:01");
  $firstLevel=mysqli_fetch_assoc($queryFirstLevelData);

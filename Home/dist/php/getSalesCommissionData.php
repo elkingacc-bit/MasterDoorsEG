@@ -11,9 +11,10 @@
   </thead>
   <tbody>
    <?php
+    include_once("authCheck.php");
     date_default_timezone_set("Africa/Cairo");
     include_once("connection.php");
-    $salesId=$_POST['orderId'];
+    $salesId=(int)$_POST['orderId'];
     $num=0;
     $valid=0;
     $sqlGetSales="SELECT `codeid`,`fullname` FROM `users` WHERE `userid` = $salesId";

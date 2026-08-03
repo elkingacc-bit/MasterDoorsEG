@@ -1,10 +1,10 @@
 
 <div hidden>
  <?php
-  session_start();
+  include_once("authCheck.php");
   date_default_timezone_set("Africa/Cairo");
   include_once("connection.php");
-  $invRowId=$_POST['invId'];
+  $invRowId=(int)$_POST['invId'];
   // Get Supplier Order Date
   
   // Get Supplier Invoice Date

@@ -1,15 +1,16 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $action="Add New Items To Invoice";
  $logRef=114;
- $lastInvoiceId =$_POST['lastId'];
- $itemRowId = $_POST['itemsName'];
- $itemQun = $_POST['itemsCount'];
- $itemUnitPrice = $_POST['unitPrice'];
- $itemTotalPrice = $_POST['itemTotalPrice'];
- $invDate=$_POST['dateInv'];
+ $lastInvoiceId =(int)$_POST['lastId'];
+ $itemRowId = (int)$_POST['itemsName'];
+ $itemQun = (float)$_POST['itemsCount'];
+ $itemUnitPrice = (float)$_POST['unitPrice'];
+ // Recompute the total server-side instead of trusting the client-supplied value
+ $itemTotalPrice = $itemQun * $itemUnitPrice;
+ $invDate=mysqli_real_escape_string($link, $_POST['dateInv']);
  // Add Invoice Items
  $sqlAddSupplierInvoiceData="INSERT INTO `supplierInvoiceData`(`supplierInvoiceNumber`,`ItemRowId`,`supplierInvoiceCount`,
  `supplierInvoiceUnitPrice`, `supplierInvoiceTotalItems`)VALUES('$lastInvoiceId','$itemRowId','$itemQun','$itemUnitPrice','$itemTotalPrice')";

@@ -7,6 +7,7 @@
  .dashboardAlertCount.noAlert{color:#28a745;}
 </style>
 <?php
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $thisYear = date('Y');

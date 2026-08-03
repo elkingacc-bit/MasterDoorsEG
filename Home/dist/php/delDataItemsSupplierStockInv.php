@@ -1,9 +1,9 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
  $logRef=121;
- $rowid=$_POST['rRowId'];
+ $rowid=(int)$_POST['rRowId'];
  // DEL From supplier Invoice Data 
  $sqlDellSupplierInvoiceData="DELETE FROM `supplierInvoiceData` WHERE `supplierInvoiceDataId` = $rowid";
 mysqli_query($link,$sqlDellSupplierInvoiceData);

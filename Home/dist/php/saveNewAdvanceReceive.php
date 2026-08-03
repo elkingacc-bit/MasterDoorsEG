@@ -1,17 +1,17 @@
 <?php
- @session_start();
+ include_once("authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("connection.php");
- $rowCount = $_POST['advType'];
+ $rowCount = (int)$_POST['advType'];
  if($rowCount == 1){
   $advanceType="Employee";
  }
  else if($rowCount == 2){
   $advanceType="Staff";
  }
- $transactionsDate=$_POST['advancMonth'];
- $advancer=$_POST['user'];
- $insallmentValue=$_POST['instAmount'];
+ $transactionsDate=mysqli_real_escape_string($link, $_POST['advancMonth']);
+ $advancer=(int)$_POST['user'];
+ $insallmentValue=(float)$_POST['instAmount'];
  $transactionsYear=date('Y', strtotime($transactionsDate));
  $transactionsMonth=date('m', strtotime($transactionsDate));
  $logRef=111;
