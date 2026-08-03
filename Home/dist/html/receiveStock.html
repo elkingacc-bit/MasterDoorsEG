@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<style type="text/css">
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+<script type="text/javascript" src="dist/js/receiveStock.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<div align="right" class="finishBTN" style="display:none; margin-right:5%">
+    	<button class="btn btn-dark btn-sm finishAndPrint" id="finishAndPrint">Finish & Print</button>
+       
+    </div> <br>
+</div>
+    <div class="panel-body">
+        
+        <table class="table">
+          <thead>
+            <th>Invoice</th>
+            <th>Part No.</th>
+            <th>Item</th>
+        	<th>QTY</th>
+          </thead>
+          <tbody>
+          	
+            <td class="col-sm-2">
+            	<input type="text" id="InvoNo" class="form-control InvoNo sndForm" list="showSuppInvo" autocomplete="off"/>
+                <datalist id="showSuppInvo"></datalist>
+            </td>
+            <td class="col-sm-2">
+            	<input type="text" id="partNo" class="form-control partNo sndForm" list="AllPartNum"
+                autocomplete="off"/>
+                <datalist id="AllPartNum"></datalist>
+            </td>
+            <td class="col-sm-2">
+            	<input type="text" id="ItemName" class="form-control ItemName sndForm" list="showAllItems"
+                autocomplete="off"/>
+                <datalist id="showAllItems"></datalist>
+            </td>
+             <td class="col-sm-1">
+        		<input type="number" id="descRecevQty" class="form-control descRecevQty sndForm" min="1" />
+       	 	</td>
+           <tr>
+           	<td colspan="4" align="center">
+            	<button class="btn btn-success " id="saveReceiveStock">Save</button>
+            </td>
+           </tr>
+          </tbody>  
+        </table>
+                        
+    </div>
+</div>
+<div class="allRecivedItems" style="display:none"></div>
+
+<div class="modal fade myModal" tabindex="-1"  role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    
+    <div class="ShowHWDataHist" align="center">
+    </div>
+    </div>
+  </div>
+</div>
+
+</html>

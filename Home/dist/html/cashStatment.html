@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+ <div class="btn-group" role="group" style="float: right;">
+  <button class="btn btn-info" id="allCashTransaction">All Transaction</button>
+  <button class="btn btn-primary" id="limitTransaction">Periodically</button>    
+ </div>
+ <hr>
+ <center>
+  <div class="limitTransaction" style="display: none;">
+   <div class="table-responsive-lg">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>From</th>
+      <th>To</th>
+      <th>Show</th>
+     </thead>
+     <tbody>
+     <td>
+      <input type="date" id="startDate" class="form-control">
+     </td>
+     <td>
+      <input type="date" id="endDate" class="form-control">
+     </td>
+     <td>
+      <button class="btn btn-success" id="showCashStatment">Show</button>
+     </td>
+    </tbody>
+   </table>
+  </div>        
+ </div> 
+</center>
+<script src="dist/js/pages/accountant/cashStatment.js"></script>
+</html>

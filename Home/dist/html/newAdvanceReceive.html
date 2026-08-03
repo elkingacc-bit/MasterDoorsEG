@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+ <div class="btn-group" role="group">
+  <button class="btn btn-primary" id="advanceEmployees">Employee</button>
+  <button class="btn btn-info" id="advanceWorkers">Staff</button>
+ </div>
+ <hr>
+ <center>
+  <div class="table-responsive-lg">
+   <div class="employeesAdvance">
+    <h3><p>Add Advance For Employee</p></h3>
+    <br>
+    <table class="table table-sm w-100 table-borderless">
+     <thead>
+      <th>Name</th>
+      <th>Installment Value</th>
+      <th>Date</th>
+     </thead>
+     <tbody>
+      <td><select id="employee" class="form-control"></select></td>
+      <td><input type="number" id="monthInstallment" placeholder="Month Installment" class="form-control"></td>
+      <td><input type="date" id="employeeDate" class="form-control"></td>
+     </tbody>
+    </table>	
+   </div>
+   <div class="workersAdvance"> 
+    <h3><p>Add Advance For Staff</p></h3>
+    <br>
+    <table class="table table-sm w-100 table-borderless">
+     <thead>
+      <th>Name</th>
+      <th>Installment Value</th>
+      <th>Date</th>
+     </thead>
+     <tbody>
+      <td><select id="workers" class="form-control"></select></td>
+      <td><input type="number" id="weekInstallment" placeholder="Week Installment" class="form-control"></td>
+      <td><input type="date" id="workersDate" class="form-control"></td>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <input value="0" id="advanceType">
+  <button class="btn btn-success" id="saveAdvance">Save</button>
+  <div class="msg"></div>
+ </center>
+ <script src="dist/js/pages/accountant/addNewAdvance.js"></script>
+</html>

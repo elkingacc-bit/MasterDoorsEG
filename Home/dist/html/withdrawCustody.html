@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+ <div class="card w-100">
+  <div class="card-body">
+   <center>
+    <div class="table-responsive-lg">
+     <table class="table table-sm w-75 table-borderless">
+      <thead class="text-center">
+       <th>Choose Open Projects</th>
+       <th>Recipient</th>
+      </thead>
+      <tbody>
+       <td><select class="form-control" id="projectsCustodyList"></select></td>
+       <td><select class="form-control" id="withdrawCustodyRecipient"></select></td>
+      </tbody>
+     </table>
+     <hr>
+     <div id="custodyData">
+      <table class="table table-sm w-75 table-borderless">
+       <thead class="text-center">
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Discrebtion</th>
+       </thead>
+       <tbody>
+        <td><input type="date" id="withdrawCustodyDate" class="form-control"></td>
+        <td><input type="number" class="form-control" id="withdrawCustodyAmount"></td>
+        <td><textarea class="form-control" id="withdrawCustodyDiscrebtion"></textarea></td>    
+       </tbody>
+      </table>
+      <hr>
+      <button class="btn btn-success w-25" id="saveWithdrawCustody">Save</button>
+      <button class="btn btn-info w-25" id="saveCashBackCustody">Cash Back</button>
+      <div class="modal fade" id="custodyModalCashBack" aria-hidden="true" aria-labelledby="custodyModalData" tabindex="-1">
+       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-xl">
+        <div class="modal-content">
+         <div class="modal-header">
+          <h5 class="modal-title" id="custodyModalData">Cashback Custody</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">close</button>
+         </div>
+         <div class="modal-body dataCashBack"></div>
+         <div class="modal-footer msg"></div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </center>
+  </div>
+ </div>
+ <script src="dist/js/pages/accountant/withdrawCustody.js"></script>
+</html>

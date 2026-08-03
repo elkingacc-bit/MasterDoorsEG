@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/createSuppOrder.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+</div>
+    <div class="panel-body">
+    
+    <div class="table-responsive">    
+      <table class="table" style="width:99%" align="center">
+	
+    <thead class="bg-warning">
+        <th>Manufacture</th>
+        <th>Customer PO</th>
+        <th>Delivery</th>
+    </thead>
+    
+    <tbody>
+    <tr>
+   <td>
+    	<input type="text" list="allSupplierList" class="form-control allSupplier" id="allSupplier" 
+        placeholder="Supplier Name" autocomplete="off">
+        
+        <datalist id="allSupplierList">
+        </datalist>
+    </td>
+    
+    <td>
+    	<input type="text" list="AllCustPo" class="form-control" id="ChoseCustPO" 
+        placeholder="Order No." autocomplete="off">
+        
+        <datalist id="AllCustPo">
+        </datalist>
+    </td>
+    <td>
+    	<input type="date" id="delvDate" class="form-control"/>
+    </td>
+    </tr>
+    <tr class="bg-warning">
+    <td colspan="3"><b>Note</b></td>
+    </tr>
+    <tr>
+    <td colspan="3">
+    	<center><textarea id="OrderNote" class="form-control"></textarea></center>
+    </td>
+    </tr>
+    </tbody>
+</table>
+  </div>  
+    <center><button class="btn btn-sm btn-success" id="addNewSuppOrderBtn">Save</button></center>
+    </div>
+</div>
+
+</html>

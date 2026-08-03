@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="dist/js/adminAjax.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+<div class="panel-body">
+<div class="table-responsive">
+<form id="addUserForm" enctype="multipart/form-data" method="post">
+<table class="table">
+<tr>
+<th class="bg-warning">Full Name</th>
+<th class="bg-warning">User Name</th>
+</tr>
+<tr>
+<td><input type="text" id="fullName" name="flName" class="form-control" placeholder="Full Name" 
+autocomplete="off"/></td>
+<td><input type="text" id="userName" name="UsName" class="form-control" placeholder="User Name"
+autocomplete="off" /></td>
+</tr>
+<tr>
+<th class="bg-warning">Password</th>
+<th class="bg-warning">Confirm</th>
+</tr>
+<tr>
+<td><input type="password" id="pass1" name="UsPass" class="form-control" placeholder="Password" 
+autocomplete="off"/>
+ <span class="glyphicon form-control-feedback" id="confirmPassword1"></span>
+ </td>
+<td><input type="password" id="pass2" class="form-control" placeholder="Re-Password" 
+disabled autocomplete="off" />
+ <span class="glyphicon form-control-feedback" id="confirmPassword2"></span></td>
+</tr>
+<tr>
+<th class="bg-warning">Department</th>
+<th class="bg-warning">Photo</th>
+</tr>
+<tr>
+<td><select id="department" name="UsDedt" class="form-control" >
+<option value="">dept.</option>
+<option value="Manager">Manager</option>
+<option value="Sales">Sales</option>
+<option value="Technical">Techincal Office</option>
+<option value="Store">Store</option>
+<option value="Accountant">Accountant</option>
+<option value="Installation">Installation</option>
+
+</select></td>
+<td>
+  <input class="form-control-file" type="file" id="photo" name="sourceFile">
+</td>
+</tr>
+<tr><td colspan="2"><br></td></tr>
+<tr>
+<td colspan="2" align="center">
+<input  id="saveUserBtn" type="submit" class="btn btn-success" value="Save"/>
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+</div>
+</html>

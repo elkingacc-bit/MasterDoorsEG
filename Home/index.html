@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="dist/img/logoMarkerSmall.png" sizes="128x128" />
+  <title>Master Doors CMS</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+   <!-- multiSelect -->
+  <link rel="stylesheet" href="plugins/bootstrapMultiselect/css/bootstrap-multiselect.min.css" type="text/css"/>
+  <!-- FullCalendar -->
+	<link href="FullCalendar/css/fullcalendar.min.css" rel="stylesheet" />
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
+ </head>
+ <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed text-sm sidebar-closed sidebar-collapse" >
+  <div class="wrapper">
+   <!-- Navbar -->
+
+   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+     <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+     </li>
+    
+    </ul>
+      <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+
+      <!-- Messages Dropdown Menu -->
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge badge-xs contNotfi"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right ">
+          <span class="dropdown-item dropdown-header contNotfiTitel">
+          
+           </span>
+        <div class="allCounting">
+         
+        </div>  
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block"><a href="dist/php/logOut.php" id="logout" class="nav-link"><strong style="color:red">Log Out</strong></a></li>
+    </ul>
+   </nav>
+   <!-- /.navbar -->
+   <!-- Main Sidebar Container -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index.html" class="brand-link">
+     <img src="dist/img/logo2.jpg" alt="MD Logo" class="brand-image img-circle elevation-3" 
+     style="opacity: .8">
+     <span class="brand-text font-weight-light">Company Managment System</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar ">
+     <!-- Sidebar user panel (optional)  --> 
+     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image userImage">
+       <!-- Image location  --> 
+      </div>
+      <div class="info">
+       <a href="#" class="d-block userInfo"><!-- User Information  --> </a>
+      </div>
+     </div> 
+      <!-- Sidebar Menu -->
+    <nav class="mt-2 ">
+        <ul class="nav nav-pills nav-sidebar flex-column sideBar" data-widget="treeview" role="menu" data-accordion="true" data-toggle="push-menu">
+
+        </ul>
+    </nav>
+
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+   </aside>
+   <!-- Content Wrapper. Contains page content -->
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+     <div class="container-fluid">
+      <div class="row mb-2">
+       <div class="col-sm-6">
+        <h3 style="color:blue;" class="m-0"></h3>
+       </div><!-- /.col -->
+      </div><!-- /.row -->
+     </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+     <div class="container-fluid">
+      <div class="row">
+       <div class="col-lg-12">
+        <div class="card">
+         <div class="card-body data_display">
+          <h5 class="card-title">Home Screen</h5>
+           <p class="card-text">
+            CMS Start Daly Work.
+           </p> 
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- /.row -->
+      </div><!-- /.container-fluid -->
+     </div>
+     <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+       <p>Sidebar content</p>
+     </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Main Footer -->
+    <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2023 : <script>document.write(new Date().getFullYear());</script> &nbsp; <a href="https://qms-egypt.com">QMS-EG</a>.</strong> All rights reserved.
+   </footer>
+  </div>
+  <!-- ./wrapper -->
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+   <script src="FullCalendar/js/moment.min.js"></script>
+
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- multiSelect -->
+  <script type="text/javascript" src="plugins/bootstrapMultiselect/js/bootstrap-multiselect.min.js"></script>
+  <!-- AdminLTE App -->
+ <script src="dist/js/adminlte.js"></script>
+  
+  <script src="dist/js/checksession.js"></script>
+  <script src="dist/js/notificationEngine.js"></script>
+   <script src="dist/js/pages/navbar.js"></script>
+  <!-- DataTables  & Plugins -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- FullCalendar -->
+	<script src="FullCalendar/js/fullcalendar.min.js"></script>
+
+
+ </body>
+</html>

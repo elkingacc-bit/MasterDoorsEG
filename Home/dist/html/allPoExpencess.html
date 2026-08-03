@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+ <body>
+  <center>
+   <div class="table-responsive-lg">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>Project Name </th>
+      </thead>
+     <tbody>
+      <td> <select class="form-control" id="allProjectExpencess"></select></td>
+     </tbody>
+    </table>
+   </div>
+  </center>
+  <hr>
+  <div class="projectExpencess"></div>
+ </body>
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#allProjectExpencess").load("dist/php/allProjectsList.php");
+  $("#allProjectExpencess").change(function(){
+   var poId = $("#allProjectExpencess").val();
+   $.ajax({
+    url:'dist/php/getAllProjectExpencess.php',
+    type:"POST",
+    data:{project:poId},
+    success: function(getWithdrawCustody){
+     $(".projectExpencess").html(getWithdrawCustody);
+    }
+   });
+   return false;
+  });  
+ });
+</script>

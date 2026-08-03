@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+ <details>
+  <summary> Notes </summary>
+  <ul>
+   <li>فى حاله صرف من البنك الى الخزينه يتم الاستلام فى الخزينه تلفائيا</li>
+   <li>فى حاله الصرف من الخزينه الى البنك يتم الاستلام فى البنك تلقائيا</li> 
+   <li>فى حاله الصرف من بنك الى بنك يتم الاستلام فى البنك الاخر تلقائيا</li>
+  </ul>
+ </details>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm table-borderless">
+    <thead class="text-center">
+     <th>Date</th>
+     <th>Treasury</th>
+     <th>Account</th>
+     <th>Recipient</th>
+     <th>Amount</th>
+     <th>Description</th>
+    </thead>
+    <tbody>
+     <td>
+      <input type="date" class="form-control" id="withdrawDate">
+     </td>
+     <td>
+      <select class="form-control" id="trasuty"></select>
+     </td>
+     <td>
+      <select class="form-control" id="accountName"></select>
+     </td>    
+     <td>
+      <select class="form-control" id="withdrawRecipient"></select>
+     </td>
+     <td>
+      <input type="number" class="form-control" id="withdrawAmount">
+     </td>
+     <td>
+      <textarea class="form-control" id="withdrawDiscrebtion"></textarea>
+     </td>
+    </tbody>
+   </table>
+   <table class="table table-sm w-75 table-borderless bankData" style="display: none;">
+    <thead class="text-center">
+     <th class="col-2">Maturity Date</th>
+     <th class="col-3">Cheque Number</th>
+    </thead>
+    <tbody>
+     <td>
+      <input type="date" id="dueDate" class="form-control">
+     </td>
+     <td>
+      <input type="number" id="cheaquNumber" class="form-control">
+     </td>
+    </tbody>
+   </table>
+   <button class="btn btn-success w-25" id="saveGeneralWithdraw">Save</button> 
+  </div>
+ </center>
+ <script src="dist/js/pages/accountant/generalWithdraw.js"></script>
+</html>

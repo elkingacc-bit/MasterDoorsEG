@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm w-100 table-borderless">
+    <thead class="text-center">
+     <th>Date</th>
+     <th>Account</th>
+     <th>Recipient</th>
+     <th>Amount</th>
+     <th>Description</th>
+     <th></th>
+    </thead>
+    <tbody>
+     <td>    
+      <input type="date" class="form-control" id="withdrawProjectPurchasesDate">
+     </td>
+     <td>
+      <select class="form-control" id="accountName1"><option value="312100100000">مشتريات بغرض البيع</option></select>
+     </td>
+     <td>
+      <input class="form-control" id="withdrawProjectPurchasesRecipient" type="text">
+     </td>
+     <td>
+      <input type="number" class="form-control" id="withdrawProjectPurchasesAmount">
+     </td>
+     <td>
+      <textarea class="form-control" id="withdrawProjectPurchasesDiscrebtion"></textarea>
+     </td>
+     <td>
+      <button class="btn btn-success w-100" id="saveProjectPurchasesWithdraw">Save</button> 
+    </td>
+   </tbody>
+  </table>
+ </div>    
+</center>
+<script src="dist/js/pages/accountant/projectPurchasesWithdraw.js"></script>
+</html>

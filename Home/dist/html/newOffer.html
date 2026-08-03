@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/newOffer.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+    <div class="panel-body">
+	<div class="table-responsive">	
+  <table class="table" style="width:99%" align="center">
+	
+    <thead class="bg-warning">
+        <th>Customer</th>
+        <th>Type</th>
+        <th>Project Name</th>
+        <th data-toggle="tooltip" data-placement="bottom" title="Processing Reference">PR</th>
+        <th>Sales</th>
+        <th>Commission</th>
+    </thead>
+    
+    <tbody>
+    <tr>
+   <td>
+    	<input type="text" list="customerList" class="form-control" id="ChoseCustName" 
+        placeholder="Customer Name" autocomplete="off">
+        
+        <datalist id="customerList">
+        </datalist>
+    </td>
+    <td>
+    	<select class="form-control" id="jobtype" style="width:auto">
+        <option data-toggle="tooltip" data-placement="bottom"  value="">Choose</option>
+        <option data-toggle="tooltip" data-placement="bottom"  value="Doors">Doors</option>
+        <option data-toggle="tooltip" data-placement="bottom"  value="Automatic">Automatic Door</option>
+        <option data-toggle="tooltip" data-placement="bottom"  value="Stock">Stock</option>
+        <option data-toggle="tooltip" data-placement="bottom"  value="Maintenance">Maintenance</option>
+        </select>
+    </td>
+     <td>
+    	<input type="text"  class="form-control" id="projName" placeholder="Project Name"
+        autocomplete="off">
+    </td>
+    <td>
+    	
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" aria-label="Processing Reference" 
+        aria-describedby="basic-addon2" id="jobRequRef" placeholder="Processing Reference" autocomplete="off">
+          <div class="input-group-append">
+        <button class="btn btn-outline-primary" id="NewLocalPR" type="button">Add PR</button>
+ 		 </div>
+	 </div>
+        
+    </td>
+    <td>
+    	<input type="text" list="SalesList" class="form-control" id="SalesName" placeholder="Sales Name"
+        autocomplete="off">
+        
+        <datalist id="SalesList">
+        </datalist>
+    </td>
+     <td  width="150px">
+        <select class="form-control" id="SalesCommCode">
+        <option value="">Choose</option>
+        <option value=".03">%3</option>
+        <option value=".02">%2</option>
+        <option value=".01">%1</option>
+        <option value="0">%0</option>
+        </select>
+    </td>
+    </tr>
+    <tr class="bg-warning">
+    <td colspan="7"><b>Description</b></td>
+    </tr>
+    <tr>
+    <td colspan="7">
+    	<center><textarea id="jobDescrip" class="form-control"></textarea></center>
+    </td>
+    </tr>
+    </tbody>
+</table>
+<center><button class="btn btn-sm btn-success" id="addNewOfferBtn">Save</button></center>
+    </div>  
+                        
+    </div>
+</div>
+</html>

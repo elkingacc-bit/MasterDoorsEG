@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <div class="table-responsive-lg">
+  <h3><p>Sale New Investment </p></h3>
+  <center>
+   <br>
+   <table class="table table-sm w-100 table-borderless">
+    <thead>
+     <th>Date</th>
+     <th>Amount</th>
+     <th>Quantaty</th>
+     <th>investmentGroup</th>
+     <th>Description</th>
+     <th></th>
+    </thead>
+    <tbody>
+      <td class="col-2"><input type="date" id="investmentDate" class="form-control"></td>
+      <td class="col-2"><input type="number" id="investmentAmount" class="form-control"></td>
+      <td class="col-1"><input type="number" id="investmentQun" class="form-control"></td>
+      <td class="col-2">
+       <select id="investmentGroup" class="form-control">
+        <option value="">Choose</option>
+        <option value="10">أراضى</option>
+        <option value="11">عقارات</option>
+        <option value="12">أسهم</option>
+        <option value="13">ذهب</option>
+        <option value="14">عملات</option>
+        <option value="15">سيارات</option>
+       </select>
+      </td>
+      <td class="col-4"><input type="text" class="form-control" id="investmentDescription"></td>
+      <td class="col-1"><button class="btn btn-success w-100" id="saveSalesAdvance">Save</button></td>
+     </tbody>
+    </table>	
+   </div>
+   <div class="msg"></div>
+  </center>
+  <script src="dist/js/pages/accountant/addNewInvestmentSales.js"></script>
+ </html>

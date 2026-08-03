@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <input value="2" id="entryCount" hidden>
+  <div class="table-responsive-lg">
+   <table class="table table-sm w-100 table-borderless">
+    <thead class="text-center">
+     <th>SN</th>
+     <th>Date</th>
+     <th>Account</th>
+     <th>Debtor</th>
+     <th>Creditor</th>
+     <th>Description</th>        
+    </thead>
+    <tbody>
+     <tr>
+      <td>1</td>
+      <td><input type="date" id="receDate1" class="form-control"></td>
+      <td><select class="form-control" id="accountName1"></select></td>    
+      <td><input type="number" id="debtorAmount1" value="0" class="form-control"></td>
+      <td><input type="number" id="creditorAmount1" value="0" class="form-control"></td>
+      <td><input type="text" id="receivDescription1" class="form-control"></td>              
+     </tr>
+     <tr>
+      <td>2</td>
+      <td><input type="date" id="receDate2" class="form-control"></td>
+      <td><select class="form-control" id="accountName2"></select></td>    
+      <td><input type="number" id="debtorAmount2" value="0" class="form-control"></td>
+      <td><input type="number" id="creditorAmount2" value="0" class="form-control"></td>
+      <td><input type="text" id="receivDescription2" class="form-control"></td>              
+     </tr>
+     <tr class="entry3">
+      <td>3</td>
+      <td><input type="date" id="receDate3" class="form-control"></td>
+      <td><select class="form-control" id="accountName3"></select></td>    
+      <td><input type="number" id="debtorAmount3" value="0" class="form-control"></td>
+      <td><input type="number" id="creditorAmount3" value="0" class="form-control"></td>
+      <td><input type="text" id="receivDescription3" class="form-control"></td>              
+     </tr>
+     <tr class="entry4">
+      <td>4</td>
+      <td><input type="date" id="receDate4" class="form-control"></td>
+      <td><select class="form-control" id="accountName4"></select></td>    
+      <td><input type="number" id="debtorAmount4" value="0" class="form-control"></td>
+      <td><input type="number" id="creditorAmount4" value="0" class="form-control"></td>
+      <td><input type="text" id="receivDescription4" class="form-control"></td>              
+     </tr>
+    </tbody>
+   </table>
+  </div>
+  <button class="btn btn-primary" id="settlementAdd">+</button>
+  <button class="btn btn-success" id="settlementSave">Save</button>
+  <div class="card-footer text-muted">
+   <div class="alert msgData" role="alert"></div>
+  </div>
+ </center>
+ <script src="dist/js/pages/accountant/addAccountantSettlement.js"></script>
+</html>

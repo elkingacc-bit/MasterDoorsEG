@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<style type="text/css">
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+<script type="text/javascript" src="dist/js/showStockHist.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+</div>
+    <div class="panel-body">
+    <div class="AddAttend">
+ 		<table class="table table-sm" style="width:60%">
+          <thead>
+            <th>Part No.</th>
+            <th>Item</th>
+          </thead>
+          <tbody>
+          	<td class="col-sm-2">
+            	<input type="text" id="partNo" class="form-control partNo sndForm" list="AllPartNum"/>
+                <datalist id="AllPartNum"></datalist>
+            </td>
+            <td class="col-sm-2">
+            	<input type="text" id="ItemName" class="form-control ItemName sndForm" list="showAllItems"/>
+                <datalist id="showAllItems"></datalist>
+            </td>
+          </tbody>  
+        </table>
+   </div>
+   <div class="allStockHist" style="display:none"></div>
+    </div>
+</div>
+
+<div class="modal fade myModal" tabindex="-1"  role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    
+    <div class="ShowHWDataHist" align="center">
+    </div>
+    </div>
+  </div>
+</div>
+
+</html>

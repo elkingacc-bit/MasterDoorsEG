@@ -1,0 +1,130 @@
+<html>
+ <div class="container-fluid">
+  <div class="row">
+   <div class="table-responsive">
+    <table class="table table-bordered table-striped tableCommissionData w-100 text-center">
+     <thead class="bg-info text-center">
+      <th>Suplier</th>
+      <th>Date</th>
+      <th>InvNum</th>
+      <th>Total Price</th>
+     </thead>
+     <tbody>
+      <tr>
+       <td><input type="text" class="form-control" id=""> 
+       </td> 
+       <td><input type="text" class="form-control" id=""></td>
+       <td><input type="text" class="form-control" id=""></td>
+       <td><input type="text" class="form-control" id=""></td>
+      </tr>    
+     </tbody>
+    </table>
+   </div>
+  </div>
+  
+  <div class="row">
+   <div class="table-responsive">
+    <table class="table table-bordered table-striped tableCommissionData w-100 text-center">
+     <thead class="bg-info text-center">
+      <th>#</th>
+      <th>Items</th>
+      <th>Qun.</th>
+      <th>UPrice</th>
+      <th>Total Price</th>
+     </thead>
+     <tbody>
+      <tr>
+        <td>1</td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>2</td>
+         <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+                <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+        <td>3</td>
+        <td><input type="text" class="form-control" id=""></td> 
+         <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><input type="text" class="form-control" id=""></td> 
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><input type="text" class="form-control" id=""></td>     
+ <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td>
+        <td><input type="text" class="form-control" id=""></td> 
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <button> Save Invoice</button>
+ </div>
+</html>
+<script>
+ $(document).ready(function(){
+  $("#salesCode").load("dist/php/empCode.php");  
+  $(".empData").change(function(){
+   var rowId = $(this).val();
+   $.ajax({
+    url:'dist/php/getAllSalesCommissionData.php',
+    type:"POST",
+    data:{orderId:rowId},
+    success: function(getSalesCommissionData){
+     $(".commisionData").html('');
+     $(".commisionData").html(getSalesCommissionData); 
+    }
+   });
+   return false;
+  });
+});
+    
+</script>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/AddStaff.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+    <div class="panel-body">
+        	
+            <table class="table">
+              <tr class="bg-warning">
+                <th>Position</th>
+                <th>Staff Name</th>
+                <th>Day Value</th>
+              </tr>
+              <tr>
+             	<td>
+              		<input type="text" id="choosePosi" name="choosePosi" class="form-control" 
+                     autocomplete="off" list="AllPosiList">
+                     <datalist id="AllPosiList"></datalist>	
+				</td>
+                <td>
+              		<input type="text" id="staffName" name="staffName" class="form-control" 
+                    placeholder="Staff Name" autocomplete="off"/>
+				</td>
+                 <td>
+              		<input type="number" id="dayVal" name="dayVal" class="form-control" 
+                    placeholder="Day Value" autocomplete="off"/>
+				</td>
+              </tr>
+              <tr>
+              	<td colspan="3" align="center">
+                	<button type="button" id="addNewStaffButton" class="btn btn-success">Save</button>
+                </td>
+              </tr>
+            </table>
+            
+        
+        
+    </div>
+</div>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+ <div class="btn-group" role="group" style="float: right;">
+  <button class="btn btn-primary" id="allBank">Bank's Balance</button>
+  <button class="btn btn-info" id="allTransaction">All Transaction</button>
+  <button class="btn btn-primary" id="limitTransaction">Periodically</button>    
+ </div>
+ <hr>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm w-75 table-borderless bank1" style="display: none;">
+    <thead class="text-center">
+     <th class="col-3">Bank</th>
+     <th class="col-3">From</th>
+     <th class="col-3">To</th>
+     <th class="col-2"></th>
+    </thead>
+    <tbody>
+     <td class="col-3"><select class="form-control" id="bankName"></select></td>
+     <td class="col-3"><input type="date" id="startDate" class="form-control"></td>
+     <td class="col-3"><input type="date" id="endDate" class="form-control"></td>
+     <td class="col-2"><button class="btn btn-success" id="showBankStatment">Display</button></td>
+    </tbody>
+   </table>
+   <table class="table table-sm w-75 table-borderless bank2" style="display: none;">
+    <thead class="text-center">
+     <th class="col-3">Bank</th>
+     <th class="col-3"></th>
+    </thead>
+    <tbody>
+     <td class="col-3"><select class="form-control" id="bankName2"></select></td>
+     <td class="col-2"><button class="btn btn-success" id="showAllBankStatment">Display</button></td>
+    </tbody>
+   </table>
+  </div>
+ </center>
+ <script src="dist/js/pages/accountant/bankStatment.js"></script>
+</html> 

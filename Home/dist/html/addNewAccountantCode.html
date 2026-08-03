@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+ <body>
+  <div class="card w-100">
+   <div class="card-header">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+     <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" id="addLivel1" class="btn btn-primary">First Level</button>
+      <button type="button" id="addLivel2" class="btn btn-primary">Second Level</button>
+      <button type="button" id="addLivel3" class="btn btn-primary">Third Level</button>
+      <button type="button" id="addLivel4" class="btn btn-primary">New Account</button>
+     </div>
+    </div>
+   </div>
+   <div class="card-body">
+    <p class="card-text"></p>
+   </div>
+   <div class="card-footer text-muted">
+    <div class="alert msg" role="alert"></div>
+   </div>
+  </div>
+ </body>
+ <script type="text/javascript">
+  $(document).ready(function(){
+   $("#addLivel1").click(function(){
+    $('.btn').removeClass('active');
+    $(this).addClass('active');
+    $('.card-text').load('dist/html/firstLevel.html');
+   });
+   $("#addLivel2").click(function(){
+    $('.btn').removeClass('active');
+    $(this).addClass('active');
+    $('.card-text').load('dist/html/secondLevel.html');
+   });
+   $("#addLivel3").click(function(){
+    $('.btn').removeClass('active');
+    $(this).addClass('active');
+    $('.card-text').load('dist/html/thierdLevel.html');
+   });
+   $("#addLivel4").click(function(){
+    $('.btn').removeClass('active');
+    $(this).addClass('active');
+    $('.card-text').load('dist/html/accountantCode.html');
+   });
+   return false;
+  });
+ </script>
+</html> 

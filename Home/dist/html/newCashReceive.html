@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+ <div class="card w-100">
+  <div class="card-body">
+    <details>
+  <summary> Notes </summary>
+  <ul>
+   <li>فى حاله استلام من البنك الى الخزينه يتم الصرف من الخزينه تلفائيا</li>
+   <li>فى حاله استلام من الخزينه الى البنك يتم الصرف من البنك تلقائيا</li> 
+   <li>فى حاله استلام من بنك الى بنك يتم الصرف من البنك الاخر تلقائيا</li>
+  </ul>
+  </details>
+
+   <center>
+    <div class="table-responsive-lg">
+     <table class="table table-sm w-75 table-borderless">
+      <thead class="text-center">
+       <th>Date</th>
+       <th>Treasury</th>
+       <th>Account</th>
+       <th>Amount</th>
+       <th>Description</th>        
+      </thead>
+      <tbody>
+       <td><input type="date" id="receDate" class="form-control"></td>
+       <td><select class="form-control" id="trasuty"></select></td>
+       <td><select class="form-control" id="accountName"></select></td>    
+       <td><input type="number" id="receivAmount" class="form-control"></td>
+       <td><input type="text" id="receivDescription" class="form-control"></td>    
+      </tbody>
+     </table>
+     <table class="table table-sm w-75 table-borderless bankData" style="display: none;">
+      <thead class="text-center">
+       <th class="col-2">Maturity Date</th>
+       <th class="col-3">Cheque Number</th>
+      </thead>
+      <tbody>
+       <td><input type="date" id="dueDate" class="form-control"></td>
+       <td><input type="number" id="cheaquNumber" class="form-control"></td>
+      </tbody>
+     </table>
+     <button class="btn btn-success w-25" id="saverRceivedCash">Save</button>
+    </div>
+   </center>
+  </div>
+  <div class="card-footer text-muted">
+   <div class="alert msg" role="alert"></div>
+  </div>
+ </div>
+ <script src="dist/js/pages/accountant/addNewRceivedCash.js"></script>
+</html>

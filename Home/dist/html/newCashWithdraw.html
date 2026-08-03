@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs">
+ <li class="nav-item">
+  <a class="nav-link" href="#" id="generalExpenses">General Expenses</a>
+ </li>
+ <li class="nav-item">
+  <a class="nav-link" href="#" id="projectExpenses">Project Expenses</a>
+ </li>
+
+ <li class="nav-item">
+  <a class="nav-link" href="#" id="projectCommission">Project Commission</a>
+ </li>
+
+</ul>
+<div class="card w-100">
+ <div class="card-body">
+  <h4 class="card-title"></h4>
+  <p class="card-text"></p>
+ </div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function(){
+  var expensesTitel = $(".pageName").html();
+  $("#generalExpenses").click(function(){
+   $('.nav-link').removeClass('active');
+   $(this).addClass('active');
+   $(".pageName").html(expensesTitel +"<li class='breadcrumb-item'><a href='#' class='text-light'>Withdraw General Expenses</a></li>");
+   $('.card-text').load('dist/html/withdrawGeneralExpenses.html');
+  });
+  $("#projectExpenses").click(function(){
+   $('.nav-link').removeClass('active');
+   $(this).addClass('active');
+   $(".pageName").html(expensesTitel +"<li class='breadcrumb-item'><a href='#' class='text-light'>Withdraw Project Expenses</a></li>");
+   $('.card-text').load('dist/html/withdrawProjectExpenses.html');
+  });
+
+$("#projectCommission").click(function(){
+   $('.nav-link').removeClass('active');
+   $(this).addClass('active');
+   $(".pageName").html(expensesTitel +"<li class='breadcrumb-item'><a href='#' class='text-light'>Withdraw Commission</a></li>");
+   $('.card-text').load('dist/html/withdrawProjectCommission.html');
+  });
+
+  return false;
+ });
+</script>

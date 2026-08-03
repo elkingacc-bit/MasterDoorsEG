@@ -1,0 +1,57 @@
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+<div class="panel-body">
+<div class="form-group has-feedback field-wrap">
+<form id="addUserForm" enctype="multipart/form-data" method="post">
+<table class="table">
+<tr>
+<th>Full Name</th>
+<th>User Name</th>
+</tr>
+<tr>
+<td><input type="text" id="fullName" name="flName" class="form-control" placeholder="Full Name" /></td>
+<td><input type="text" id="userName" name="UsName" class="form-control" placeholder="User Name" /></td>
+</tr>
+<tr>
+<th>Password</th>
+<th>Confirm</th>
+</tr>
+<tr>
+<td><input type="password" name="password" id="password_reg" required autocomplete="off" class="form-control" placeholder="Password" />
+<span class="glyphicon form-control-feedback" id="password_reg1"></span>
+</td>
+<td><input type="password" name="confirmPassword" id="confirmPassword"  disabled required autocomplete="off" 
+class="form-control" placeholder="Re-Password" />
+ <span class="glyphicon form-control-feedback" id="confirmPassword1"></span>
+</td>
+</tr>
+<tr>
+<th>Department</th>
+<th>Photo</th>
+</tr>
+<tr>
+<td><select id="department" name="UsDedt" class="form-control" >
+<option value="">dept.</option>
+<option value="Admin">Admin</option>
+<option value="Manager">Manager</option>
+<option value="Sales">Techincal</option>
+<option value="Store">Store</option>
+</select></td>
+<td>
+  <input class="form-control-file" type="file" id="photo" name="sourceFile">
+</td>
+</tr>
+<tr><td colspan="2"><br></td></tr>
+<tr>
+<td colspan="2" align="center">
+<input  id="saveUserBtn" type="submit" class="btn btn-success" value="Save"/>
+</td>
+</tr>
+</table>
+
+</form>
+</div>
+</div>
+</div>

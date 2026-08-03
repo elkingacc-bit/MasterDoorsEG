@@ -1,0 +1,76 @@
+<?php
+header('Content-Type: application/json');
+  include_once("connection.php");
+/*
+if ($link->connect_error) {
+    echo json_encode(['success' => false, 'message' => 'فشل الاتصال بالداتا بيز']);
+    exit;
+}
+*/
+// ─── استقبال البيانات ─────────────────────────────────
+$id    = isset($_POST['id'])    ? intval($_POST['id'])              : 0;
+$field = isset($_POST['field']) ? trim($_POST['field'])             : '';
+$value = isset($_POST['value']) ? trim($_POST['value'])             : '';
+
+// ─── الأعمدة المسموح بتعديلها فقط ───────────────────
+$allowed_fields = [
+    'transactionDate',
+    'income',
+    'withdrawal',
+    'description',
+    'account',
+    'poNum',
+    'invNumber',
+    'empCode'
+];
+
+if (!in_array($field, $allowed_fields)) {
+    echo json_encode(['success' => false, 'message' => 'حقل غير مسموح بتعديله']);
+    exit;
+}
+
+if ($id <= 0) {
+    echo json_encode(['success' => false, 'message' => 'ID غير صحيح']);
+    exit;
+}
+
+// ─── Validation حسب نوع الحقل ────────────────────────
+if ($field === 'transactionDate') {
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+        echo json_encode(['success' => false, 'message' => 'صيغة التاريخ غير صحيحة']);
+        exit;
+    }
+}
+
+if ($field === 'income' || $field === 'withdrawal') {
+    if (!is_numeric($value) || $value < 0) {
+        echo json_encode(['success' => false, 'message' => 'القيمة يجب أن تكون رقم موجب']);
+        exit;
+    }
+    $value = floatval($value);
+}
+
+// ─── تنفيذ الـ UPDATE ─────────────────────────────────
+$stmt = $link->prepare(
+    "UPDATE `cash_transaction` SET `$field` = ? WHERE `cash_transaction_id` = ?"
+);
+
+if ($field === 'income' || $field === 'withdrawal') {
+    $stmt->bind_param("di", $value, $id);
+} else {
+    $stmt->bind_param("si", $value, $id);
+}
+
+if ($stmt->execute()) {
+    if ($stmt->affected_rows >= 0) {
+        echo json_encode(['success' => true, 'message' => 'تم الحفظ بنجاح']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'لم يتم العثور على السجل']);
+    }
+} else {
+    echo json_encode(['success' => false, 'message' => 'خطأ في قاعدة البيانات: ' . $link->error]);
+}
+
+$stmt->close();
+$link->close();
+?>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/AddCustomer.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+    <div class="panel-body">
+		
+   <table class="table">
+      <tr class="bg-warning">
+            <th>Customer Name</th>
+            <th>Customer Place</th>
+            <th>Activity</th>
+	</tr>
+	<tr>
+      <td><input type="text" placeholder="Name" id="newCustomerName" class="form-control"/></td>
+      <td>
+       <select class="form-control newCustomerTypes" id="customerArea" >
+       <option value="">Choose</option>
+       <option value="القاهرة" title=" الكبرى القاهرة ">القاهرة</option>
+       <option value="الجيزة" title=" الكبرى القاهرة ">الجيزة</option>
+       <option value="القليوبية" title=" الكبرى القاهرة ">القليوبية</option>
+       <option value="الإسكندرية" title="الإسكندرية">الإسكندرية</option>
+       <option value="البحيرة" title="الإسكندرية">البحيرة</option>
+       <option value="مطروح" title="الإسكندرية">مطروح</option>
+       <option value="الدقهلية" title="الدلتا">الدقهلية</option>
+       <option value="كفر الشيخ" title="الدلتا"> كفر الشيخ </option>
+       <option value="الغربية" title="الدلتا">الغربية</option>
+       <option value="المنوفية" title="الدلتا">المنوفية</option>
+       <option value="دمياط" title="الدلتا"> دمياط</option>
+       <option value="بورسعيد" title="القناة">بورسعيد</option>
+       <option value="الإسماعيلية" title="القناة">الإسماعيلية</option>
+       <option value="السويس" title="القناة">السويس</option>
+       <option value="الشرقية" title="القناة">الشرقية</option>
+       <option value="شمال سيناء" title="القناة">شمال سيناء</option>
+       <option value="جنوب سيناء" title="القناة">جنوب سيناء</option>
+       <option value="بني سويف" title="الصعيد">بني سويف</option>
+       <option value="المنيا" title="الصعيد">المنيا</option>
+       <option value="الفيوم" title="الصعيد">الفيوم</option>
+       <option value="أسيوط" title="الصعيد">أسيوط</option>
+       <option value="الوادي الجديد" title="الصعيد">الوادي الجديد</option>
+       <option value="سوهاج" title="الصعيد">سوهاج</option>
+       <option value="قنا" title="الصعيد">قنا</option>
+       <option value="البحر الأحمر" title="الصعيد">البحر الأحمر</option>
+       <option value="الأقصر" title="الصعيد">الأقصر</option>
+       <option value="أسوان" title="الصعيد">أسوان</option>
+       
+       </select>
+     </td>
+     <td><input type="text" placeholder="Activity" list="CustActivityList" id="customeractivity" class="form-control" />
+       <datalist id="CustActivityList">
+       </datalist>
+     </td>
+   </tr>
+   <tr>    
+       <td colspan="3" align="center"> <button class="btn btn-success" id="saveNewCustomer">Save</button></td>
+  </tr>    
+      </table>
+ 
+                        
+    </div>
+</div>
+</html>

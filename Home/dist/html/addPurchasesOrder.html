@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+ <div class="table-responsive-lg supplierOffer">
+  <center>
+   <table class="table table-sm w-50 table-borderless">
+    <td class="col-2 p-2">Choose Project Name</td>
+    <td class="col-6"><select class="form-control" id="customerPoList"></select></td>
+   </table>
+  </div>
+  <div class="testData"></div>
+ </center>
+</html>
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#customerPoList").load("dist/php/allcustomerpoOffer.php");
+  $("#customerPoList").change(function(){
+  $(".supplierOffer").hide();
+   var cusPo =$(this).val();
+    $.ajax({
+    url:'dist/php/purchasesOrderData.php',
+    type:"POST",
+    data:{poId:cusPo},
+    success: function(offerData){
+     $(".testData").html(offerData)    
+    }
+   });  
+  });
+ }); 
+</script>

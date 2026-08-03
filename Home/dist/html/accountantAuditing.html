@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="btn-group" role="group" aria-label="Basic example">
+   <button type="button" style="width: 10vw;" class="btn btn-info" id="auditingCash">Cash</button>
+   <button type="button" style="width: 10vw;" class="btn btn-primary" id="auditingBank">Bank</button>
+   <button type="button" style="width: 10vw;" class="btn btn-info" id="auditingCustomer">Customer</button>
+   <button type="button" style="width: 10vw;" class="btn btn-primary" id="auditingSupplier">Supplier</button>
+   <button type="button" style="width: 10vw;" class="btn btn-info" id="auditingAdjusting">Adjusting</button>
+  </div>
+ </center>
+
+ <div class="auditingDataResult"></div>
+
+</html>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  
+  $("#auditingCash").click(function(){
+   $(".auditingDataResult").load('dist/php/auditingCash.php')
+  });
+
+  $("#auditingBank").click(function(){
+   $(".auditingDataResult").load('dist/php/auditingBank.php')
+  });
+
+  $("#auditingCustomer").click(function(){
+   $(".auditingDataResult").load('dist/php/auditingCustomer.php')
+  });
+
+  $("#auditingSupplier").click(function(){
+   $(".auditingDataResult").load('dist/php/auditingSupplier.php')
+  });
+
+  $("#auditingAdjusting").click(function(){
+   $(".auditingDataResult").load('dist/php/auditingAdjusting.php')
+  });
+  
+ });
+</script>

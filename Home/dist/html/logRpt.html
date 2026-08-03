@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/logRpt.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+    <div class="panel-body"> 
+    <div class="inputDataList"></div>
+        
+        <table class="table table-sm" style="width:auto">
+           <thead>
+                <th>Date</th>
+                <th>Section</th>
+           </thead>
+           <tbody >
+           		<td><input type="month" class="form-control" id="rptDate" /></td>
+           		<td>
+                	<select class="form-control" id="rptSelected">
+                    	<option value="">Choose</option>
+                        <option value="1">User</option>
+                        <option value="2">All Added</option>
+                        <option value="3">All Edited</option>
+                        <option value="5">offer & PO</option>
+                        <option value="6">Organize</option>
+                        <option value="12">Assembly Kits</option>
+                        <option value="9">Supplier Order</option>
+                        <option value="10">Installation</option>
+                        <option value="11">Stock</option>
+                    </select>
+                </td>
+           </tbody>
+       </table>    
+           
+    <div class="LogReportResult"></div>
+        
+    </div>
+</div>
+</html>

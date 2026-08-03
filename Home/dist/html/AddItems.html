@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="dist/js/AddItems.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<p></p>
+</div>
+    <div class="panel-body">
+    	<form id="addItemForm" enctype="multipart/form-data" method="post">
+        	
+            <table class="table">
+             <tr class="bg-warning">
+                <th >Part Number</th>
+                <th >Item Name</th>
+            	<th >Image</th>
+              </tr>
+              <tr>
+                <td>
+              		<input type="text" id="partNo" name="partNo" class="form-control" 
+                    placeholder="Part No" autocomplete="off"/>
+				</td>
+                 <td>
+              		<input type="text" id="ItemName" name="ItemName" class="form-control" 
+                    placeholder="Item Name" autocomplete="off"/>
+				</td>
+                <td>
+                    <input class="form-control-file" type="file" id="ItemPhoto" name="sourceFile">
+                </td>
+              </tr>  
+              <tr>
+              	<td colspan="4">
+                	<textarea type="text" id="ItemDesc" name="ItemDesc" class="form-control" 
+                    placeholder="Insert the description of this Item " autocomplete="off"></textarea>
+                </td>
+              </tr>
+              <tr>
+              	<td colspan="6" align="center">
+                	<input type="submit" value="Save" id="saveItemBtn" class="btn btn-success" />
+                </td>
+              </tr>
+            </table>
+            
+        </form>
+                
+    </div>
+</div>
+</html>

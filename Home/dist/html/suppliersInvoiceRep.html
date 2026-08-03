@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+ <div class="btn-group" role="group" style="float: right;">
+  <button class="btn btn-info" id="yearlySupplierInvoice">Yearly</button>
+  <button class="btn btn-primary" id="quarterSupplierInvoice">Quarterly</button>
+  <button class="btn btn-info" id="monthSupplierInvoice">Monthly</button>
+  <button class="btn btn-primary" id="limitSupplierInvoice">Periodically</button>
+  <button class="btn btn-info" id="customerSupplierInvoice">Supplier</button>
+ </div>
+ <center> 
+  <div class="table-responsive-lg">
+   <div class="yearlySupplierInvoice" style="display: none;">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>Year</th>
+      <th></th>
+     </thead>
+     <tbody>
+      <td>
+       <select id="supplierInvouceYear" class="form-control yearShow"></select>
+      </td>
+      <td>
+       <button class="btn btn-success" id="showSupplierInvouceYear">Show</button>
+      </td>
+     </tbody>
+    </table>    
+   </div>
+   <div class="quarterSupplierInvoice" style="display: none;">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>Year</th>
+      <th>Quarter</th>
+      <th></th>
+     </thead>
+     <tbody>
+      <td>
+       <select id="supplierInvouceYearQ" class="form-control yearShow"></select>
+      </td>
+      <td>
+       <select id="supplierInvouceQuarter" class="form-control">
+        <option value="">Choose</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+       </select>
+      </td>
+      <td>
+       <button class="btn btn-success" id="showSupplierInvouceQuarter">Show</button>
+      </td>
+     </tbody>
+    </table>    
+   </div>
+   <div class="monthSupplierInvoice" style="display: none;">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>Year</th>
+      <th>Month</th>
+      <th></th>
+     </thead>
+     <tbody>
+      <td>
+       <select id="supplierInvouceYearM" class="form-control yearShow"></select>
+      </td>
+      <td>
+       <select id="supplierInvouceMonth" class="form-control">
+        <option value="">Choose</option>
+        <option value="1">Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>
+        <option value="4">Apr</option>
+        <option value="5">May</option>
+        <option value="6">Jun</option>
+        <option value="7">Jul</option>
+        <option value="8">Aug</option>
+        <option value="9">Sep</option>
+        <option value="10">Oct</option>
+        <option value="11">Nov</option>
+        <option value="12">Dec</option>
+       </select>
+      </td>
+      <td>
+       <button class="btn btn-success" id="showSupplierInvouceMonth">Show</button>
+      </td>
+     </tbody>
+    </table>    
+   </div>
+   <div class="limitSupplierInvoice" style="display: none;">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>From</th>
+      <th>To</th>    
+      <th></th>
+     </thead>
+     <tbody>
+      <td>
+       <input type="date" id="startDate" class="form-control">
+      </td>
+      <td>
+       <input type="date" id="endDate" class="form-control">
+      </td>
+      <td>
+       <button class="btn btn-success" id="showLimitSupplierInvoice">Show</button>
+      </td>
+     </tbody>
+    </table>    
+   </div>
+   <div class="customerSupplierInvoice" style="display: none;">
+    <table class="table table-sm w-75 table-borderless">
+     <thead class="text-center">
+      <th>Supplier</th>
+      <th></th>
+     </thead>
+     <tbody>
+      <td>
+       <select id="accountName" class="form-control"></select>
+      </td>
+      <td>
+       <button class="btn btn-success" id="showSupplierSalesInvoice">Show</button>
+      </td>
+     </tbody>
+    </table>    
+   </div>
+  </div>
+ </center> 
+ <div class="supplierInvoiceReport"></div>
+ <script src="dist/js/pages/accountant/supplierInvoiceCustomReport.js"></script>
+</html>

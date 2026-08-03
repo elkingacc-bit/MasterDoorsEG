@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm table-borderless">
+    <thead class="text-center">
+     <th>Invoice Number</th>
+     <th>Date</th>
+     <th>Supplier</th>
+     <th>Amount</th>
+     <th>VAT</th>
+     <th>Total</th>
+     <th>Action</th>
+    </thead>
+    <tbody>
+     <td><input type="text" class="form-control" id="invoiceNumber"></td>
+     <td><input type="date" class="form-control" id="invoiceDate"></td>
+     <td>
+      <input type="text" id="chooseSuppliers" name="chooseSuppliers" class="form-control" autocomplete="off" list="suppliers">
+      <datalist id="suppliers"></datalist> 
+     </td> 
+     <td><input type="number" class="form-control" id="invoiceSuptotal" ></td>
+     <td>
+      <select class="form-control" id="vatType">
+       <option value="">Choose</option>
+       <option value="1">VAT</option>
+       <option value="2">NOT VAT</option>
+      </select>
+      <input type="number" class="form-control" id="invoiceVat" style="display: none;">
+     </td>
+     <td><input type="number" class="form-control" id="invoiceTotal" readonly></td>
+     <td>
+      <button class="btn btn-success w-100" id="saveInvoice">Save</button>
+      <button class="btn btn-info w-100" id="AddItems">Add Items</button>
+      <button class="btn btn-info w-100" id="closePage">Back</button>
+     </td>
+    </tbody>
+   </table>
+   <h5 style="float:right;" class="reminingText"> Remaining : <span class="invRem" style="color: red;"></span> </h5>
+  </div>
+  <input id="invoiceId" style="display: none">
+  <input id="itemsValue" style="display: none">
+  <div class="invoiceData"></div>
+  <div class="alert msg" role="alert"></div>
+  <!-- Modal -->
+  <div class="modal fade" id="supplierInvoiceModal" aria-hidden="true" aria-labelledby="supplierModalData" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-xl">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title" id="supplierModalData">Add Items To Invoice</h5>
+      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     </div>
+     <div class="modal-body">
+      <table class="table table-sm">
+       <thead class="text-center">
+        <th>Items</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>SupTotal</th>
+        <th>Save</th>
+       </thead>
+       <tbody>
+        <td>
+        <input type="text" id="chooseItems" name="chooseItems" class="form-control" autocomplete="off" list="items">
+        <datalist id="items"></datalist> 
+        </td> 
+        <td><input type="number" class="form-control" id="invoiceQyan"></td>
+        <td><input type="number" class="form-control" id="unitPrice"></td>
+        <td><input type="text" class="form-control" id="supTotal"></td>
+        <td><button class="btn btn-success" id="saveItems">Save</button></td>
+       </tbody>
+      </table>
+     </div>
+     <div class="modal-footer msg"></div>
+    </div>
+   </div>
+  </div>
+ </center>
+ <script src="dist/js/pages/accountant/addNewBuyStockItems.js"></script>
+</html>

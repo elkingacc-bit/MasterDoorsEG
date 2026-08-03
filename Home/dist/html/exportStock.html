@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<style type="text/css">
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+<script type="text/javascript" src="dist/js/exportStockNew.js"></script>
+<div class="panel panel-primary" style="width:99%">
+<div class="panel-heading">
+<div align="right" class="finishBTN" style="display:none; margin-right:5%">
+    	<button class="btn btn-dark btn-sm finishAndPrint" id="finishAndPrint">Finish & Print</button>
+       
+    </div> <br>
+</div>
+    <div class="panel-body">        
+    
+    <table class="table table-sm" style="width:35%">
+    	<thead class="bg-warning">
+        	<th>Choose PO</th>
+        </thead>
+        <tbody>
+        	 <td class="col-sm-1"> 
+            	<input type="text" class="form-control allValidPO" id="allValidPO" 
+                list="AllCustPo" autocomplete="off"/>
+                <datalist id="AllCustPo"></datalist>
+            </td>
+        </tbody>
+    </table>
+      <!-- -->
+                         
+                        
+    </div>
+</div>
+
+<div class="expItemsTable">
+
+</div>
+
+<div class="modal fade myModal" tabindex="-1"  role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    
+    <div class="ShowHWDataHist" align="center">
+    </div>
+    </div>
+  </div>
+</div>
+
+</html>
