@@ -14,7 +14,7 @@
   $querySupplierData=mysqli_query($link,$sqlSupplier)or die("ERROR_SNSC : 03");
   $supplierData=mysqli_fetch_assoc($querySupplierData);
   echo"<li>
-   <button class='btn btn-link salesInvoiceData' value='$orderId'>Inv <span>$poNum</span>:- $supplierData['customername']</button>
+   <button class='btn btn-link salesInvoiceData' value='$orderId'>Inv <span>$poNum</span>:- $supplierData[customername]</button>
   </li>";
  }
 ?>
