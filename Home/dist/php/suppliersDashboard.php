@@ -10,10 +10,10 @@
      <thead class="bg-success text-white text-center">
       <tr>
        <th style="width: 10px">#</th>
-       <th>Manufactur</th>
+       <th>Manufacture</th>
        <th>Orders</th>
        <th>Payments</th>
-       <th>Manufactur dues</th>
+       <th>Manufacture dues</th>
        <th>Progress</th>
       </tr>
      </thead>

@@ -57,7 +57,7 @@
      $netSallary=$net;
     }
     echo "<tr>
-     <td colspan='2'>Sallary</td>
+     <td colspan='2'>Salary</td>
      <td>$net</td>
 </tr>
 <tr>

@@ -215,7 +215,7 @@ $projectExpencess = 0.0;
               <td>{$poSN}</td>
               <td></td>
               <td>" . number_format($totalPurchases, 2) . "</td>
-              <td>Manufactur</td>
+              <td>Manufacture</td>
               <td>Purchases</td>
              </tr>";
         }

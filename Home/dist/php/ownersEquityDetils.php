@@ -72,7 +72,7 @@
    <th>Date</th>
    <th>Fund</th>
    <th>withdrawal</th>
-   <th>Discrption</th>
+   <th>Description</th>
   </thead>
   <tbody>
    <?php

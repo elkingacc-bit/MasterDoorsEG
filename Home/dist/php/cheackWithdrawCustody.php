@@ -34,7 +34,7 @@
     <th>Date</th>
     <th>Amount</th>
     <th>cashback</th>
-    <th>Discription</th>
+    <th>Description</th>
    </thead>
    <tbody>
   ";
@@ -57,7 +57,7 @@
   echo"</tbody>
    </table>
    <hr>
-   <h5 style='text-align: right;'> Remining :- <b>$custody</b>L.E </h5>
+   <h5 style='text-align: right;'> Remaining :- <b>$custody</b>L.E </h5>
   ";
  }
  else{

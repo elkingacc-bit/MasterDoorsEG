@@ -12,18 +12,6 @@
   date_default_timezone_set("Africa/Cairo");
   include_once("connection.php");
   $orderId=$_POST['invId'];
-/*
-  // Get Supplier Order Date
-  $sqlSupplierOrder="SELECT `SuppCode`,`OrderNumber`,`date`,`deliveryDate`,`totalAmout`,`authUser`,`orderNotes`,`paied`,`custPOId`,`SORef` 
-  FROM `supplierorder` 
-  WHERE  `SOId` = $orderId";
-  $querySupplierOrderData=mysqli_query($link,$sqlSupplierOrder)or die("ERROR_SNSC : 01");
-  $supplierOrderData=mysqli_fetch_assoc($querySupplierOrderData);
-  $poId=$supplierOrderData['custPOId'];  
-  $sqlPurOffer="SELECT `supplierid`,`purchasesOrderNum`, `jobref`,`VAT`,`totalAmout`, `poId`,`purchasesOrderRef` FROM `purchasesorder` WHERE `poId` = $poId ";
-  $queryPurOffer=mysqli_query($link,$sqlPurOffer)or die("ERROR_SNSC : 01");
-  $purOfferData=mysqli_fetch_assoc($queryPurOffer);
-*/
 
   // Get Supplier Invoice Date
   $sqlSupplierInvoice="SELECT `suppliersInvoiceId`,`suppliersInvoiceNumber`,`suppliersInvoiceDate`,`supplierCode`,`suppliersInvoiceType`,`suppliersInvoiceSupTotal`,

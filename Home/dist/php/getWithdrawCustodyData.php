@@ -37,7 +37,7 @@
      <th class='col-1'>Amount</th>
      <th class='col-2'>Project</th>
      <th class='col-3'>Account</th>
-     <th class='col-5'>Discription</th>
+     <th class='col-5'>Description</th>
     </thead>
     <tbody>
      <tr>
@@ -112,7 +112,7 @@
    }
    else if(lastDiscrebtion == '')
    {
-    alert ("Do'not Leave Discreption Blank.");
+    alert ("Do'not Leave Description Blank.");
    }
    else
    {

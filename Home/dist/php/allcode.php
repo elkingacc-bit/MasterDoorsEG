@@ -19,12 +19,6 @@
       </td>
      </tr>";
     }
-/*
-    <td class='col-sm-1'>
-       <button value='$accData[accountant_code_Id]' class='btn btn-link dellCode'><i class='far fa-trash-alt' aria-hidden='true' style='font-size:16px;color:#d9534f'></i></button>
-      </td>
-  
-*/
 
    ?>
   </tbody>

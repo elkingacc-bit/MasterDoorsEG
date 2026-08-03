@@ -15,7 +15,7 @@
    <th>Custdy</th>
    <th>Amount</th>
    <th>Project</th>
-   <th>Discription</th>
+   <th>Description</th>
   </thead>
   <tbody>
    <?php
@@ -44,4 +44,4 @@
  </table>
 </div>
 <hr>
-<h3 style="color:blue">Remining :- <small> <strong><u style="color:red"><?php echo $custody; ?></u>L.E</strong></small></h3>
+<h3 style="color:blue">Remaining :- <small> <strong><u style="color:red"><?php echo $custody; ?></u>L.E</strong></small></h3>
