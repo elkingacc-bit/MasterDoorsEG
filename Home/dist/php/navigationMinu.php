@@ -303,6 +303,9 @@
   ";*/
   
   echo"
+ <li class='nav-item' data-toggle='tooltip' data-placement='top' title='لوحة التحكم'>
+  <a href='#' class='nav-link' id='accountantDashboard'><i class='fas fa-tachometer-alt nav-icon'></i><p>Dashboard</p></a>
+ </li>
  <li class='nav-item' data-toggle='tooltip' data-placement='top' title='شجره الحسابات'>
   <a href='#' class='nav-link' id='newAccountantCode'><i class='fas fa-sitemap nav-icon'></i><p>Chart of Accounts</p></a>
  </li>
@@ -783,6 +786,14 @@
 	});
 	
  //-------------------------*{ Accountant Js }*------------------------- \\
+  /*--------------------{ Dashboard }--------------------*/
+  $("#accountantDashboard").click(function(){
+   $('.nav-link').removeClass("active");
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Dashboard");
+   $(".data_display").load("dist/php/accountantDashboard.php");
+  });
   /*--------------------{ Coding }--------------------*/
   /*---------------{ Coding 1 }---------------*/
   $("#newAccountantCode").click(function(){
