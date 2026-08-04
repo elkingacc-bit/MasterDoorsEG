@@ -73,7 +73,7 @@ $(document).ready(function(){
     var $btn = $('#saveInvestment');
     var originalText = $btn.text();
     $.ajax({
-     url:"dist/php/saveNewABuyInvestment.php",
+     url:"dist/php/Acc/saveNewABuyInvestment.php",
      type:"POST",
      data:{fDate:investmentDate,fAmount:investmentAmount,fGroup:investmentGroup,fDis:investmentDis,fQun:investmentQuant},
      beforeSend:function(){

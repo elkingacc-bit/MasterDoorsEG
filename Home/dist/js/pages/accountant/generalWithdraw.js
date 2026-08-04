@@ -1,7 +1,7 @@
 $(document).ready(function(){
- $("#accountName").load("dist/php/accountantCodeGeneral.php");
- $("#withdrawRecipient").load("dist/php/empCode.php");
- $("#trasuty").load("dist/php/cashCode.php");
+ $("#accountName").load("dist/php/Acc/accountantCodeGeneral.php");
+ $("#withdrawRecipient").load("dist/php/Acc/empCode.php");
+ $("#trasuty").load("dist/php/Acc/cashCode.php");
 
  $("#trasuty").change(function(){
   var cashType = $(this).val();
@@ -89,7 +89,7 @@ $(document).ready(function(){
    var $btn = $('#saveGeneralWithdraw');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewWithdraw.php',
+    url:'dist/php/Acc/saveNewWithdraw.php',
     type:"POST",
     data:{fDate:actionDate,fCode:accName,frecipient:recipient,famount:amount,fdiscrebtion:discrebtion,typeCash:cash,numCheak:chickNum,cheakDate:dueDate},
     beforeSend:function(){
@@ -100,7 +100,7 @@ $(document).ready(function(){
      if(saveWithdrawTransaction == 1){
       $('.msg').removeClass('alert-danger').addClass('alert-success').hide().html("Data Saved").fadeIn(150);
       $(".msg").delay(2000).fadeOut(600);
-      $('.card-text').load('dist/html/withdrawGeneralExpenses.html');
+      $('.card-text').load('dist/html/Acc/withdrawGeneralExpenses.html');
      }
      else if(saveWithdrawTransaction == 2){
       $('.msg').removeClass('alert-success').addClass('alert-danger').hide().html("Balance Not Avaliable").fadeIn(150);

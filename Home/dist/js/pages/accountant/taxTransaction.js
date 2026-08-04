@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $("#allVATTransaction").click(function(){
    $.ajax({ 
-    url:'dist/php/taxStatment.php',
+    url:'dist/php/Acc/taxStatment.php',
     type:"POST",
     success: function(vatStatmentData){
      $(".data_display").html('');
@@ -13,7 +13,7 @@ $(document).ready(function(){
 
  $("#allHoldingTaxTransaction").click(function(){
    $.ajax({ 
-    url:'dist/php/allHoldingTaxStatment.php',
+    url:'dist/php/Acc/allHoldingTaxStatment.php',
     type:"POST",
     success: function(holdingTaxStatmentData){
      $(".data_display").html('');

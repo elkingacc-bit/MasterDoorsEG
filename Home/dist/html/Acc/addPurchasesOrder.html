@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<style>
+ #purchaseOrderChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <div class="supplierOffer" id="purchaseOrderChooserForm">
+  <center>
+   <div class="row justify-content-center">
+    <div class="form-group col-md-6">
+     <label for="customerPoList">Choose Project Name</label>
+     <select class="form-control" id="customerPoList"></select>
+    </div>
+   </div>
+  </center>
+ </div>
+ <div class="testData"></div>
+</html>
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#customerPoList").load("dist/php/Acc/allcustomerpoOffer.php");
+  $("#customerPoList").change(function(){
+  $(".supplierOffer").fadeOut(150);
+   var cusPo =$(this).val();
+    $.ajax({
+    url:'dist/php/Acc/purchasesOrderData.php',
+    type:"POST",
+    data:{poId:cusPo},
+    success: function(offerData){
+     $(".testData").html(offerData)
+    }
+   });
+  });
+ });
+</script>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="btn-group" role="group" aria-label="Basic example">
+   <button type="button" style="width: 10vw;" class="btn btn-danger" id="openCustdyStatmenet">Open</button>
+   <button type="button" style="width: 10vw;" class="btn btn-primary" id="allCustdyData">All</button>
+  </div>
+ </center>
+ <div class="custdyDataResult"></div>
+</html>
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#openCustdyStatmenet").click(function(){
+   $(".custdyDataResult").load('dist/php/Acc/allCustodyCountData.php')
+  });
+  $("#allCustdyData").click(function(){
+   $(".custdyDataResult").load('dist/php/Acc/allCustodyData.php')
+  });
+ });
+</script>

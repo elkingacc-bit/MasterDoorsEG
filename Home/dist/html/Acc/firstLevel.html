@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+ <body>
+  <style>
+   #firstLevelForm .form-control{transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+   #firstLevelForm .form-control:focus{box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);}
+   #saveLivel1{transition: transform .1s ease-in-out;}
+   #saveLivel1:active{transform: scale(0.97);}
+  </style>
+  <div id="firstLevelForm">
+   <div class="row">
+    <div class="form-group col-md-4">
+     <label for="AssetsLevel1Name">First Level Name</label>
+     <input type="text" class="form-control" id="AssetsLevel1Name">
+    </div>
+    <input type="text" class="form-control" id="AssetsLevel1Code" hidden>
+    <div class="form-group col-md-2 d-flex align-items-end">
+     <button class="btn btn-success w-100" id="saveLivel1">Save</button>
+    </div>
+   </div>
+
+   <div class="oldFirstData"></div>
+  </div>
+ </body>
+ <script type="text/javascript">
+  $(document).ready(function(){
+
+$('.oldFirstData').load('dist/php/Acc/allFirstLevel.php');
+
+
+   $('#saveLivel1').prop('disabled', true);
+   $("#AssetsLevel1Name").change(function(){
+    var level1Name = $('#AssetsLevel1Name').val();
+    $.ajax({
+     url:'dist/php/Acc/getLevelOneNewCode.php',
+     type:"POST",
+     data:{firstName:level1Name},
+     beforeSend:function(){
+      $('#saveLivel1').prop('disabled', true);
+     },
+     success: function(getLevel1Code){
+      if(getLevel1Code == 0){
+       $('.msg').removeClass('alert-success');
+       $('.msg').addClass('alert-danger');
+       $(".msg").hide().html("You Already Been Registered All First Level").fadeIn(150);
+       $(".msg").delay(5000).fadeOut(600);
+      }
+      else{
+       var Lev1Code = getLevel1Code.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
+       $("#AssetsLevel1Code").val(Lev1Code);
+       $('#saveLivel1').prop('disabled', false);
+      }
+     }
+    });
+   return false;
+   });
+   $("#saveLivel1").click(function(){
+    var firstName = $('#AssetsLevel1Name').val();
+    var firstCode = $('#AssetsLevel1Code').val();
+    if(firstName == ""){
+     $('.msg').removeClass('alert-success');
+     $('.msg').addClass('alert-danger');
+     $('.msg').hide().html('Dont Skip branch Name Empty').fadeIn(150);
+     $('#AssetsLevel1Name').focus();
+    }
+    else{
+     var $btn = $('#saveLivel1');
+     var originalText = $btn.text();
+     $.ajax({
+      url:'dist/php/Acc/saveNewFirstCode.php',
+      type:"POST",
+      data:{name:firstName,code:firstCode},
+      beforeSend:function(){
+       $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+      },
+      success: function(savedepartmentDone){
+       $btn.prop('disabled', false).text(originalText);
+       if(savedepartmentDone == 1){
+        $('.msg').removeClass('alert-danger');
+        $('.msg').addClass('alert-success');
+        $('.msg').hide().html('Save First Level Success').fadeIn(150);
+        $('#AssetsLevel1Name').val("");
+        $('#AssetsLevel1Code').val("");
+        $(".msg").delay(2000).fadeOut(600);
+        $('.card-text').load('dist/html/Acc/firstLevel.html');
+       }
+       else{
+        $('.msg').removeClass('alert-success');
+        $('.msg').addClass('alert-danger');
+        $('.msg').hide().html((savedepartmentDone)).fadeIn(150);
+       }
+      }
+     });
+    }
+    return false;
+   });
+  });
+ </script>
+</html>

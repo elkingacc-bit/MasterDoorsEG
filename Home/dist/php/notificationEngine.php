@@ -251,7 +251,7 @@ else
 else if($_SESSION['Dept'] == 'Accountant' )
 {
 	 #1 Supplier Invoice
- $sqlSupplier="SELECT `OIId` FROM `supporderitems` WHERE `status` = 5 GROUP BY `SOIdRef`";
+ $sqlSupplier="SELECT ANY_VALUE(`OIId`) as OIId FROM `supporderitems` WHERE `status` = 5 GROUP BY `SOIdRef`";
  $querySupplierData=mysqli_query($link,$sqlSupplier)or die("ERROR_Acc_Noti : 01");
  $suplierInvCount=mysqli_num_rows($querySupplierData);
  #2 Supplier Invoice
@@ -415,22 +415,22 @@ $(document).ready(function() {
  $(".newSalesInvNot").click(function(){
    $(".data_display").html('');
    $(".m-0").html("Collect Billing in Process");
-   $(".data_display").load("dist/html/newProjectExtract.html");
+   $(".data_display").load("dist/html/Acc/newProjectExtract.html");
   });
   $(".newCollectSalesInvNot").click(function(){
    $(".data_display").html('');
    $(".m-0").html("Collect Invoice");
-   $(".data_display").load("dist/html/newSalesInvoiceCollect.html");
+   $(".data_display").load("dist/html/Acc/newSalesInvoiceCollect.html");
   });
   $(".allopenCustdy").click(function(){
    $(".data_display").html('');
    $(".m-0").html("All Open Custody");
-   $(".data_display").load("dist/php/allCustodyCountData.php");
+   $(".data_display").load("dist/php/Acc/allCustodyCountData.php");
   });
   $(".newSupplierInvNot").click(function(){
    var supplierType = 5;
    $.ajax({
-    url:'dist/php/purchesingInvoiceData.php',
+    url:'dist/php/Acc/purchesingInvoiceData.php',
     type:"POST",
     data:{repType:supplierType},
     success: function(getInvData){
@@ -444,7 +444,7 @@ $(document).ready(function() {
   $(".newSupplierInvReceivedNot").click(function(){
    var suppType =1;
    $.ajax({
-    url:'dist/php/purchesingInvoiceData.php',
+    url:'dist/php/Acc/purchesingInvoiceData.php',
     type:"POST",
     data:{repType:suppType},
     success: function(getInvPaiedData){

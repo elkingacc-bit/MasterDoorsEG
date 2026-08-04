@@ -4,8 +4,8 @@ $("#advanceType").css('display','none');
    $(".employeesAdvance").css('display','none');
    $(".workersAdvance").css('display','none');
 
-   $("#employee").load("dist/php/empcode2.php");
-   $("#workers").load("dist/php/allStafSelectAdvance.php");
+   $("#employee").load("dist/php/Acc/empcode2.php");
+   $("#workers").load("dist/php/Acc/allStafSelectAdvance.php");
 
    function validateField($field){
     var val = $.trim($field.val());
@@ -72,7 +72,7 @@ $("#advanceType").css('display','none');
      var $btn = $('#saveAdvance');
      var originalText = $btn.text();
      $.ajax({
-      url:"dist/php/saveNewAdvanceReceive.php",
+      url:"dist/php/Acc/saveNewAdvanceReceive.php",
       type:"POST",
       data:{advType:advanceType,user:emp,advancMonth:advanceDate,instAmount:instaVal},
       beforeSend: function(){
@@ -85,7 +85,7 @@ $("#advanceType").css('display','none');
         $('.msg').addClass('alert alert-success');
         $('.msg').hide().html("Data Saved").fadeIn(150);
         $(".msg").delay(2000).fadeOut(600);
-        $(".data_display").load("dist/html/newAdvanceWithdraw.html");
+        $(".data_display").load("dist/html/Acc/newAdvanceWithdraw.html");
        }
             else if(addAdvanceDone == 2){
 alert("Balance Not Avaliable");

@@ -73,7 +73,7 @@ var investmentQuant= $('#investmentQun').val();
      var $btn = $('#saveSalesAdvance');
      var originalText = $btn.text();
      $.ajax({
-      url:"dist/php/saveNewASalesInvestment.php",
+      url:"dist/php/Acc/saveNewASalesInvestment.php",
       type:"POST",
       data:{fDate:investmentDate,fAmount:investmentAmount,fGroup:investmentGroup,fDis:investmentDis,fQun:investmentQuant},
       beforeSend:function(){

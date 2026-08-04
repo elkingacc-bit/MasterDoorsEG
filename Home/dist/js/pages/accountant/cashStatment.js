@@ -6,7 +6,7 @@ $(document).ready(function(){
 
   $("#allCashTransaction").click(function(){
    $.ajax({ 
-    url:'dist/php/allCashStatment.php',
+    url:'dist/php/Acc/allCashStatment.php',
     type:"POST",
     success: function(bankStatmentData){
      $(".data_display").html('');
@@ -31,7 +31,7 @@ $(document).ready(function(){
    }
    else{
     $.ajax({ 
-     url:'dist/php/cashStatment.php',
+     url:'dist/php/Acc/cashStatment.php',
      type:"POST",
      data:{startDate:sDate,endDate:eDate},
      success: function(bankStatmentData){

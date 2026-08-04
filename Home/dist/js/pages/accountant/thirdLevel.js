@@ -1,16 +1,16 @@
 $(document).ready(function(){
 
-$('.oldThirdtData').load('dist/php/allThirdCode.php');
+$('.oldThirdtData').load('dist/php/Acc/allThirdCode.php');
 
 
  $('#saveNewAsset').prop('disabled', true);
  // Loade First Code Data
- $("#level1f").load("dist/php/levelOneAccountantCode.php");
+ $("#level1f").load("dist/php/Acc/levelOneAccountantCode.php");
  // Get Second Code Data Mathed With First Code
  $("#level1f").change(function(){
   var level1Name = $('#level1f').val();
   $.ajax({
-   url:'dist/php/levelTowAccountantCode.php',
+   url:'dist/php/Acc/levelTowAccountantCode.php',
    type:"POST",
    data:{firstCode:level1Name},
    success: function(allLevel2Code){
@@ -24,7 +24,7 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
   var level1Code = $('#level1f').val();
   var level2code = $('#level2').val();
   $.ajax({
-   url:'dist/php/getLevelThreeNewCode.php',
+   url:'dist/php/Acc/getLevelThreeNewCode.php',
    type:"POST",
    data:{firstCode:level1Code,secoundCode:level2code},
    success: function(getLevel3Code){
@@ -74,7 +74,7 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
    var $btn = $('#saveNewAsset');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewThierdlCode.php',
+    url:'dist/php/Acc/saveNewThierdlCode.php',
     type:"POST",
     data:{fCode:firstCode,scode:secoundCode,tName:therdName,tcode:therdCode},
     beforeSend:function(){
@@ -92,7 +92,7 @@ $('.oldThirdtData').load('dist/php/allThirdCode.php');
       $('#level3').val("");
       $('#assetRefCode').val("");
       $(".msg").delay(2000).fadeOut(600);
-      $('.card-text').load('dist/html/thierdLevel.html');
+      $('.card-text').load('dist/html/Acc/thierdLevel.html');
      }
      else{
       $('.msg').removeClass('alert-success');

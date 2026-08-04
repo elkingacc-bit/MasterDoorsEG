@@ -1,9 +1,9 @@
 $(document).ready(function(){
-   $("#bankName").load("dist/php/bankCode.php");
-   $("#bankName2").load("dist/php/bankCode.php");  
+   $("#bankName").load("dist/php/Acc/bankCode.php");
+   $("#bankName2").load("dist/php/Acc/bankCode.php");  
    $("#allBank").click(function(){
     $.ajax({ 
-     url:'dist/php/banksBalance.php',
+     url:'dist/php/Acc/banksBalance.php',
      type:"POST",
      success: function(allBankStatmentData){
       $(".data_display").html('');
@@ -37,7 +37,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/bankStatment.php',
+      url:'dist/php/Acc/bankStatment.php',
       type:"POST",
       data:{startDate:sDate,endDate:eDate,bank:mybank},
       success: function(bankStatmentData){
@@ -55,7 +55,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/bankAllStatment.php',
+      url:'dist/php/Acc/bankAllStatment.php',
       type:"POST",
       data:{bank:mybank},
       success: function(bankStatmentData){

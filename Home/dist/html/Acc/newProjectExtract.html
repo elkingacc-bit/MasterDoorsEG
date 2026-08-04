@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<style>
+ #customerChooserForm .form-control{transition: border-color .2s ease-in-out;}
+</style>
+ <center id="customerChooserForm">
+  <div class="row justify-content-center">
+   <div class="form-group col-md-6">
+    <label for="choosecustomersInvoice">Choose Project ( Customer )</label>
+    <input type="text" id="choosecustomersInvoice" name="choosecustomersInvoice" class="form-control" autocomplete="off" list="customerInvoice">
+    <datalist id="customerInvoice"></datalist>
+   </div>
+   <div class="form-group col-md-2 d-flex align-items-end">
+    <button class="btn btn-info w-100" id="customersPoList">Submit</button>
+   </div>
+  </div>
+ </center>
+ <script type="text/javascript">
+  $(document).ready(function(){
+   $("#customerInvoice").load("dist/php/Acc/wonCustomerPoNoInvoiceList.php");
+   $("#customersPoList").click(function(){
+    var data = {};
+    $("#customerInvoice option").each(function(i,el) {
+     data[$(el).data("value")] = $(el).val();
+    });
+    console.log(data, $("#customerInvoice option").val());
+    var suplierCode = $("#choosecustomersInvoice").val();
+    var jopRef = $('#customerInvoice [value="' + suplierCode + '"]').data('value');
+    var suplierChosenValideate = $('#customerInvoice [value="' + suplierCode + '"]');
+    if(suplierChosenValideate.length <= 0){
+     alert('Please Choose Customer name from the list');
+     $("#choosecustomersInvoice").css("border-color","red");
+     setTimeout(function(){
+      $("#choosecustomersInvoice").css("border-color","#EBEBEB");
+      $("#choosecustomersInvoice").val('');
+      $("#choosecustomersInvoice").focus();
+     }, 1500);
+    }
+    else{
+     $.ajax({
+      url:'dist/php/Acc/extractData.php',
+      type:"POST",
+      data:{jopId:jopRef},
+      success: function(customerPoData){
+       $(".data_display").html(customerPoData);
+      }
+     });
+    }
+   });
+  });
+ </script>
+</html>

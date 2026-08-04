@@ -1,6 +1,6 @@
 $(document).ready(function(){
-   $("#accountName").load("dist/php/allCustomars.php"); 
-   $(".yearShow").load('dist/php/years.php');     
+   $("#accountName").load("dist/php/Acc/allCustomars.php"); 
+   $(".yearShow").load('dist/php/Acc/years.php');     
    //
    $("#yearlySalesInvoice").click(function(){
     $(".salesInvoiceReport").html('');
@@ -54,7 +54,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/allSalesInvoiceYear.php',
+      url:'dist/php/Acc/allSalesInvoiceYear.php',
       type:"POST",
       data:{startYear:yearC},
       success: function(yearlySalesInvoiceData){
@@ -77,7 +77,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/allSalesInvoiceQuarter.php',
+      url:'dist/php/Acc/allSalesInvoiceQuarter.php',
       type:"POST",
       data:{startYear:yearC,startQuarter:quaarterC},
       success: function(quarterSalesInvoiceData){
@@ -100,7 +100,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/allSalesInvoiceMonth.php',
+      url:'dist/php/Acc/allSalesInvoiceMonth.php',
       type:"POST",
       data:{startYear:yearC,startQuarter:monthC},
       success: function(monthSalesInvoiceData){
@@ -121,7 +121,7 @@ $(document).ready(function(){
     
     else{
      $.ajax({ 
-      url:'dist/php/allSalesInvoiceCustomer.php',
+      url:'dist/php/Acc/allSalesInvoiceCustomer.php',
       type:"POST",
       data:{customer:customerC},
       success: function(customerSalesInvoiceData){
@@ -154,7 +154,7 @@ $(document).ready(function(){
     }
     else{
      $.ajax({ 
-      url:'dist/php/allSalesInvoiceData.php',
+      url:'dist/php/Acc/allSalesInvoiceData.php',
       type:"POST",
       data:{startDate:sDate,endDate:eDate},
       success: function(periodSalesInvoiceData){

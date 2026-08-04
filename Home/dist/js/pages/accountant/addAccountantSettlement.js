@@ -55,11 +55,11 @@
     }
    });
    $("#settlementSave").prop('disabled', true);
-   $("#accountName1").load("dist/php/allCodeSelect.php");
+   $("#accountName1").load("dist/php/Acc/allCodeSelect.php");
    $("#accountName1").change(function(){
     var oldCode = $(this).val();
     $.ajax({
-     url:'dist/php/nextCodeSelect.php',
+     url:'dist/php/Acc/nextCodeSelect.php',
      type:"POST",
      data:{accCode:oldCode},
      success: function(getSecoundAccount){
@@ -72,7 +72,7 @@
     var oldCode2 = $(this).val();
     var oldCode3 = $("#accountName1").val();
     $.ajax({
-     url:'dist/php/nextCodeSelect2.php',
+     url:'dist/php/Acc/nextCodeSelect2.php',
      type:"POST",
      data:{accCode:oldCode2,code2:oldCode3},
      success: function(getSecoundAccount2){
@@ -86,7 +86,7 @@
     var oldCode5 = $(this).val();
     var oldCode6 = $("#accountName2").val();
     $.ajax({
-     url:'dist/php/nextCodeSelect3.php',
+     url:'dist/php/Acc/nextCodeSelect3.php',
      type:"POST",
      data:{accCode:oldCode4,code2:oldCode5,code3:oldCode6},
      success: function(getSecoundAccount3){
@@ -148,7 +148,7 @@
       var $btn = $('#settlementSave');
       var originalText = $btn.text();
       $.ajax({
-       url:'dist/php/saveNewSettlement.php',
+       url:'dist/php/Acc/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52},
        beforeSend:function(){
@@ -161,7 +161,7 @@
          $('.msgData').addClass('alert-success');
          $('.msgData').hide().html("Data Saved").fadeIn(150);
          $(".msgData").delay(2000).fadeOut(600);
-         $(".data_display").load("dist/html/accountantSettlement.html");
+         $(".data_display").load("dist/html/Acc/accountantSettlement.html");
         }
         else{
          $('.msgData').removeClass('alert-success');
@@ -208,7 +208,7 @@
       var $btn = $('#settlementSave');
       var originalText = $btn.text();
       $.ajax({
-       url:'dist/php/saveNewSettlement.php',
+       url:'dist/php/Acc/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52,c11:cell13,c12:cell23,c13:cell33,c14:cell43,c15:cell53},
        beforeSend:function(){
@@ -221,7 +221,7 @@
          $('.msgData').addClass('alert-success');
          $('.msgData').hide().html("Data Saved").fadeIn(150);
          $(".msgData").delay(2000).fadeOut(600);
-         $(".data_display").load("dist/html/accountantSettlement.html");
+         $(".data_display").load("dist/html/Acc/accountantSettlement.html");
         }
         else{
          $('.msgData').removeClass('alert-success');
@@ -278,7 +278,7 @@
       var $btn = $('#settlementSave');
       var originalText = $btn.text();
       $.ajax({
-       url:'dist/php/saveNewSettlement.php',
+       url:'dist/php/Acc/saveNewSettlement.php',
        type:"POST",
        data:{count:getDataCount,c1:cell11,c2:cell21,c3:cell31,c4:cell41,c5:cell51,c6:cell12,c7:cell22,c8:cell32,c9:cell42,c10:cell52,c11:cell13,c12:cell23,c13:cell33,c14:cell43,c15:cell53,c16:cell14,c17:cell24,c18:cell34,c19:cell44,c20:cell54},
        beforeSend:function(){
@@ -291,7 +291,7 @@
          $('.msgData').addClass('alert-success');
          $('.msgData').hide().html("Data Saved").fadeIn(150);
          $(".msgData").delay(2000).fadeOut(600);
-         $(".data_display").load("dist/html/accountantSettlement.html");
+         $(".data_display").load("dist/html/Acc/accountantSettlement.html");
         }
         else{
          $('.msgData').removeClass('alert-success');

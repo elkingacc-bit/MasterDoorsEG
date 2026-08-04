@@ -25,7 +25,7 @@ $(document).ready(function(){
  $("#AddItems").click(function(){
   var invoiceNumber =$("#invoiceNumber").val();
   $.ajax({
-   url:'dist/php/itemsToBuyStock.php',
+   url:'dist/php/Acc/itemsToBuyStock.php',
    type:"POST",
    data:{invId:invoiceNumber},
    success: function(newItemsInvData){
@@ -123,7 +123,7 @@ $(document).ready(function(){
    var $btn = $('#saveInvoice');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewSuppliersInvoicStock.php',
+    url:'dist/php/Acc/saveNewSuppliersInvoicStock.php',
     type:"POST",
     data:{finvNum:invNum,finvDate:invDate,finvSuplier:invSuplier,finvSupTotal:invSupTotal,finvVat:invVat,finvTotal:invTotal},
     beforeSend:function(){
@@ -140,7 +140,7 @@ $(document).ready(function(){
       var invLast = getSaveInvData;
       $("#invoiceId").val(invLast);
       $.ajax({
-       url:'dist/php/suppliersInvoiceItems.php',
+       url:'dist/php/Acc/suppliersInvoiceItems.php',
        type:"POST",
        data:{inv:invLast},
        success: function(getInvoiceData){
@@ -225,7 +225,7 @@ $(document).ready(function(){
     var $itemBtn = $('#saveItems');
     var itemBtnText = $itemBtn.text();
     $.ajax({
-     url:'dist/php/saveItemsToStockInvoice.php',
+     url:'dist/php/Acc/saveItemsToStockInvoice.php',
      type:"POST",
      data:{itemsName:itemId,itemsCount:itemQ,unitPrice:iUP,itemTotalPrice:inST,lastId:inNu,invId:invNum2,dateInv:invDate2},
      beforeSend:function(){
@@ -241,7 +241,7 @@ $(document).ready(function(){
       $(".msg").delay(2000).fadeOut(600);
       var invLast = $("#invoiceId").val();
       $.ajax({
-       url:'dist/php/suppliersInvoiceItems.php',
+       url:'dist/php/Acc/suppliersInvoiceItems.php',
        type:"POST",
        data:{inv:invLast},
        success: function(getInvoiceData){
@@ -290,7 +290,7 @@ $(document).ready(function(){
  $("#closePage").click(function(){
   $(".data_display").html('');
   $(".m-0").html("Add New Stock Invoice");
-  $(".data_display").load("dist/html/newBuyStockInvoice.html");
+  $(".data_display").load("dist/html/Acc/newBuyStockInvoice.html");
  });
 
 

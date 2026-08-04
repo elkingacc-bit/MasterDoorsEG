@@ -69,7 +69,7 @@ $(document).ready(function(){
    var $btn = $('#saveProjectPurchasesWithdraw');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewProjectWithdraw.php',
+    url:'dist/php/Acc/saveNewProjectWithdraw.php',
     type:"POST",
     data:{fDate:actionDate,fCode:accName,frecipient:recipient,famount:amount,fdiscrebtion:discrebtion,poNumber:PONum},
     beforeSend:function(){

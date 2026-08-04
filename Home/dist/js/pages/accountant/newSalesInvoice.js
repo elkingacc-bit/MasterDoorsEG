@@ -1,5 +1,5 @@
 $(document).ready(function(){
- $("#customersPoList").load("dist/php/wonCustomerPoNoInvoiceList.php");
+ $("#customersPoList").load("dist/php/Acc/wonCustomerPoNoInvoiceList.php");
  //--------------------*{ Get Customer Po Data }*--------------------\\
  $("#invData").click(function(){
   var data = {};
@@ -20,7 +20,7 @@ $(document).ready(function(){
    }, 1500);
   }
   $.ajax({
-   url:'dist/php/getCustomerPoData.php',
+   url:'dist/php/Acc/getCustomerPoData.php',
    type:"POST",
    data:{jopId:jopRef},
    success: function(customerPoData){
