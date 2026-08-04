@@ -32,8 +32,8 @@
 
  $stmt = mysqli_prepare($link, "SELECT ft.`transactionCode`,
    SUM(ft.`debtor`) as totalDebtor, SUM(ft.`creditor`) as totalCreditor,
-   ANY_VALUE(COALESCE(ac.`accountName`, cus.`customername`, sup.`suppliername`)) as accountName,
-   ANY_VALUE(ac.`level2Code`) as level2Code
+   MIN(COALESCE(ac.`accountName`, cus.`customername`, sup.`suppliername`)) as accountName,
+   MIN(ac.`level2Code`) as level2Code
   FROM `financialTransactions` ft
   LEFT JOIN `accountantcode` ac ON ac.`accountCode` = ft.`transactionCode`
   LEFT JOIN `customers` cus ON cus.`customercode` = ft.`transactionCode`

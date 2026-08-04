@@ -75,7 +75,7 @@ try {
     // استبدل COUNT بـ SUM أدناه.
     $stmtItems = mysqli_prepare(
         $link,
-        "SELECT ANY_VALUE(`itemRowId`) as itemRowId, count(`itemquantity`) as itemquantity, ANY_VALUE(`deliverdate`) as deliverdate,
+        "SELECT MIN(`itemRowId`) as itemRowId, count(`itemquantity`) as itemquantity, MIN(`deliverdate`) as deliverdate,
                 sum(`deliveramount`) as deliveramount, `jobRowId`
          FROM `custorderdeliver`
          WHERE `jobRowId` = ? AND `ref` = '0'

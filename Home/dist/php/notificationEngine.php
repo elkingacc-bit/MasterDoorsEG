@@ -251,7 +251,7 @@ else
 else if($_SESSION['Dept'] == 'Accountant' )
 {
 	 #1 Supplier Invoice
- $sqlSupplier="SELECT ANY_VALUE(`OIId`) as OIId FROM `supporderitems` WHERE `status` = 5 GROUP BY `SOIdRef`";
+ $sqlSupplier="SELECT MIN(`OIId`) as OIId FROM `supporderitems` WHERE `status` = 5 GROUP BY `SOIdRef`";
  $querySupplierData=mysqli_query($link,$sqlSupplier)or die("ERROR_Acc_Noti : 01");
  $suplierInvCount=mysqli_num_rows($querySupplierData);
  #2 Supplier Invoice

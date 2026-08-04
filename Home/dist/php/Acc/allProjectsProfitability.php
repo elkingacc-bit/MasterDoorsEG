@@ -47,7 +47,7 @@
 
  // نفس منطق الشاشة الفردية: أول سعر متاح لكل descripcode من warehouse (الجدول سجل حركات مش جدول أسعار موحد)
  $warehousePriceMap = [];
- $sqlWarehousePrice = "SELECT `description`, ANY_VALUE(`amount`) as amount FROM `warehouse` GROUP BY `description`";
+ $sqlWarehousePrice = "SELECT `description`, MIN(`amount`) as amount FROM `warehouse` GROUP BY `description`";
  $queryWarehousePrice = mysqli_query($link, $sqlWarehousePrice) or die("ERROR_APP:06 - " . mysqli_error($link));
  while ($r = mysqli_fetch_assoc($queryWarehousePrice)) { $warehousePriceMap[$r['description']] = (float)$r['amount']; }
 
