@@ -1,6 +1,6 @@
 $(document).ready(function(){
- $("#withdrawOtherExpensesRecipient").load("dist/php/empCode.php");
- $("#accountName3").load("dist/php/accountantCodeProcessing.php");
+ $("#withdrawOtherExpensesRecipient").load("dist/php/Acc/empCode.php");
+ $("#accountName3").load("dist/php/Acc/accountantCodeProcessing.php");
 
  $("#withdrawOtherExpensesAmount").on('input', function(){
   var val = parseFloat($(this).val());
@@ -71,7 +71,7 @@ $(document).ready(function(){
    var $btn = $('#saveOtherExpensesWithdraw');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewProjectWithdraw.php',
+    url:'dist/php/Acc/saveNewProjectWithdraw.php',
     type:"POST",
     data:{fDate:actionDate,fCode:accName,frecipient:recipient,famount:amount,fdiscrebtion:discrebtion,poNumber:PONum},
     beforeSend:function(){

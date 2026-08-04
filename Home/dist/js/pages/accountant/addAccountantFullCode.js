@@ -1,12 +1,12 @@
 $(document).ready(function(){
-$('.oldCodeData').load('dist/php/allFullCode.php');
+$('.oldCodeData').load('dist/php/Acc/allFullCode.php');
  //
- $("#level1f").load("dist/php/levelOneAccountantCode.php");
+ $("#level1f").load("dist/php/Acc/levelOneAccountantCode.php");
  //
  $("#level1f").change(function(){
   var level1Name = $('#level1f').val();
   $.ajax({
-   url:'dist/php/levelTowAccountantCode.php',
+   url:'dist/php/Acc/levelTowAccountantCode.php',
    type:"POST",
    data:{firstCode:level1Name},
    success: function(allLevel2Code){
@@ -20,7 +20,7 @@ $('.oldCodeData').load('dist/php/allFullCode.php');
   var level1Code = $('#level1f').val();
   var level2code = $('#level2').val();
   $.ajax({
-   url:'dist/php/levelThreeAccountantCode.php',
+   url:'dist/php/Acc/levelThreeAccountantCode.php',
    type:"POST",
    data:{firstCode:level1Code,secoundCode:level2code},
    success: function(getLevel3Code){
@@ -35,7 +35,7 @@ $('.oldCodeData').load('dist/php/allFullCode.php');
   var level2code = $('#level2').val();
   var level3code = $('#level3').val();
   $.ajax({
-   url:'dist/php/getAccountantCodeNewCode.php',
+   url:'dist/php/Acc/getAccountantCodeNewCode.php',
    type:"POST",
    data:{firstCode:level1Code,secoundCode:level2code,thierdCode:level3code},
    success: function(getLevel4Code){
@@ -100,7 +100,7 @@ $('.oldCodeData').load('dist/php/allFullCode.php');
    var $btn = $('#saveAccountCode');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewFullAccountCode.php',
+    url:'dist/php/Acc/saveNewFullAccountCode.php',
     type:"POST",
     data:{fCode:fiCode,scode:secondCode,tcode:thierdCode,aName:accName,aCode:accCode},
     beforeSend:function(){
@@ -113,7 +113,7 @@ $('.oldCodeData').load('dist/php/allFullCode.php');
       $('.msg').addClass('alert-success');
       $(".msg").hide().html("Data Saved").fadeIn(150);
       $(".msg").delay(2000).fadeOut(600);
-      $('.card-text').load('dist/html/accountantCode.html');
+      $('.card-text').load('dist/html/Acc/accountantCode.html');
      }
      else{
       $('.msg').removeClass('alert-success');

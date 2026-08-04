@@ -6,14 +6,14 @@ $(document).ready(function(){
   $('.projectLink').removeClass('active');
   $(this).addClass('active');
   $('.titelProject').html('Withdraw Purchases For Project ' + projectName);
-  $('.formProject').load('dist/html/withdrawProjectPurchases.html');
+  $('.formProject').load('dist/html/Acc/withdrawProjectPurchases.html');
  });
  //
  $("#otherExpenses").click(function(){
   $('.projectLink').removeClass('active');
   $(this).addClass('active');
   $('.titelProject').html('Withdraw Other Expenses To Project ' + projectName);
-  $('.formProject').load('dist/html/withdrawOtherExpenses.html');
+  $('.formProject').load('dist/html/Acc/withdrawOtherExpenses.html');
  });
  return false;
 });

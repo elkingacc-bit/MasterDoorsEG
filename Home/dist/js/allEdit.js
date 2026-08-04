@@ -78,7 +78,7 @@ $(document).ready(function(){
 	$("#editAccountant").click(function(){
 		
 		$(".data_display").html('');
-		$(".data_display").load("dist/html/accountantEditing.html");
+		$(".data_display").load("dist/html/Acc/accountantEditing.html");
 		$('.m-0').html('Edit Accountant');
 		
 		return false;

@@ -87,7 +87,7 @@ $(document).ready(function(){
 	$("#addPartner").click(function(){
 		
 		$(".addDiv").html('');
-		$(".addDiv").load("dist/html/addNewPartner.html");
+		$(".addDiv").load("dist/html/Acc/addNewPartner.html");
 		$('.m-0').html('Add New Partner');
 		
 		return false;

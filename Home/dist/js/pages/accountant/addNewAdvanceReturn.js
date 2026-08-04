@@ -3,8 +3,8 @@ $(document).ready(function(){
    $("#saveAdvance").css('display','none');
    $(".employeesAdvance").css('display','none');
    $(".workersAdvance").css('display','none');
-   $("#employee").load("dist/php/empCode.php");
-   $("#workers").load("dist/php/allStafSelect.php");
+   $("#employee").load("dist/php/Acc/empCode.php");
+   $("#workers").load("dist/php/Acc/allStafSelect.php");
 
    function validateField($field){
     var val = $.trim($field.val());
@@ -90,7 +90,7 @@ $(document).ready(function(){
      var $btn = $('#saveAdvance');
      var originalText = $btn.text();
      $.ajax({
-      url:"dist/php/saveNewAdvance.php",
+      url:"dist/php/Acc/saveNewAdvance.php",
       type:"POST",
       data:{advType:advanceType,user:emp,advancMonth:advanceDate,amount:advanceAmounts,instAmount:instaVal},
       beforeSend: function(){
@@ -103,7 +103,7 @@ $(document).ready(function(){
         $('.msg').addClass('alert alert-success');
         $('.msg').hide().html("Data Saved").fadeIn(150);
         $(".msg").delay(2000).fadeOut(600);
-        $(".data_display").load("dist/html/newAdvanceWithdraw.html");
+        $(".data_display").load("dist/html/Acc/newAdvanceWithdraw.html");
        }
        else{
         $('.msg').removeClass('alert alert-success');

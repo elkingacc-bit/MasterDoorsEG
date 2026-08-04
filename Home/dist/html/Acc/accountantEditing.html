@@ -1,0 +1,110 @@
+<html>
+ <div class="container-fluid">
+  <div class="row">
+   <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary " id="editCash">Cash</button>
+    <button type="button" class="btn btn-success " id="editInvesting">Investing</button>
+     <button type="button" class="btn btn-warning " id="editManufacturedOffer">Manufactured Offer</button>
+    <button type="button" class="btn btn-info" id="editSupplierInvoice">Supplier Invoice</button>
+    <button type="button" class="btn btn-success" id="editSalesInvoice">Sales Invoice</button>
+    <button type="button" class="btn btn-light " id="editPartnership">Partnership</button>
+   </div>
+  </div>
+  <div class="row w-100 editingRes"></div>
+ </div>
+</html>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  "use strict";
+  // Cash
+  $("#editCash").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/Acc/admin_cash.php',
+    type:"POST",
+    data:{editType:dataEdit},
+     beforeSend: function(){
+        $(".editingRes").html("<img src='dist/img/loadingColor.gif'>");
+    },
+
+    success: function(getCashData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getCashData)
+    }
+   });
+   return false;
+  });
+  //Investing
+  $("#editInvesting").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/adminInvesting.php',
+    type:"POST",
+    data:{editType:dataEdit},
+    success: function(getCashData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getCashData)
+    }
+   });
+   return false;
+  });
+  
+  //Manufactured Offer
+  $("#editManufacturedOffer").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/adminManufacturedOffer.php',
+    type:"POST",
+    data:{editType:dataEdit},
+    success: function(getCashData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getCashData)
+    }
+   });
+   return false;
+  });
+  //Supplier Invoice
+  $("#editSupplierInvoice").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/Acc/adminSupplierInvoice.php',
+    type:"POST",
+    data:{editType:dataEdit},
+    success: function(getCashData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getCashData)
+    }
+   });
+   return false;
+  });
+  //Sales Invoice
+  $("#editSalesInvoice").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/adminSalesInvoice.php',
+    type:"POST",
+    data:{editType:dataEdit},
+    success: function(getCashData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getCashData)
+    }
+   });
+   return false;
+  });
+  // Partnership
+  $("#editPartnership").click(function(){
+   var dataEdit = $(this).val();
+   $.ajax({
+    url:'dist/php/adminPartnership.php',
+    type:"POST",
+    data:{editType:dataEdit},
+    success: function(getAccountantData){
+     $(".editingRes").html('');
+     $(".editingRes").html(getAccountantData)
+    }
+   });
+   return false;
+  });
+ });
+</script>

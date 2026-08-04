@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm w-75 table-borderless">
+    <thead class="text-center">
+     <th>Year</th>
+     <th>Type</th>
+     <th>Show</th>
+    </thead>
+    <tbody>
+     <td><select id="startDate" class="form-control"></select></td>
+     <td><select id="expencessType" class="form-control">
+         <option value="">Choose</option>
+         <option value="1">Operation</option>
+         <option value="2">General</option>
+     </select> </td>
+    <td>
+        <button class="btn btn-success" id="displayExpencessData">Display</button>
+    </td>
+    </tbody>
+   </table>
+  </div>
+ </center>
+ <script type="text/javascript">
+  $(document).ready(function(){
+   $("#startDate").load('dist/php/Acc/years.php');
+   $("#displayExpencessData").click(function(){
+    var getType = $("#expencessType").val();
+    var sDate =$('#startDate').val();
+    if(getType == ""){
+     alert("Choose Expenses Type");
+    }
+    else if(sDate == ""){
+     alert("Choose Year");
+    }
+    else{
+     if(getType == 1){
+      $.ajax({ 
+       url:"dist/php/Acc/expencessAnalyse2.php",
+       type:"POST",
+       data:{startDate:sDate},
+       success: function(expencessStatmentData){
+        $(".data_display").html('');
+        $(".data_display").html(expencessStatmentData); 
+       }
+      });
+     }
+     else if(getType == 2){
+      $.ajax({ 
+       url:"dist/php/Acc/expencessAnalyse.php",
+       type:"POST",
+       data:{startDate:sDate},
+       success: function(expencessStatmentData2){
+        $(".data_display").html('');
+        $(".data_display").html(expencessStatmentData2); 
+       }
+      });
+     }  
+    }
+   });
+   return false;
+  });
+ </script>
+</html>

@@ -1,6 +1,6 @@
 $(document).ready(function(){
- $("#accountName").load("dist/php/allSuppliers.php");
- $(".supplierData").load("dist/php/suppliersDashboard.php");
+ $("#accountName").load("dist/php/Acc/allSuppliers.php");
+ $(".supplierData").load("dist/php/Acc/suppliersDashboard.php");
  $("#limitSupplierTransaction").click(function(){
   $(".limitSupplierTransaction").css('display','block');    
  });
@@ -11,7 +11,7 @@ $(document).ready(function(){
   }
   else{
    $.ajax({ 
-    url:'dist/php/allSupplierStatmentData.php',
+    url:'dist/php/Acc/allSupplierStatmentData.php',
     type:"POST",
     data:{accCode:acountCode},
     success: function(supplierAllStatmentData){
@@ -28,7 +28,7 @@ $(document).ready(function(){
   }
   else{
    $.ajax({ 
-    url:'dist/php/allSupplierBalanceData.php',
+    url:'dist/php/Acc/allSupplierBalanceData.php',
     type:"POST",
     data:{accCode:acountCode},
     success: function(supplierBalancedStatmentData){
@@ -56,7 +56,7 @@ $(document).ready(function(){
   }
   else{
    $.ajax({ 
-    url:'dist/php/supplierStatment.php',
+    url:'dist/php/Acc/supplierStatment.php',
     type:"POST",
     data:{startDate:sDate,endDate:eDate,accCode:acountCode},
      success: function(supplierStatmentData){

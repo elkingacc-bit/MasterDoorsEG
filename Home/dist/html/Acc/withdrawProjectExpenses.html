@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="table-responsive-lg poData">
+   <table class="table table-sm w-75 table-borderless text-center">
+    <thead>
+     <th>Choose Open Projects</th>
+    </thead>
+    <tbody>
+     <td>
+      <input type="text" id="chooseCustomersPoList" name="chooseCustomersPoList" class="form-control" autocomplete="off" list="customersPoList">
+      <datalist id="customersPoList"></datalist> 
+     </td>
+     <td><button class="btn btn-info" id="projectData">Go</button></td>
+    </tbody>
+   </table>
+   <input type="text" id="projectsName" style="display: none;">
+  <input type="text" id="projectsId" style="display: none;">
+  </div>
+  <div class="masterData"></div>
+ </center>
+</html>
+<script type="text/javascript">
+ $(document).ready(function(){  
+ $("#customersPoList").load("dist/php/Acc/wonPoNoExpenciseDDL.php");
+ //--------------------*{ Get Customer Po Data }*--------------------\\
+ $("#projectData").click(function(){
+  var data = {};
+  $("#customersPoList option").each(function(i,el) {  
+   data[$(el).data("value")] = $(el).val();
+  });
+  console.log(data, $("#customersPoList option").val());
+  var suplierCode = $("#chooseCustomersPoList").val();
+  var jopRef = $('#customersPoList [value="' + suplierCode + '"]').data('value');
+  var suplierChosenValideate = $('#customersPoList [value="' + suplierCode + '"]');  
+  if(suplierChosenValideate.length <= 0){
+   alert('Please Choose name form the list');
+   $("#chooseCustomersPoList").css("border-color","red");
+   setTimeout(function(){
+    $("#chooseCustomersPoList").css("border-color","#EBEBEB");               
+    $("#chooseCustomersPoList").val(''); 
+    $("#chooseCustomersPoList").focus();             
+   }, 1500);
+  }
+  else{
+   $("#projectsName").val(suplierCode);
+   $("#projectsId").val(jopRef);
+   $('.poData').css('display','none');
+   $('.masterData').load('dist/html/Acc/withdrawProjectData.html');
+  }
+  
+  
+  });  
+  return false;
+ });
+</script>

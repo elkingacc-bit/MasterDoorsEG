@@ -3,7 +3,7 @@ $(document).ready(function(){
  $("#closePage").hide();
  var invLast = $("#invoiceId").val();
  $.ajax({
-  url:'dist/php/suppliersInvoiceItems2.php',
+  url:'dist/php/Acc/suppliersInvoiceItems2.php',
   type:"POST",
   data:{inv:invLast},
   success: function(getInvoiceData){
@@ -32,7 +32,7 @@ $(document).ready(function(){
  $("#AddItems").click(function(){
   var invoiceNumber =$("#invoiceNumber").val();
   $.ajax({
-   url:'dist/php/itemsToBuyStock.php',
+   url:'dist/php/Acc/itemsToBuyStock.php',
    type:"POST",
    data:{invId:invoiceNumber},
     success: function(newItemsInvData){
@@ -145,7 +145,7 @@ $(document).ready(function(){
     }
     else if(Number(inST) <= Number(newreminingAmount)){
      $.ajax({ 
-      url:'dist/php/saveItemsToStockInvoice.php',
+      url:'dist/php/Acc/saveItemsToStockInvoice.php',
       type:"POST",
       data:{itemsName:itemId,itemsCount:itemQ,unitPrice:iUP,itemTotalPrice:inST,lastId:inNu,invId:invNum2,dateInv:invDate2},
       success: function(saveItemsInvoice){
@@ -160,7 +160,7 @@ $(document).ready(function(){
 
 
        $.ajax({
-        url:'dist/php/suppliersInvoiceItems2.php',
+        url:'dist/php/Acc/suppliersInvoiceItems2.php',
         type:"POST",
         data:{inv:invLast},
         success: function(getInvoiceData){
@@ -215,7 +215,7 @@ $("#AddItems").prop('disabled', false); // disable button
  $("#closePage").click(function(){
    $(".data_display").html('');
    $(".m-0").html("Add New Stock Invoice");
-   $(".data_display").load("dist/html/newBuyStockInvoice.html");
+   $(".data_display").load("dist/html/Acc/newBuyStockInvoice.html");
   });
 
 

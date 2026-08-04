@@ -1,6 +1,6 @@
 $(document).ready(function(){
-  $("#partnerName").load("dist/php/allPartnerCode.php");
-  $("#partnerPer").load("dist/php/partnerPercanteg.php");
+  $("#partnerName").load("dist/php/Acc/allPartnerCode.php");
+  $("#partnerPer").load("dist/php/Acc/partnerPercanteg.php");
   $("#saveNewPartner").click(function(){
    var partnerName = $('#partnerName').val();
    var partnerPer = $('#partnerPer').val();
@@ -20,7 +20,7 @@ $(document).ready(function(){
    }
    else{
     $.ajax({ 
-     url:'dist/php/saveNewPartnerData.php',
+     url:'dist/php/Acc/saveNewPartnerData.php',
      type:"POST",
      data:{name:partnerName,fper:partnerPer},
      beforeSend:function(){

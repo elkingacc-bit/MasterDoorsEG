@@ -792,7 +792,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Dashboard");
-   $(".data_display").load("dist/php/accountantDashboard.php");
+   $(".data_display").load("dist/php/Acc/accountantDashboard.php");
   });
   /*--------------------{ Coding }--------------------*/
   /*---------------{ Coding 1 }---------------*/
@@ -802,7 +802,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add New Accountant Code");
-   $(".data_display").load("dist/html/addNewAccountantCode.html");
+   $(".data_display").load("dist/html/Acc/addNewAccountantCode.html");
   });
   /*---------------{ Coding 2 }---------------*/
   $("#addPartner").click(function(){
@@ -811,7 +811,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add New Partner");
-   $(".data_display").load("dist/html/addNewPartner.html");
+   $(".data_display").load("dist/html/Acc/addNewPartner.html");
   });
   /*--------------------{ Cash }--------------------*/  
   /*---------------{ Cash 1 }---------------*/
@@ -821,7 +821,7 @@
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Cash Receive");
-   $(".data_display").load("dist/html/newCashReceive.html");
+   $(".data_display").load("dist/html/Acc/newCashReceive.html");
   });
   /*---------------{ Cash 2 }---------------*/
   $("#cashWithdraw").click(function(){
@@ -830,7 +830,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Cash Withdraw");
-   $(".data_display").load("dist/html/newCashWithdraw.html");
+   $(".data_display").load("dist/html/Acc/newCashWithdraw.html");
   });
   /*---------------{ Cash 3 }---------------*/
   $("#projectSallary").click(function(){
@@ -839,7 +839,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("All Project Sallary Data");
-   $(".data_display").load("dist/html/withdrawprojectSallary.html");
+   $(".data_display").load("dist/html/Acc/withdrawprojectSallary.html");
   });
   /*--------------------{ Advance }--------------------*/ 
   /*---------------{ Advance 1 }---------------*/
@@ -849,7 +849,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add Advance Installment");
-   $(".data_display").load("dist/html/newAdvanceReceive.html");
+   $(".data_display").load("dist/html/Acc/newAdvanceReceive.html");
   });
   /*---------------{ Advance 2 }---------------*/ 
   $("#advanceWithdraw").click(function(){
@@ -858,7 +858,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add Advance payment");
-   $(".data_display").load("dist/html/newAdvanceWithdraw.html");
+   $(".data_display").load("dist/html/Acc/newAdvanceWithdraw.html");
   });
   /*--------------------{ Invesment }--------------------*/ 
   /*---------------{ Invesment 1 }---------------*/
@@ -868,7 +868,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add  Investment");
-   $(".data_display").load("dist/html/newInvestmentBuy.html");
+   $(".data_display").load("dist/html/Acc/newInvestmentBuy.html");
   });
   /*---------------{ Invesment 2 }---------------*/
   $("#investmentSales").click(function(){
@@ -877,7 +877,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("New Sales Investment");
-   $(".data_display").load("dist/html/newInvestmentSales.html");
+   $(".data_display").load("dist/html/Acc/newInvestmentSales.html");
   });
   /*--------------------{ Purchesing }--------------------*/ 
   /*---------------{ Purchesing 1 }---------------*/
@@ -887,7 +887,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("New Supplier Order Offer");
-   $(".data_display").load("dist/html/addPurchasesOrder.html");
+   $(".data_display").load("dist/html/Acc/addPurchasesOrder.html");
   });
   /*---------------{ Purchesing 2 }---------------*/
   $("#newSupplierInvReceived").click(function(){
@@ -896,7 +896,7 @@
    $(this).addClass('active ');
    var suppType =1;
    $.ajax({
-    url:'dist/php/purchesingInvoiceData.php',
+    url:'dist/php/Acc/purchesingInvoiceData.php',
     type:"POST",
     data:{repType:suppType},
     success: function(getInvPaiedData){
@@ -914,7 +914,7 @@
    $(this).addClass('active ');
    var supplierType =5;
    $.ajax({
-    url:'dist/php/purchesingInvoiceData.php',
+    url:'dist/php/Acc/purchesingInvoiceData.php',
     type:"POST",
     data:{repType:supplierType},
     success: function(getInvData){
@@ -932,7 +932,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add New Stock Invoice");
-   $(".data_display").load("dist/html/newBuyStockInvoice.html");
+   $(".data_display").load("dist/html/Acc/newBuyStockInvoice.html");
   });
   /*---------------{ Purchesing 5 }---------------*/
   $("#newPaymentSupplier").click(function(){
@@ -941,7 +941,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Supplier Payment");
-   $(".data_display").load("dist/html/newPaymentSupplierTotal.html");
+   $(".data_display").load("dist/html/Acc/newPaymentSupplierTotal.html");
   });
   /*---------------{ Purchesing 6 }---------------*/
   $("#newPurchesingTaxInv").click(function(){
@@ -950,7 +950,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Supplier Payment");
-   $(".data_display").load("dist/html/addPurchaseInvoice.php");
+   $(".data_display").load("dist/html/Acc/addPurchaseInvoice.php");
   });
 
 
@@ -962,7 +962,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add New Sales Invoice");
-   $(".data_display").load("dist/html/newSalesInvoice.html");
+   $(".data_display").load("dist/html/Acc/newSalesInvoice.html");
   });
   /*---------------{ Sales 2 }---------------*/
   $("#newCollectSalesInv").click(function(){
@@ -971,7 +971,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Sales Invoice Account");
-   $(".data_display").load("dist/html/newSalesInvoiceCollect.html");
+   $(".data_display").load("dist/html/Acc/newSalesInvoiceCollect.html");
   });
   /*---------------{ Sales 3 }---------------*/
   $("#projectExtract").click(function(){
@@ -980,7 +980,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Collect Billing in Process");
-   $(".data_display").load("dist/html/newProjectExtract.html");
+   $(".data_display").load("dist/html/Acc/newProjectExtract.html");
   });
   /*---------------{ Sales 4 }---------------*/
 
@@ -990,7 +990,7 @@
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Customer Collect");
-   $(".data_display").load("dist/html/newCustomerCollect.html");
+   $(".data_display").load("dist/html/Acc/newCustomerCollect.html");
   });
 
 $("#newSalesTaxInv").click(function(){
@@ -999,7 +999,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Supplier Payment");
-   $(".data_display").load("dist/html/addItemWithdrawal.php");
+   $(".data_display").load("dist/html/Acc/addItemWithdrawal.php");
   });
   
 
@@ -1011,7 +1011,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("New Withdraw Custody");
-   $('.data_display').load('dist/html/withdrawCustody.html');
+   $('.data_display').load('dist/html/Acc/withdrawCustody.html');
   });
   /*---------------{ Custdy 2 }---------------*/
   $("#custodyCashback").click(function(){
@@ -1020,7 +1020,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');  
    $(".data_display").html('');
    $(".m-0").html("New Cashback Custody");
-   $('.data_display').load('dist/html/custodyCashback.html');
+   $('.data_display').load('dist/html/Acc/custodyCashback.html');
   });
   /*--------------------{ Adjusting }--------------------*/ 
   /*---------------{ Adjusting 1 }---------------*/
@@ -1030,7 +1030,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');
    $(".data_display").html('');
    $(".m-0").html("Add New Adjusting Entry");
-   $(".data_display").load("dist/html/accountantSettlement.html");
+   $(".data_display").load("dist/html/Acc/accountantSettlement.html");
   });
   /*--------------------{ Reports }--------------------*/ 
   /*---------------{ Reports 1 }---------------*/
@@ -1039,7 +1039,7 @@ $("#newSalesTaxInv").click(function(){
    $(".RptLi2").addClass('active ');
    $(this).addClass('active ');  
    $(".m-0").html("All Accountant Code");
-   $(".data_display").load("dist/html/allCode.html");
+   $(".data_display").load("dist/html/Acc/allCode.html");
   }); 
   /*---------------{ Reports 2 }---------------*/
   $("#allSalesInvoice").click(function(){
@@ -1048,7 +1048,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("All Sales Invoice Data");
-   $(".data_display").load("dist/html/salesInvoiceRep.html");
+   $(".data_display").load("dist/html/Acc/salesInvoiceRep.html");
   });
   /*---------------{ Reports 3 }---------------*/
   $("#allSupplierInvoice").click(function(){
@@ -1057,7 +1057,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');   
    $(".data_display").html('');
    $(".m-0").html("All Suppliers Invoice Data");
-   $(".data_display").load("dist/html/suppliersInvoiceRep.html");
+   $(".data_display").load("dist/html/Acc/suppliersInvoiceRep.html");
   });
   /*---------------{ Reports 4 }---------------*/
   $("#customerStatment").click(function(){
@@ -1066,7 +1066,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Customer's Account");
-   $(".data_display").load("dist/html/customerStatment.html");
+   $(".data_display").load("dist/html/Acc/customerStatment.html");
   });
   /*---------------{ Reports 5 }---------------*/
   $("#supplierStatment").click(function(){
@@ -1075,7 +1075,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Supplier's Account");
-   $(".data_display").load("dist/html/supplierStatment.html");
+   $(".data_display").load("dist/html/Acc/supplierStatment.html");
   });
   /*---------------{ Reports 6 }---------------*/
   $("#projectExpensis").click(function(){
@@ -1084,7 +1084,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');   
    $(".data_display").html('');
    $(".m-0").html("project Cost");
-   $('.data_display').load('dist/html/allPoExpencess.html');
+   $('.data_display').load('dist/html/Acc/allPoExpencess.html');
   });
   /*---------------{ Reports 7 }---------------*/
   $("#projectAccount").click(function(){
@@ -1093,7 +1093,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');   
    $(".data_display").html('');
    $(".m-0").html("project Account");
-   $('.data_display').load('dist/html/profitProject.html');
+   $('.data_display').load('dist/html/Acc/profitProject.html');
   });
   /*---------------{ Reports 8 }---------------*/
   $("#openCustdy").click(function(){
@@ -1102,7 +1102,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active ');   
    $(".data_display").html('');
    $(".m-0").html("All Open Custody");
-   $(".data_display").load("dist/html/allCustodyData.html");
+   $(".data_display").load("dist/html/Acc/allCustodyData.html");
   });
   /*---------------{ Reports 9 }---------------*/
   $("#openAdvance").click(function(){
@@ -1111,7 +1111,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Advance Transaction");
-   $(".data_display").load("dist/html/allOpenAdvance.html");
+   $(".data_display").load("dist/html/Acc/allOpenAdvance.html");
   });
   /*---------------{ Reports 10 }---------------*/
   $("#cashStatment").click(function(){
@@ -1120,7 +1120,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Cash Statement");
-   $(".data_display").load("dist/html/cashStatment.html");
+   $(".data_display").load("dist/html/Acc/cashStatment.html");
   });
   /*---------------{ Reports 11 }---------------*/
   $("#financialTransactions").click(function(){
@@ -1129,7 +1129,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("All Financial Transactions");
-   $(".data_display").load("dist/html/allFinancialTransactions.html");
+   $(".data_display").load("dist/html/Acc/allFinancialTransactions.html");
   });
   /*---------------{ Reports 12 }---------------*/
   $("#bankStatment").click(function(){
@@ -1138,7 +1138,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Bank Statement");
-   $(".data_display").load("dist/html/bankStatment.html");
+   $(".data_display").load("dist/html/Acc/bankStatment.html");
   });
   /*---------------{ Reports 13 }---------------*/
   $("#expensisAnalyze").click(function(){
@@ -1147,7 +1147,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("");
-   $(".data_display").load("dist/html/expencessAnalyze.html");
+   $(".data_display").load("dist/html/Acc/expencessAnalyze.html");
   });
   /*---------------{ Reports 14 }---------------*/
   $("#taxStatment").click(function(){
@@ -1156,7 +1156,7 @@ $("#newSalesTaxInv").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Value Added Tax Statement");
-   $(".data_display").load("dist/html/taxStatment.html");
+   $(".data_display").load("dist/html/Acc/taxStatment.html");
   });
 
 $("#taxBalance").click(function(){
@@ -1165,7 +1165,7 @@ $("#taxBalance").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Value Added Tax Statement");
-   $(".data_display").load("dist/php/itemsBalance.php");
+   $(".data_display").load("dist/php/Acc/itemsBalance.php");
   });
   
 
@@ -1176,7 +1176,7 @@ $("#taxBalance").click(function(){
    $(this).addClass('active ');   
    $(".data_display").html('');
    $(".m-0").html("Cash Flow Statement");
-   $(".data_display").load("dist/php/showIncomStatment.php");
+   $(".data_display").load("dist/php/Acc/showIncomStatment.php");
   });
   /*---------------{ Reports 16 }---------------*/
   $("#investStatment").click(function(){
@@ -1185,7 +1185,7 @@ $("#taxBalance").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Invesment Transaction");
-   $(".data_display").load("dist/html/allInvestStatment.html");
+   $(".data_display").load("dist/html/Acc/allInvestStatment.html");
   });
   /*---------------{ Reports 16 }---------------*/
   $("#salesCommission").click(function(){
@@ -1194,7 +1194,7 @@ $("#taxBalance").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Sales Commission");
-   $(".data_display").load("dist/html/allSalesCommission.html");
+   $(".data_display").load("dist/html/Acc/allSalesCommission.html");
   });
   
   /*---------------{ Reports 16 }---------------*/
@@ -1204,7 +1204,7 @@ $("#taxBalance").click(function(){
    $(this).addClass('active '); 
    $(".data_display").html('');
    $(".m-0").html("Sales Commission");
-   $(".data_display").load("dist/php/allOutComeCash.php");
+   $(".data_display").load("dist/php/Acc/allOutComeCash.php");
   });
 
 

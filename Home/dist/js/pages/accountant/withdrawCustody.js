@@ -2,8 +2,8 @@ $(document).ready(function(){
  $("#custodyData").hide();
  $("#saveWithdrawCustody").hide();
  $("#saveCashBackCustody").hide();
- $("#withdrawCustodyRecipient").load("dist/php/empCode.php");
- $("#projectsCustodyList").load("dist/php/projectsList2.php");
+ $("#withdrawCustodyRecipient").load("dist/php/Acc/empCode.php");
+ $("#projectsCustodyList").load("dist/php/Acc/projectsList2.php");
 
  function validateField($field){
   var val = $.trim($field.val());
@@ -41,7 +41,7 @@ $(document).ready(function(){
  $("#withdrawCustodyRecipient").change(function(){
   var empName =$(this).val();
   $.ajax({
-   url:'dist/php/cheackWithdrawCustody.php',
+   url:'dist/php/Acc/cheackWithdrawCustody.php',
    type:"POST",
    data:{fName:empName},
    success: function(custodyCheack){
@@ -85,7 +85,7 @@ $(document).ready(function(){
    var $btn = $('#saveWithdrawCustody');
    var originalText = $btn.text();
    $.ajax({
-    url:'dist/php/saveNewWithdrawCustody.php',
+    url:'dist/php/Acc/saveNewWithdrawCustody.php',
     type:"POST",
     data:{fDate:actionDate,frecipient:recipient,famount:amount,fdiscrebtion:discrebtion,poNumber:PONum},
     beforeSend:function(){
@@ -97,8 +97,8 @@ $(document).ready(function(){
       alert("Data Saved ");
       $("#withdrawCustodyRecipient").hide();
       $("#custodyData").slideUp(200);
-      $("#withdrawCustodyRecipient").load("dist/php/empCode.php");
-      $("#projectsCustodyList").load("dist/php/projectsList2.php");
+      $("#withdrawCustodyRecipient").load("dist/php/Acc/empCode.php");
+      $("#projectsCustodyList").load("dist/php/Acc/projectsList2.php");
       $("#withdrawCustodyDate").val('');
       $("#withdrawCustodyAmount").val('');
       $("#withdrawCustodyDiscrebtion").val('');
@@ -124,7 +124,7 @@ alert("Balance Not Avaliable");
   var PONum = $('#projectsCustodyList :selected').val();
   var emp = $("#withdrawCustodyRecipient").val();
   $.ajax({
-   url:'dist/php/getWithdrawCustodyData.php',
+   url:'dist/php/Acc/getWithdrawCustodyData.php',
    type:"POST",
    data:{frecipient:emp,poNumber:PONum},
    success: function(getWithdrawCustody){

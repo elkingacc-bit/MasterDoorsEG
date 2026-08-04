@@ -1,6 +1,6 @@
 $(document).ready(function(){
  $.ajax({ 
-  url:'dist/php/allInvesmentYear.php',
+  url:'dist/php/Acc/allInvesmentYear.php',
   type:"POST",
   success: function(yearlyInvesmentData){
    $(".InvesmentReport").html('');

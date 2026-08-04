@@ -1,13 +1,13 @@
 $(document).ready(function(){
-$('.oldSecoundtData').load('dist/php/allSecoundCode.php');
+$('.oldSecoundtData').load('dist/php/Acc/allSecoundCode.php');
 
 
    $('#saveLivel2').prop('disabled', true);
-   $("#level1").load("dist/php/levelOneAccountantCode.php");
+   $("#level1").load("dist/php/Acc/levelOneAccountantCode.php");
    $("#AssetsLevel2Name").change(function(){
     var level1Name = $('#level1').val();
     $.ajax({
-     url:'dist/php/getLevelTowNewCode.php',
+     url:'dist/php/Acc/getLevelTowNewCode.php',
      type:"POST",
      data:{firstCode:level1Name},
      beforeSend:function(){
@@ -50,7 +50,7 @@ $('.oldSecoundtData').load('dist/php/allSecoundCode.php');
      var $btn = $('#saveLivel2');
      var originalText = $btn.text();
      $.ajax({
-      url:'dist/php/saveNewSecondCode.php',
+      url:'dist/php/Acc/saveNewSecondCode.php',
       type:"POST",
       data:{fCode:firstCode,scode:secondCode,sName:secondName},
       beforeSend:function(){
@@ -66,7 +66,7 @@ $('.oldSecoundtData').load('dist/php/allSecoundCode.php');
         $('#AssetsLevel2Name').val("");
         $('#AssetsLevel2Code').val("");
         $(".msg").delay(2000).fadeOut(600);
-        $('.card-text').load('dist/html/secondLevel.html');
+        $('.card-text').load('dist/html/Acc/secondLevel.html');
        }
        else{
         $('.msg').removeClass('alert-success');

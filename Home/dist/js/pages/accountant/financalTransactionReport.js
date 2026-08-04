@@ -1,5 +1,5 @@
 $(document).ready(function(){
- $("#financelTransactionYear").load('dist/php/years.php');
+ $("#financelTransactionYear").load('dist/php/Acc/years.php');
   $("#monthFinancelTransaction").click(function(){
   $(".financelTransactionData").html('');  
   $(".monthFinancelTransaction").css('display','block');    
@@ -20,7 +20,7 @@ $(document).ready(function(){
   }
   else{
    $.ajax({ 
-    url:'dist/php/allFinancelTransactionMonth.php',
+    url:'dist/php/Acc/allFinancelTransactionMonth.php',
     type:"POST",
     data:{startYear:yearC,startQuarter:monthC},
     success: function(monthFinancelTransactionData){
@@ -33,7 +33,7 @@ $(document).ready(function(){
  });
  $("#allFinancelTransaction").click(function(){
   $.ajax({ 
-   url:'dist/php/allFinancelTransaction.php',
+   url:'dist/php/Acc/allFinancelTransaction.php',
    type:"POST",
    success: function(monthFinancelTransactionData){
     $(".monthFinancelTransaction").css('display','none');

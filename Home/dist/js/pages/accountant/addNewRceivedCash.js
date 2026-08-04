@@ -1,6 +1,6 @@
 $(document).ready(function(){
-   $("#trasuty").load("dist/php/cashCode.php");
-   $("#accountName").load("dist/php/allCodeSelect.php");
+   $("#trasuty").load("dist/php/Acc/cashCode.php");
+   $("#accountName").load("dist/php/Acc/allCodeSelect.php");
    $("#trasuty").change(function(){
     var cashType = $(this).val();
     var firstDigit = cashType.substring(0, 5);
@@ -92,7 +92,7 @@ $(document).ready(function(){
      var $btn = $('#saverRceivedCash');
      var originalText = $btn.text();
      $.ajax({
-      url:'dist/php/saveNewReceivedCash.php',
+      url:'dist/php/Acc/saveNewReceivedCash.php',
       type:"POST",
       data:{fDate:rDate,fCode:rCode,fAmount:rAmount,fDes:rDes,typeCash:cash,numCheak:chickNum,cheakDate:dueDate},
       beforeSend:function(){
@@ -105,7 +105,7 @@ $(document).ready(function(){
         $('.msg').addClass('alert alert-success');
         $('.msg').hide().html("Data Saved").fadeIn(150);
         $(".msg").delay(2000).fadeOut(600);
-        $(".data_display").load("dist/html/newCashReceive.html");
+        $(".data_display").load("dist/html/Acc/newCashReceive.html");
        }
        else{
         $('.msg').removeClass('alert alert-success');
