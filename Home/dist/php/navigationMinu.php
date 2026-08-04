@@ -61,6 +61,7 @@
 <li class='nav-item'><a href='#' id='investStatment' class='nav-link'><i class='fas fa-seedling nav-icon'></i><p>Investment Account</p></a></li>
 <li class='nav-item'><a href='#' id='trialBalance' class='nav-link'><i class='fas fa-balance-scale nav-icon'></i><p>Trial Balance</p></a></li>
 <li class='nav-item'><a href='#' id='balanceSheet' class='nav-link'><i class='fas fa-file-invoice-dollar nav-icon'></i><p>Balance Sheet</p></a></li>
+<li class='nav-item'><a href='#' id='projectsProfitability' class='nav-link'><i class='fas fa-chart-bar nav-icon'></i><p>Projects Profitability</p></a></li>
 	  <li class='nav-item'><a href='#' id='4_3' class='nav-link'><i class='far fa-circle nav-icon'></i><p>Log Report</p></a></li>
     </ul>
    </li>
@@ -437,6 +438,7 @@
      <li class='nav-item'><a href='#' id='outcomeCash' class='nav-link'><i class='fas fa-chart-line nav-icon'></i><p>Outcome Statement</p></a></li>
      <li class='nav-item'><a href='#' id='trialBalance' class='nav-link'><i class='fas fa-balance-scale nav-icon'></i><p>Trial Balance</p></a></li>
      <li class='nav-item'><a href='#' id='balanceSheet' class='nav-link'><i class='fas fa-file-invoice-dollar nav-icon'></i><p>Balance Sheet</p></a></li>
+<li class='nav-item'><a href='#' id='projectsProfitability' class='nav-link'><i class='fas fa-chart-bar nav-icon'></i><p>Projects Profitability</p></a></li>
   </ul>
  </li>
 ";
@@ -1229,6 +1231,16 @@ $("#taxBalance").click(function(){
    $(".data_display").html('');
    $(".m-0").html("Balance Sheet");
    $(".data_display").load("dist/php/Acc/balanceSheet.php");
+  });
+
+  /*---------------{ Reports 19 }---------------*/
+  $("#projectsProfitability").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Projects Profitability");
+   $(".data_display").load("dist/php/Acc/allProjectsProfitability.php");
   });
 
 
