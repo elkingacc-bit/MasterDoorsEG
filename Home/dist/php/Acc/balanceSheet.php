@@ -5,7 +5,9 @@
  include_once("../authCheck.php");
  date_default_timezone_set("Africa/Cairo");
  include_once("../connection.php");
- $asOfDate = isset($_POST['asOfDate']) && $_POST['asOfDate'] !== '' ? $_POST['asOfDate'] : date('Y-m-d');
+ $thisYear = (int)date('Y');
+ $year = isset($_POST['year']) && $_POST['year'] !== '' ? (int)$_POST['year'] : $thisYear;
+ $asOfDate = $year . '-12-31';
 
  $stmt = mysqli_prepare($link, "SELECT ft.`transactionCode`,
    SUM(ft.`debtor`) as totalDebtor, SUM(ft.`creditor`) as totalCreditor,
@@ -70,88 +72,75 @@
  $diff = round($totalAssets - $totalLiabAndEquity, 2);
  $isBalanced = (abs($diff) < 0.01);
 
- echo "<input value='Balance Sheet as of $asOfDate' class='reportTitel' hidden>";
+ echo "<input value='Balance Sheet - Year $year' class='reportTitel' hidden>";
 ?>
 <div class="table-responsive-lg">
  <center>
   <div class="row justify-content-center mb-3">
    <div class="col-md-3">
-    <label>حتى تاريخ (As Of)</label>
-    <input type="date" id="bsAsOfDate" class="form-control" value="<?php echo htmlspecialchars($asOfDate); ?>">
+    <label>السنة (Year)</label>
+    <select id="bsYear" class="form-control">
+     <?php for ($y = $thisYear; $y >= 2022; $y--): ?>
+      <option value="<?php echo $y; ?>" <?php echo ($y === $year) ? 'selected' : ''; ?>><?php echo $y; ?></option>
+     <?php endfor; ?>
+    </select>
    </div>
    <div class="col-md-2 d-flex align-items-end">
     <button class="btn btn-info w-100" id="bsRefresh">تحديث</button>
    </div>
   </div>
-  <h3 class="text-center text-body">الميزانية العمومية حتى تاريخ <?php echo htmlspecialchars($asOfDate); ?></h3>
+  <h3 class="text-center text-body">الميزانية العمومية لسنة <?php echo htmlspecialchars((string)$year); ?></h3>
  </center>
- <div class="row">
-  <div class="col-md-6">
-   <h5 class="text-center">الأصول (Assets)</h5>
-   <table class="table table-sm table-bordered table-striped myTableBalanceSheet w-100 text-center">
-    <thead class="bg-primary text-center">
-     <th>الحساب</th>
-     <th>الرصيد</th>
-    </thead>
-    <tbody>
-     <?php foreach ($assets as $r): ?>
-      <tr>
-       <td><?php echo htmlspecialchars($r['name']); ?></td>
-       <td><?php echo number_format($r['balance'], 2); ?></td>
-      </tr>
-     <?php endforeach; ?>
-    </tbody>
-    <tfoot>
-     <th>إجمالي الأصول (Total Assets)</th>
-     <th><?php echo number_format($totalAssets, 2); ?></th>
-    </tfoot>
-   </table>
-  </div>
-  <div class="col-md-6">
-   <h5 class="text-center">الخصوم (Liabilities)</h5>
-   <table class="table table-sm table-bordered table-striped w-100 text-center">
-    <thead class="bg-warning text-center">
-     <th>الحساب</th>
-     <th>الرصيد</th>
-    </thead>
-    <tbody>
-     <?php foreach ($liabilities as $r): ?>
-      <tr>
-       <td><?php echo htmlspecialchars($r['name']); ?></td>
-       <td><?php echo number_format($r['balance'], 2); ?></td>
-      </tr>
-     <?php endforeach; ?>
-    </tbody>
-    <tfoot>
-     <th>إجمالي الخصوم (Total Liabilities)</th>
-     <th><?php echo number_format($totalLiabilities, 2); ?></th>
-    </tfoot>
-   </table>
-   <h5 class="text-center">حقوق الملكية (Equity)</h5>
-   <table class="table table-sm table-bordered table-striped w-100 text-center">
-    <thead class="bg-success text-center">
-     <th>الحساب</th>
-     <th>الرصيد</th>
-    </thead>
-    <tbody>
-     <?php foreach ($equity as $r): ?>
-      <tr>
-       <td><?php echo htmlspecialchars($r['name']); ?></td>
-       <td><?php echo number_format($r['balance'], 2); ?></td>
-      </tr>
-     <?php endforeach; ?>
-     <tr class="font-weight-bold">
-      <td>صافي الدخل الحالي (Net Income - Current)</td>
-      <td><?php echo number_format($netIncome, 2); ?></td>
-     </tr>
-    </tbody>
-    <tfoot>
-     <th>إجمالي حقوق الملكية (Total Equity)</th>
-     <th><?php echo number_format($totalEquity, 2); ?></th>
-    </tfoot>
-   </table>
-  </div>
- </div>
+ <table class="table table-sm table-bordered table-striped myTableBalanceSheet w-100 text-center">
+  <thead class="bg-primary text-center">
+   <th>الفئة</th>
+   <th>الحساب</th>
+   <th>الرصيد</th>
+  </thead>
+  <tbody>
+   <?php foreach ($assets as $r): ?>
+    <tr>
+     <td>الأصول (Assets)</td>
+     <td><?php echo htmlspecialchars($r['name']); ?></td>
+     <td><?php echo number_format($r['balance'], 2); ?></td>
+    </tr>
+   <?php endforeach; ?>
+   <tr class="bg-secondary text-white font-weight-bold">
+    <td>الأصول (Assets)</td>
+    <td>إجمالي الأصول (Total Assets)</td>
+    <td><?php echo number_format($totalAssets, 2); ?></td>
+   </tr>
+   <?php foreach ($liabilities as $r): ?>
+    <tr>
+     <td>الخصوم (Liabilities)</td>
+     <td><?php echo htmlspecialchars($r['name']); ?></td>
+     <td><?php echo number_format($r['balance'], 2); ?></td>
+    </tr>
+   <?php endforeach; ?>
+   <tr class="bg-secondary text-white font-weight-bold">
+    <td>الخصوم (Liabilities)</td>
+    <td>إجمالي الخصوم (Total Liabilities)</td>
+    <td><?php echo number_format($totalLiabilities, 2); ?></td>
+   </tr>
+   <?php foreach ($equity as $r): ?>
+    <tr>
+     <td>حقوق الملكية (Equity)</td>
+     <td><?php echo htmlspecialchars($r['name']); ?></td>
+     <td><?php echo number_format($r['balance'], 2); ?></td>
+    </tr>
+   <?php endforeach; ?>
+   <tr>
+    <td>حقوق الملكية (Equity)</td>
+    <td>صافي الدخل الحالي (Net Income - Current)</td>
+    <td><?php echo number_format($netIncome, 2); ?></td>
+   </tr>
+   <tr class="bg-secondary text-white font-weight-bold">
+    <td>حقوق الملكية (Equity)</td>
+    <td>إجمالي حقوق الملكية (Total Equity)</td>
+    <td><?php echo number_format($totalEquity, 2); ?></td>
+   </tr>
+  </tbody>
+ </table>
  <center>
   <h4 class="mt-3">إجمالي الخصوم وحقوق الملكية (Total Liabilities + Equity): <?php echo number_format($totalLiabAndEquity, 2); ?></h4>
   <?php if ($isBalanced): ?>
@@ -164,8 +153,8 @@
 <script type="text/javascript">
  $(document).ready(function(){
   $("#bsRefresh").click(function(){
-   var newDate = $("#bsAsOfDate").val();
-   $(".data_display").load("dist/php/Acc/balanceSheet.php", {asOfDate: newDate});
+   var newYear = $("#bsYear").val();
+   $(".data_display").load("dist/php/Acc/balanceSheet.php", {year: newYear});
    return false;
   });
 
@@ -194,7 +183,7 @@
      title:titleName+datetime,
      filename: function () { return titleName },
      className: 'btn btn-secondary',
-     exportOptions:{ columns: [0,1] },
+     exportOptions:{ columns: [0,1,2] },
      footer: false,
     },
     {
@@ -204,7 +193,7 @@
      filename: function () { return titleName },
      extension: '.pdf',
      className: 'btn btn-secondary',
-     exportOptions:{ columns: [0,1] },
+     exportOptions:{ columns: [0,1,2] },
      footer: false,
     },
     {
@@ -213,7 +202,7 @@
      className: 'btn btn-secondary',
      title:titleName+datetime,
      footer: true,
-     exportOptions: { columns: [0,1] },
+     exportOptions: { columns: [0,1,2] },
      customize: function ( win ) {
       $(win.document.body)
       .css( {'font-size':'8pt',  'text-align': 'left'} )
