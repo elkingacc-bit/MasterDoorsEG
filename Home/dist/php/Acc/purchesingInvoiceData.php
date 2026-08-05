@@ -65,7 +65,7 @@
      LEFT JOIN `purchasesorder` po ON po.`purchasesOrderNum` = si.`supplierOrderNum`
      LEFT JOIN `job` j ON j.`jobId` = po.`jobref`
      LEFT JOIN `allsuppliers` sup ON sup.`suppliercode` = si.`supplierCode`
-     WHERE si.`suppliersInvoiceTotal` != si.`paidAmount`";
+     ORDER BY si.`suppliersInvoiceDate` DESC";
      $querySupplierStockInv=mysqli_query($link,$sqlSupplierStockInv)or die("ERROR_SNSC : 01");
      if(mysqli_num_rows($querySupplierStockInv) > 0 ){
       while($supplierStockInv=mysqli_fetch_assoc($querySupplierStockInv)){
@@ -93,16 +93,22 @@
        $invAmount=$supplierStockInv['suppliersInvoiceTotal'];
        $invPaid=$supplierStockInv['paidAmount'];
        $valid=($invAmount - $invPaid);
+       if($invAmount == $invPaid){
+        $button = "";
+       }
+       $deleteBtn="<button class='btn btn-link deleteSupplierInvoice' value='$invId' data-toggle='tooltip' data-placement='left' title='Delete Invoice'>
+        <i class='fas fa-trash-alt nav-icon'  aria-hidden='true' style='font-size:20px;color:#d9534f'></i>
+       </button>";
        echo"<tr>
         <td> $button2 </td>
         <td>$supplierStockInv[suppliersInvoiceDate]</td>
         <td>$jop</td>
         <td>$supplierStockInv[suppliername]</td>
-        <td>".number_format(($invAmount), 2)."</td> 
-        <td><button class='btn btn-link showPaied' value='$invId'>".number_format(($invPaid), 2)."</button></td> 
+        <td>".number_format(($invAmount), 2)."</td>
+        <td><button class='btn btn-link showPaied' value='$invId'>".number_format(($invPaid), 2)."</button></td>
         <td>".number_format(($valid), 2)."</td>
         <td>$typeName</td>
-        <td> $button</td>
+        <td> $button $deleteBtn</td>
        </tr>";
       }
      }
@@ -245,6 +251,77 @@ $(".showStockItems").click(function(){
      $row.fadeOut(200, function(){ $(this).remove(); });
     }
     alert(deleteOfferResult);
+   }
+  });
+  return false;
+ });
+
+ $(".deleteSupplierInvoice").click(function(){
+  var invId = $(this).val();
+  var $row = $(this).closest('tr');
+  $.ajax({
+   url:'dist/php/Acc/getSupplierInvoiceDeleteImpact.php',
+   type:"POST",
+   data:{invoiceId:invId},
+   error: function(xhr){
+    alert("Request Failed (" + xhr.status + "): " + xhr.responseText);
+   },
+   success: function(impactRes){
+    var impact = (typeof impactRes === "string") ? JSON.parse(impactRes) : impactRes;
+    if(!impact.success){
+     alert(impact.message);
+     return;
+    }
+    var html = "<div class='text-left'>";
+    html += "<p><b>Invoice:</b> " + impact.invoiceNumber + "</p>";
+    html += "<p><b>Total:</b> " + impact.total.toFixed(2) + " &nbsp; <b>Paid:</b> " + impact.paidAmount.toFixed(2) + "</p>";
+    if(impact.paidAmount <= 0){
+     html += "<p>No payment recorded on this invoice.</p>";
+    }
+    else if(impact.paymentReconciled){
+     html += "<p>The linked withdrawal (cash &amp; financial transactions) will also be reversed.</p>";
+    }
+    else{
+     html += "<p style='color:#d9534f'>&#9888; Payment was applied via a shared/general payment run and cannot be traced to this invoice alone - the invoice will be deleted but "
+      + impact.unreconciledAmount.toFixed(2) + " will NOT be reversed (money already left the business).</p>";
+    }
+    if(impact.warehouseRowsAffected > 0){
+     html += "<p style='color:#d9534f'>&#9888; " + impact.warehouseRowsAffected + " warehouse stock row(s) reference invoice number " + impact.invoiceNumber + " - these will be left unchanged.</p>";
+    }
+    html += "<p>" + impact.orderStatusNote + "</p>";
+    html += "<button class='btn btn-danger confirmDeleteSupplierInvoice' value='" + invId + "'>Yes, Delete This Invoice</button>";
+    html += "</div>";
+    $(".supplierInvoiceData").html('');
+    $("#supplierModalData").html('');
+    $("#supplierModalData").html('Delete Supplier Invoice');
+    $(".supplierInvoiceData").html(html);
+    $(".msg").data('row', $row);
+    $("#supplierModal").modal('show');
+   }
+  });
+  return false;
+ });
+
+ $(document).on('click', '.confirmDeleteSupplierInvoice', function(){
+  var invId = $(this).val();
+  var $row = $(".msg").data('row');
+  $.ajax({
+   url:'dist/php/Acc/deleteSupplierInvoice.php',
+   type:"POST",
+   data:{invoiceId:invId},
+   error: function(xhr){
+    alert("Request Failed (" + xhr.status + "): " + xhr.responseText);
+   },
+   success: function(delRes){
+    var del = (typeof delRes === "string") ? JSON.parse(delRes) : delRes;
+    if(del.success){
+     $("#supplierModal").modal('toggle');
+     if($row){ $row.fadeOut(200, function(){ $(this).remove(); }); }
+     alert("Invoice Deleted");
+    }
+    else{
+     alert(del.message);
+    }
    }
   });
   return false;

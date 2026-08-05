@@ -49,6 +49,7 @@
  $partnerProfit = ( ($netProfit * $percentage ) / 100 ); 
 ?>
 <div class="table-responsive-lg">
+ <input type="text" class="reportTitel" value="Owners Equity - <?php echo htmlspecialchars($patrnerName); ?>" style="display: none;">
  <table class="table table-sm w-100 table-bordered table-striped text-center">
   <thead>
    <th>Partner Name</th>
@@ -65,7 +66,6 @@
    </tr>
   </tbody>
  </table>
- <div style="max-height: 30vh; overflow-y: scroll;">
  <table class="table table-sm w-100 table-bordered table-striped text-center ownersEquityTable">
   <thead>
    <th>SN</th>
@@ -110,37 +110,77 @@
   </tfoot>
  </table>
 </div>
-</div>
 
-<!-- زر الطباعة / تصدير PDF -->
-<div class="text-center my-2 ownersEquityPrintBtn">
- <button type="button" class="btn btn-primary" onclick="window.print()">
-  <i class="fa fa-print"></i> طباعة / حفظ PDF
- </button>
-</div>
+<script type="text/javascript">
+ $(document).ready(function(){
+  var titleName = $(".reportTitel").val();
+  var currentdate = new Date();
+  var datetime = currentdate.getDate() + "/"
+               + (currentdate.getMonth()+1)  + "/"
+               + currentdate.getFullYear() + " @ "
+               + currentdate.getHours() + ":"
+               + currentdate.getMinutes() + ":"
+               + currentdate.getSeconds();
 
-<style>
- @media print {
-  /* إخفاء كل شيء في الصفحة ما عدا محتوى هذا الجزء */
-  body * {
-   visibility: hidden;
+  // ملحوظة: الجدول ده بيتحمل جوه مودال (Bootstrap) لسه مقفول وقت ما السكريبت ده بيتنفذ
+  // (الـ .modal('show') بتتنادى بعد كده في الصفحة اللي فتحت المودال). لو عملنا
+  // DataTable وهو لسه مخفي (display:none)، بتحسب عرض الأعمدة بصفر فيتولد اختلاف
+  // بين رأس الجدول (thead) والصفوف بسبب scrollX/scrollY - وده اللي كان بيسبب
+  // إن الهيدر مش موازي للجدول. فبننتظر لحد ما المودال يظهر فعلياً قبل ما نبني الجدول،
+  // ولو المودال ظاهر بالفعل (لما تفتح شريك تاني والمودال مفتوح أصلاً) نبنيه فورًا.
+  function initOwnersEquityTable(){
+   $('.ownersEquityTable').DataTable({
+   fixedHeader: false,
+   scrollY:'30vh',
+   scrollX: true,
+   scrollCollapse: true,
+   paging: false,
+   searching: false,
+   ordering: false,
+   dom: 'Bfrtip',
+   buttons:[
+    {
+     extend: 'excel',
+     text: 'Excel',
+     extension: '.xlsx',
+     title:titleName+datetime,
+     filename: function () { return titleName },
+     className: 'btn btn-secondary',
+     footer: true,
+    },
+    {
+     extend: 'pdf',
+     text: 'PDF',
+     title:titleName+datetime,
+     filename: function () { return titleName },
+     extension: '.pdf',
+     className: 'btn btn-secondary',
+     footer: true,
+    },
+    {
+     extend: 'print',
+     text: 'Print',
+     className: 'btn btn-secondary',
+     title:titleName+datetime,
+     footer: true,
+     customize: function ( win ) {
+      $(win.document.body)
+      .css( {'font-size':'8pt',  'text-align': 'left'} )
+      .prepend('<img src="dist/img/logoMarker.png" style="position:absolute;top:2cm;left:30%;opacity: 0.1;filter: alpha(opacity=15);width: 350px; height:400px" />');
+      $(win.document.body).find( 'table' )
+      .addClass( 'compact' )
+      .css( {'font-size' :'inherit',  'text-align': 'left'} );
+     },
+    }
+   ],
+  });
   }
-  .table-responsive-lg, .table-responsive-lg * {
-   visibility: visible;
+
+  if($('#ownersEquityModal').hasClass('show')){
+   initOwnersEquityTable();
   }
-  .ownersEquityPrintBtn, .ownersEquityPrintBtn * {
-   display: none !important;
+  else{
+   $('#ownersEquityModal').one('shown.bs.modal', initOwnersEquityTable);
   }
-  .table-responsive-lg {
-   position: absolute;
-   left: 0;
-   top: 0;
-   width: 100%;
-  }
-  /* إلغاء تحديد الارتفاع والسكرول عشان الطباعة تطلع الجدول كامل */
-  .table-responsive-lg div[style*="overflow"] {
-   max-height: none !important;
-   overflow: visible !important;
-  }
- }
-</style>
+ });
+</script>
