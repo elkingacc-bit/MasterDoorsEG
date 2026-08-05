@@ -53,7 +53,6 @@
    <thead class='bg-info'>
     <th>Sn</th>
     <th>Date</th>
-    <th>Valid</th>
     <th>pay</th>
     <th>Remaining</th>
     <th>Description</th>
@@ -61,30 +60,40 @@
    <tbody>
     <?php
      // Collected
+     // FIX: `poNum` is a generic job-reference column reused by many unrelated cash
+     // transactions across the app (supplier payments, expense settlements, ...) -
+     // without `income <> 0 AND account = <this customer>` it can pull in completely
+     // unrelated rows that merely happen to share this job's id as `poNum`. Using
+     // `<> 0` rather than `> 0` so legitimate negative correction/reversal entries
+     // (seen in real data, e.g. a collection later reversed) still count.
+     // FIX: the running "Remaining" balance used to be computed from `amountRef`,
+     // a column that's only ever populated for down-payment/FIFO-collection rows
+     // and stays NULL for a normal "Collect Invoice" row - so it produced a
+     // meaningless (often negative) balance for the most common collection type.
+     // The correct remaining is simply totalPo - collected so far, recomputed here
+     // to match the (already correct) summary total at the bottom of the page.
      $sn=0;
      $collected=0;
-     $valid=0;
-     $balance=0;
-     $sqlCash="SELECT `transactionDate`,`income`,`description`,`amountRef`,`statmentRef` FROM `cash_transaction` WHERE `poNum` = $jopref
+     $balance=$taotalPo;
+     $sqlCash="SELECT `transactionDate`,`income`,`description`,`statmentRef` FROM `cash_transaction`
+     WHERE `poNum` = $jopref AND `income` <> 0 AND `account` = $invoiceCustomer
      ORDER BY `transactionDate` ASC";
      $queryCash=mysqli_query($link,$sqlCash)or die("ERROR_SNSC : 02");
      if(mysqli_num_rows($queryCash) > 0 ){
       while($collecCash=mysqli_fetch_assoc($queryCash)){
        $sn++;
        $collected += $collecCash['income'];
-       $valid += $collecCash['amountRef'];
-       $balance = ($valid - $collected);
-       echo"<tr> 
+       $balance = ($taotalPo - $collected);
+       echo"<tr>
         <td>$sn</td>
         <td>$collecCash[transactionDate]</td>
-        <td>$collecCash[amountRef]</td>
         <td>".number_format(($collecCash['income']), 2)."</td>
         <td>".number_format(($balance ), 2)."</td>
-        <td>$collecCash[description]</td>     
+        <td>$collecCash[description]</td>
        </tr>";
-      }     
+      }
      }
-     $sqlSalesVat="SELECT `transactionsDate`,`debtor`,`creditor`,`description` FROM `financialTransactions` WHERE `transactionCode` = 21210110000 
+     $sqlSalesVat="SELECT `transactionsDate`,`debtor`,`creditor`,`description` FROM `financialTransactions` WHERE `transactionCode` = 21210110000
      AND `description` like '$invoiceNumber %'";
      $querySalesVat=mysqli_query($link,$sqlSalesVat)or die("ERROR_SNSC : 02");
      if(mysqli_num_rows($querySalesVat) > 0){
@@ -92,15 +101,14 @@
        $sn++;
        $amoun=($collectVat['debtor']);
        $collected += $collectVat['debtor'];
-       $balance -= $amoun;
+       $balance = ($taotalPo - $collected);
        echo"<tr>
         <td>$sn</td>
         <td>$collectVat[transactionsDate]</td>
-        <td></td>
         <td>".number_format(($amoun), 2)."</td>
         <td>".number_format(($balance), 2)."</td>
         <td>$collectVat[description]</td>
-       </tr>";        
+       </tr>";
       }
      }
     ?>
