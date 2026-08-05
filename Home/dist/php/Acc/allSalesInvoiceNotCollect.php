@@ -17,6 +17,7 @@
    <th>Collect</th>
    <th>WHT</th>
    <th>Print</th>
+   <th>Delete</th>
   </thead>
   <tbody>
    <?php
@@ -25,7 +26,7 @@
     $Sn=0;
     // Get Sales Invoice From Sales Invoice
     $sqlSalesInoice="SELECT `salesInvoiceId`,`salesInvoiceNumber`,`jopRef`,`salesInvoiceDate`,`customerCode`,`salesInvoiceType`,`salesInvoiceSupTotal`,`invoiceDiscount`,
-    `salesInvoictVat`,`totalInvoice`,`invoiceCollectAmount` FROM `salesInvoice` WHERE `totalInvoice` != `invoiceCollectAmount`";
+    `salesInvoictVat`,`totalInvoice`,`invoiceCollectAmount` FROM `salesInvoice` ORDER BY `salesInvoiceDate` DESC";
     $querySalesInoice=mysqli_query($link,$sqlSalesInoice)or die("ERROR_SNSC : 01");
     echo"<input value='Accrued Sales Invoice' class='reportTitel' hidden>";
     if(mysqli_num_rows($querySalesInoice) > 0){
@@ -54,6 +55,14 @@
        else{
         $WHTButton="";
        }
+       if($salesInoiceData['totalInvoice'] == $salesInoiceData['invoiceCollectAmount']){
+        $collectButton="";
+       }
+       else{
+        $collectButton="<button class='btn btn-link btn-sm addCollect' value='$invRef'><i class='fas fa-wallet'></i></button>";
+       }
+       $deleteBtn="<button class='btn btn-link btn-sm deleteSalesInvoice' value='$invRef' data-toggle='tooltip' data-placement='left' title='Delete Invoice'>
+        <i class='fas fa-trash-alt' aria-hidden='true' style='color:#d9534f'></i></button>";
        echo"<tr>
        <td>$Sn</td>
 	   <td>$salesInoiceData[salesInvoiceNumber]</td>
@@ -65,15 +74,17 @@
        <td>".number_format(($salesInoiceData['invoiceCollectAmount']), 2)."</td>
        <td>".number_format(($validAmount), 2)."</td>
 	   <td><button class='btn btn-link showCollect' value='$invRef'><i class='fas fa-info'></i></button></td>
-       <td><button class='btn btn-link btn-sm addCollect' value='$invRef'><i class='fas fa-wallet'></i></button></td>
+       <td>$collectButton</td>
        <td>$WHTButton</td>
        <td><button class='btn btn-link btn-sm printInv' value='$invRef'><i class='fas fa-print w-100'></i></button></td>
+       <td>$deleteBtn</td>
 	  </tr>";
      }
     }
    ?>
   </tbody>
-  <tfoot>  
+  <tfoot>
+   <th></th>
    <th></th>
    <th></th>
    <th></th>
@@ -335,10 +346,72 @@
 
 $(".printInv").click(function(){
   var invRowId = $(this).val();
-    
+
 window.open(`dist/php/Acc/printSalesInvoice.php?invNum=${invRowId}`, '_blank');
 
 
+ });
+
+ // Delete Invoice
+ $(".deleteSalesInvoice").click(function(){
+  var invId = $(this).val();
+  var $row = $(this).closest('tr');
+  $.ajax({
+   url:'dist/php/Acc/getSalesInvoiceDeleteImpact.php',
+   type:"POST",
+   data:{invoiceId:invId},
+   success: function(impactRes){
+    var impact = (typeof impactRes === "string") ? JSON.parse(impactRes) : impactRes;
+    if(!impact.success){
+     alert(impact.message);
+     return;
+    }
+    var html = "<div class='text-left'>";
+    html += "<p><b>Invoice:</b> " + impact.invoiceNumber + "</p>";
+    html += "<p><b>Total:</b> " + impact.total.toFixed(2) + " &nbsp; <b>Collected:</b> " + impact.collectAmount.toFixed(2) + "</p>";
+    if(impact.collectAmount <= 0){
+     html += "<p>No collection recorded on this invoice.</p>";
+    }
+    else if(impact.collectionReconciled){
+     html += "<p>The linked collection (cash &amp; financial transactions) will also be reversed.</p>";
+    }
+    else{
+     html += "<p style='color:#d9534f'>&#9888; " + impact.unreconciledAmount.toFixed(2) + " was collected through a shared/general collection run and cannot be traced to this invoice alone - it will NOT be reversed (money already came in).</p>";
+    }
+    html += "<p>The related job will be marked as not yet invoiced.</p>";
+    html += "<button class='btn btn-danger confirmDeleteSalesInvoice' value='" + invId + "'>Yes, Delete This Invoice</button>";
+    html += "</div>";
+    $(".salesInvoiceData").html('');
+    $("#salesModalData").html('');
+    $("#salesModalData").html('Delete Sales Invoice');
+    $(".salesInvoiceData").html(html);
+    $("#salesModal").data('row', $row);
+    $("#salesModal").modal('show');
+   }
+  });
+  return false;
+ });
+
+ $(document).on('click', '.confirmDeleteSalesInvoice', function(){
+  var invId = $(this).val();
+  var $row = $("#salesModal").data('row');
+  $.ajax({
+   url:'dist/php/Acc/deleteSalesInvoice.php',
+   type:"POST",
+   data:{invoiceId:invId},
+   success: function(delRes){
+    var del = (typeof delRes === "string") ? JSON.parse(delRes) : delRes;
+    if(del.success){
+     $("#salesModal").modal('toggle');
+     if($row){ $row.fadeOut(200, function(){ $(this).remove(); }); }
+     alert("Invoice Deleted");
+    }
+    else{
+     alert(del.message);
+    }
+   }
+  });
+  return false;
  });
 
 
