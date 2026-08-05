@@ -4,7 +4,11 @@ include_once("../connection.php");
 /**
  * -----------------------------------------------------------------
  *  الإصلاحات المطبقة في هذا الملف:
- *  1) تنفيذ استعلام customerpo مرة واحدة فقط بدل تكراره 3 مرات (A/B/C).
+ *  1) تنفيذ استعلام customerpo مرة واحدة فقط لكل المجموعات A/B/C/D
+ *     بدل تكراره، وبنفس فلتر job.jobref = 3 اللى تستخدمه صفحة كشف
+ *     حساب العميل (allCustomerStatmentData.php) - كانت المجموعات
+ *     A/B/C بتحسب مبلغ الـ PO من غير الفلتر ده فيطلع رقم مختلف عن
+ *     اللى بيظهر لما تدوس على اسم العميل نفسه.
  *  2) الحماية من القسمة على صفر (poAmount = 0).
  *  3) تعقيم كل المخرجات بـ htmlspecialchars لمنع XSS.
  *  4) استخدام Prepared Statements لمنع SQL Injection.
@@ -72,13 +76,24 @@ function buildRow($custCode, $customerName, $poAmount, $collected, $valid, $prog
 
 /**
  * -----------------------------------------------------------------
- * استعلام واحد فقط لكل بيانات customerpo، ثم تصنيف كل عميل
- * إلى المجموعة الصحيحة (A/B/C) حسب نسبة التقدم بدل تكرار الاستعلام.
+ * FIX: استعلام واحد موحّد لكل المجموعات (A/B/C/D)، بنفس فلتر
+ * job.jobref = 3 اللى بتستخدمه صفحة كشف حساب العميل
+ * (allCustomerStatmentData.php) - عشان مبلغ الـ PO Amount اللى
+ * بيظهر هنا يطابق نفس الرقم اللى هيظهر لما تدوس على اسم العميل.
+ *
+ * قبل كده كانت مجموعات A/B/C بتجمع كل صفوف customerpo للعميل
+ * من غير الفلتر ده، بينما مجموعة D وصفحة كشف الحساب بتستخدماه -
+ * فكان بيطلع فرق حقيقي فى المبلغ لأى عميل عنده طلبات على jobs
+ * بحالة (jobref) مختلفة عن 3 (لقينا فرق يوصل لـ 513,635 لعميل واحد).
  * -----------------------------------------------------------------
  */
-$groupRowsABC = ['A' => '', 'B' => '', 'C' => ''];
+$groupRowsABCD = ['A' => '', 'B' => '', 'C' => '', 'D' => ''];
 
-$customerPoSql = "SELECT `custCode`, sum(`poVal` + `POVat`) as poAmount FROM `customerpo` GROUP BY `custCode`";
+$customerPoSql = "SELECT `customerpo`.`custCode`, (SUM(`poVal`) + SUM(`POVat`)) as poAmount
+              FROM `customerpo`
+              INNER JOIN `job` ON `customerpo`.`jobidref` = `job`.`jobId`
+              WHERE `job`.`jobref` = 3 AND `customerpo`.`custCode` = `job`.`customer`
+              GROUP BY `custCode`";
 $customerPoQuery = mysqli_query($link, $customerPoSql) or die("ERROR :01-AU_AU_S" . mysqli_error($link));
 
 while ($custPoRes = mysqli_fetch_assoc($customerPoQuery)) {
@@ -93,42 +108,16 @@ while ($custPoRes = mysqli_fetch_assoc($customerPoQuery)) {
 
     $row = buildRow($custCode, $customerName, $poAmount, $collected, $valid, $progress);
 
-    if ($poAmount > 0 && $progress >= 0 && $progress <= 15) {
-        $groupRowsABC['A'] .= $row;
-    } elseif ($poAmount > 0 && $progress > 15 && $progress <= 50) {
-        $groupRowsABC['B'] .= $row;
-    } elseif ($poAmount > 0 && $progress > 50 && $progress <= 75) {
-        $groupRowsABC['C'] .= $row;
-    }
-}
-
-/**
- * -----------------------------------------------------------------
- * مجموعة D: منطقها مختلف عمدًا (مرتبطة بـ job.jobref = 3)،
- * لذلك أبقيناها باستعلام منفصل، لكن مع نفس إصلاحات الأمان
- * والقسمة على صفر.
- * -----------------------------------------------------------------
- */
-$groupRowD = '';
-$groupDSql = "SELECT `customerpo`.`custCode`, (SUM(`poVal`) + SUM(`POVat`)) as poAmount
-              FROM `customerpo`
-              INNER JOIN `job` ON `customerpo`.`jobidref` = `job`.`jobId`
-              WHERE `job`.`jobref` = 3 AND `customerpo`.`custCode` = `job`.`customer`
-              GROUP BY `custCode`";
-$groupDQuery = mysqli_query($link, $groupDSql) or die("ERROR :01-AU_AU_S" . mysqli_error($link));
-
-while ($groupDRes = mysqli_fetch_assoc($groupDQuery)) {
-    $custCode     = (int) $groupDRes['custCode'];
-    $poAmount     = (float) $groupDRes['poAmount'];
-    $customerName = getCustomerName($link, $custCode);
-    $collected    = getCollectedAmount($link, $custCode);
-
-    $calc     = calcProgress($poAmount, $collected);
-    $valid    = $calc['valid'];
-    $progress = $calc['progress'];
-
-    if ($poAmount > 0 && $progress > 75 && $progress <= 100) {
-        $groupRowD .= buildRow($custCode, $customerName, $poAmount, $collected, $valid, $progress);
+    if ($poAmount <= 0) {
+        continue;
+    } elseif ($progress >= 0 && $progress <= 15) {
+        $groupRowsABCD['A'] .= $row;
+    } elseif ($progress > 15 && $progress <= 50) {
+        $groupRowsABCD['B'] .= $row;
+    } elseif ($progress > 50 && $progress <= 75) {
+        $groupRowsABCD['C'] .= $row;
+    } elseif ($progress > 75 && $progress <= 100) {
+        $groupRowsABCD['D'] .= $row;
     }
 }
 ?>
@@ -149,7 +138,7 @@ while ($groupDRes = mysqli_fetch_assoc($groupDQuery)) {
       <th>Progress</th>
      </thead>
      <tbody>
-      <?php echo $groupRowsABC['A']; ?>
+      <?php echo $groupRowsABCD['A']; ?>
      </tbody>
     </table>
    </div>
@@ -170,7 +159,7 @@ while ($groupDRes = mysqli_fetch_assoc($groupDQuery)) {
       <th>Progress</th>
      </thead>
      <tbody>
-      <?php echo $groupRowsABC['B']; ?>
+      <?php echo $groupRowsABCD['B']; ?>
      </tbody>
     </table>
    </div>
@@ -191,7 +180,7 @@ while ($groupDRes = mysqli_fetch_assoc($groupDQuery)) {
       <th>Progress</th>
      </thead>
      <tbody>
-      <?php echo $groupRowsABC['C']; ?>
+      <?php echo $groupRowsABCD['C']; ?>
      </tbody>
     </table>
    </div>
@@ -212,7 +201,7 @@ while ($groupDRes = mysqli_fetch_assoc($groupDQuery)) {
       <th>Progress</th>
      </thead>
      <tbody>
-      <?php echo $groupRowD; ?>
+      <?php echo $groupRowsABCD['D']; ?>
      </tbody>
     </table>
    </div>
