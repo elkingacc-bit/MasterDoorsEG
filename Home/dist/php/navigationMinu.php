@@ -62,6 +62,9 @@
 <li class='nav-item'><a href='#' id='trialBalance' class='nav-link'><i class='fas fa-balance-scale nav-icon'></i><p>Trial Balance</p></a></li>
 <li class='nav-item'><a href='#' id='balanceSheet' class='nav-link'><i class='fas fa-file-invoice-dollar nav-icon'></i><p>Balance Sheet</p></a></li>
 <li class='nav-item'><a href='#' id='projectsProfitability' class='nav-link'><i class='fas fa-chart-bar nav-icon'></i><p>Projects Profitability</p></a></li>
+<li class='nav-item'><a href='#' id='financialRatios' class='nav-link'><i class='fas fa-percentage nav-icon'></i><p>Financial Ratios</p></a></li>
+<li class='nav-item'><a href='#' id='agingReport' class='nav-link'><i class='fas fa-hourglass-half nav-icon'></i><p>AR/AP Aging</p></a></li>
+<li class='nav-item'><a href='#' id='yearOverYear' class='nav-link'><i class='fas fa-chart-line nav-icon'></i><p>Year over Year</p></a></li>
 	  <li class='nav-item'><a href='#' id='4_3' class='nav-link'><i class='far fa-circle nav-icon'></i><p>Log Report</p></a></li>
     </ul>
    </li>
@@ -439,6 +442,9 @@
      <li class='nav-item'><a href='#' id='trialBalance' class='nav-link'><i class='fas fa-balance-scale nav-icon'></i><p>Trial Balance</p></a></li>
      <li class='nav-item'><a href='#' id='balanceSheet' class='nav-link'><i class='fas fa-file-invoice-dollar nav-icon'></i><p>Balance Sheet</p></a></li>
 <li class='nav-item'><a href='#' id='projectsProfitability' class='nav-link'><i class='fas fa-chart-bar nav-icon'></i><p>Projects Profitability</p></a></li>
+<li class='nav-item'><a href='#' id='financialRatios' class='nav-link'><i class='fas fa-percentage nav-icon'></i><p>Financial Ratios</p></a></li>
+<li class='nav-item'><a href='#' id='agingReport' class='nav-link'><i class='fas fa-hourglass-half nav-icon'></i><p>AR/AP Aging</p></a></li>
+<li class='nav-item'><a href='#' id='yearOverYear' class='nav-link'><i class='fas fa-chart-line nav-icon'></i><p>Year over Year</p></a></li>
   </ul>
  </li>
 ";
@@ -1241,6 +1247,36 @@ $("#taxBalance").click(function(){
    $(".data_display").html('');
    $(".m-0").html("Projects Profitability");
    $(".data_display").load("dist/php/Acc/allProjectsProfitability.php");
+  });
+
+  /*---------------{ Reports 20 }---------------*/
+  $("#financialRatios").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Financial Ratios");
+   $(".data_display").load("dist/php/Acc/financialRatiosAnalysis.php");
+  });
+
+  /*---------------{ Reports 21 }---------------*/
+  $("#agingReport").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("AR/AP Aging");
+   $(".data_display").load("dist/php/Acc/agingReport.php");
+  });
+
+  /*---------------{ Reports 22 }---------------*/
+  $("#yearOverYear").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Year over Year");
+   $(".data_display").load("dist/php/Acc/yearOverYearComparison.php");
   });
 
 
