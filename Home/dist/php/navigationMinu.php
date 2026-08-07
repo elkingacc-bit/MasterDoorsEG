@@ -65,6 +65,9 @@
 <li class='nav-item'><a href='#' id='financialRatios' class='nav-link'><i class='fas fa-percentage nav-icon'></i><p>Financial Ratios</p></a></li>
 <li class='nav-item'><a href='#' id='agingReport' class='nav-link'><i class='fas fa-hourglass-half nav-icon'></i><p>AR/AP Aging</p></a></li>
 <li class='nav-item'><a href='#' id='yearOverYear' class='nav-link'><i class='fas fa-chart-line nav-icon'></i><p>Year over Year</p></a></li>
+<li class='nav-item'><a href='#' id='cashFlowStatement' class='nav-link'><i class='fas fa-water nav-icon'></i><p>Cash Flow Statement</p></a></li>
+<li class='nav-item'><a href='#' id='budgetVsActual' class='nav-link'><i class='fas fa-coins nav-icon'></i><p>Budget vs Actual</p></a></li>
+<li class='nav-item'><a href='#' id='fixedAssetsRegister' class='nav-link'><i class='fas fa-warehouse nav-icon'></i><p>Fixed Assets Register</p></a></li>
 	  <li class='nav-item'><a href='#' id='4_3' class='nav-link'><i class='far fa-circle nav-icon'></i><p>Log Report</p></a></li>
     </ul>
    </li>
@@ -415,6 +418,12 @@
  <li class='nav-item statments' data-toggle='tooltip' data-placement='top' title='قيد تسويه'>
   <a href='#' id='settlement' class='nav-link'><i class='nav-icon fas fa-balance-scale'></i><p>Adjusting Entry</p></a>
  </li>
+ <li class='nav-item' data-toggle='tooltip' data-placement='top' title='إضافة بند موازنة'>
+  <a href='#' id='addBudget' class='nav-link'><i class='nav-icon fas fa-coins'></i><p>Add Budget</p></a>
+ </li>
+ <li class='nav-item' data-toggle='tooltip' data-placement='top' title='إضافة أصل ثابت'>
+  <a href='#' id='addFixedAsset' class='nav-link'><i class='nav-icon fas fa-warehouse'></i><p>Add Fixed Asset</p></a>
+ </li>
  <li class='nav-item RptLi2'><a href='#' class='nav-link'><i class='nav-icon	fas fa-chart-pie'></i>
   <p>Reports<i class='fas fa-angle-left right'></i></p></a>
   <ul class='nav nav-treeview'>
@@ -445,6 +454,9 @@
 <li class='nav-item'><a href='#' id='financialRatios' class='nav-link'><i class='fas fa-percentage nav-icon'></i><p>Financial Ratios</p></a></li>
 <li class='nav-item'><a href='#' id='agingReport' class='nav-link'><i class='fas fa-hourglass-half nav-icon'></i><p>AR/AP Aging</p></a></li>
 <li class='nav-item'><a href='#' id='yearOverYear' class='nav-link'><i class='fas fa-chart-line nav-icon'></i><p>Year over Year</p></a></li>
+<li class='nav-item'><a href='#' id='cashFlowStatement' class='nav-link'><i class='fas fa-water nav-icon'></i><p>Cash Flow Statement</p></a></li>
+<li class='nav-item'><a href='#' id='budgetVsActual' class='nav-link'><i class='fas fa-coins nav-icon'></i><p>Budget vs Actual</p></a></li>
+<li class='nav-item'><a href='#' id='fixedAssetsRegister' class='nav-link'><i class='fas fa-warehouse nav-icon'></i><p>Fixed Assets Register</p></a></li>
   </ul>
  </li>
 ";
@@ -1279,7 +1291,53 @@ $("#taxBalance").click(function(){
    $(".data_display").load("dist/php/Acc/yearOverYearComparison.php");
   });
 
+  /*---------------{ Reports 23 }---------------*/
+  $("#cashFlowStatement").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Cash Flow Statement");
+   $(".data_display").load("dist/php/Acc/cashFlowStatement.php");
+  });
 
+  /*---------------{ Reports 24 }---------------*/
+  $("#budgetVsActual").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Budget vs Actual");
+   $(".data_display").load("dist/php/Acc/budgetVsActual.php");
+  });
+
+  /*---------------{ Reports 25 }---------------*/
+  $("#fixedAssetsRegister").click(function(){
+   $('.nav-link').removeClass("active");
+   $(".RptLi2").addClass('active ');
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Fixed Assets Register");
+   $(".data_display").load("dist/php/Acc/allFixedAssetsData.php");
+  });
+
+  /*---------------{ Add Budget }---------------*/
+  $("#addBudget").click(function(){
+   $('.nav-link').removeClass("active");
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Add New Budget");
+   $(".data_display").load("dist/html/Acc/addNewBudget.html");
+  });
+
+  /*---------------{ Add Fixed Asset }---------------*/
+  $("#addFixedAsset").click(function(){
+   $('.nav-link').removeClass("active");
+   $(this).addClass('active ');
+   $(".data_display").html('');
+   $(".m-0").html("Add New Fixed Asset");
+   $(".data_display").load("dist/html/Acc/addNewFixedAsset.html");
+  });
 
  });// docoument dot ready
 

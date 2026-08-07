@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ <center>
+  <div class="table-responsive-lg">
+   <table class="table table-sm w-100 table-borderless">
+    <thead class="text-center">
+     <th>Asset Name اسم الأصل</th>
+     <th>Category الفئة</th>
+     <th>Linked Account الحساب (اختياري)</th>
+     <th>Purchase Date تاريخ الشراء</th>
+     <th>Cost التكلفة</th>
+     <th>Useful Life (Years) العمر الإنتاجي</th>
+     <th>Salvage Value قيمة الخردة</th>
+     <th>Save</th>
+    </thead>
+    <tbody>
+     <td>
+      <input type="text" class="form-control" id="assetName">
+     </td>
+     <td>
+      <input type="text" class="form-control" id="assetCategory">
+     </td>
+     <td>
+      <select class="form-control" id="assetAccountCode"></select>
+     </td>
+     <td>
+      <input type="date" class="form-control" id="assetPurchaseDate">
+     </td>
+     <td>
+      <input type="number" step="0.01" min="0" class="form-control" id="assetCost">
+     </td>
+     <td>
+      <input type="number" step="1" min="1" class="form-control" id="assetUsefulLife">
+     </td>
+     <td>
+      <input type="number" step="0.01" min="0" class="form-control" id="assetSalvage" value="0">
+     </td>
+     <td>
+      <button class="btn btn-success w-100" id="saveNewFixedAsset">Save</button>
+     </td>
+    </tbody>
+   </table>
+  </div>
+  <div class="alert msg" role="alert"></div>
+ </center>
+ <script src="dist/js/pages/accountant/addNewFixedAsset.js"></script>
+</html>
