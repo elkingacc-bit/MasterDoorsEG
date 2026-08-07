@@ -63,16 +63,13 @@
    else{
     $dwonpaymen = 0;
    }
-   // Extract
-   $sqlExtract="SELECT `salesInvoiceSupTotal` FROM `salesInvoiceDraft` WHERE `customerCode` = $customerId AND `jopRef` = '$jopId'";
+   // Extract - إجمالي كل حركات التحصيل السابقة من غير فاتورة لنفس المشروع، لازم SUM مش صف واحد
+   // (نفس فلتر ref=1 المستخدم فى saveNewSalesInvoice.php لنفس الجدول) عشان لو المشروع اتحصل
+   // على أكتر من دفعة قبل كده الكود ميحسبش دفعه واحده بس ويفتكر إن المتبقي أكبر من الحقيقي.
+   $sqlExtract="SELECT SUM(`salesInvoiceSupTotal`) as extractSum FROM `salesInvoiceDraft` WHERE `customerCode` = $customerId AND `jopRef` = '$jopId' AND `ref` = 1";
    $quaryExtract=mysqli_query($link,$sqlExtract)or die("ERROR_SNSC : 02");
-   if(mysqli_num_rows($quaryExtract) > 0){
-    $resultExtract=mysqli_fetch_assoc($quaryExtract);
-    $extract = $resultExtract['salesInvoiceSupTotal'];       
-   }
-   else{
-    $extract = 0;
-   }
+   $resultExtract=mysqli_fetch_assoc($quaryExtract);
+   $extract = (float)($resultExtract['extractSum'] ?? 0);
    $sqlCollect="SELECT `salesInvoiceId`,`invoiceCollectAmount` FROM `salesInvoice` WHERE `customerCode` = $customerId AND `jopRef` = '$jopId'";
    $quaryCollect=mysqli_query($link,$sqlCollect)or die("ERROR_SNSC : 02");
    if(mysqli_num_rows($quaryCollect) > 0){
@@ -143,12 +140,34 @@
      // Add Collect To Cash
      $sqlWithdrawalGeneralCash="INSERT INTO `cash_transaction`(`transactionDate`,`income`,`withdrawal`,`description`,`amountRef`,`statmentRef`,`account`,`poNum`,`empCode`)
      VALUES ('$collectDate','$collectValide','0','$collectDisc','$collectValide',$cashCode,'$customerId','$jopId','$_SESSION[id]')";
-     mysqli_query($link,$sqlWithdrawalGeneralCash);     
+     mysqli_query($link,$sqlWithdrawalGeneralCash);
     }
+    // بننقص القيمة اللي اتسجلت فعليًا لهذا المشروع بس ($collectValide) مش القيمة المستحقة كاملة
+    // ($valid) - عشان لو العميل عنده مشروع تاني فى نفس الدفعة ياخد نصيبه الصح من المتبقي.
+    $collectAmount -= $collectValide;
    }
-   $collectAmount -= $valid;
   }
   //include_once("../aduLog.php");
+ }
+ // أي مبلغ يفضل من الدفعة بعد توزيعه على كل المشاريع (أو لو العميل معندوش أي مشروع "Won" أصلاً)
+ // بيتسجل كحركة نقدية مش مرتبطة بمشروع معين، عشان القيد المحاسبي العام (فوق) وحركات الخزينة
+ // (cash_transaction) يفضلوا متطابقين دايمًا بدل ما جزء من المبلغ يضيع من التتبع.
+ if($collectAmount > 0){
+  # Bank
+  if($cashType == 11620){
+   $cheakNum=(int)$_POST['numCheak'];
+   $dueDate=mysqli_real_escape_string($link, $_POST['cheakDate']);
+   $sqlUnattributedCash="INSERT INTO `cash_transaction`(`transactionDate`,`income`,`withdrawal`,`description`,`amountRef`,`statmentRef`,`account`,`poNum`,`empCode`,
+   `chequNumber`, `valideDate`)
+   VALUES ('$collectDate','$collectAmount','0','$collectDisc','$collectAmount',$cashCode,'$customerId','0','$_SESSION[id]','$cheakNum','$dueDate')";
+   mysqli_query($link,$sqlUnattributedCash);
+  }
+  # Cash
+  else{
+   $sqlUnattributedCash="INSERT INTO `cash_transaction`(`transactionDate`,`income`,`withdrawal`,`description`,`amountRef`,`statmentRef`,`account`,`poNum`,`empCode`)
+   VALUES ('$collectDate','$collectAmount','0','$collectDisc','$collectAmount',$cashCode,'$customerId','0','$_SESSION[id]')";
+   mysqli_query($link,$sqlUnattributedCash);
+  }
  }
  echo 1;
  //
